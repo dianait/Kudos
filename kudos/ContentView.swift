@@ -3,7 +3,7 @@ import SwiftUI
 
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
-    @EnvironmentObject var languageManager: LanguageManager
+    @Environment(LanguageManager.self) var languageManager
     @Query private var items: [Accomplishment]
 
     var body: some View {
@@ -50,5 +50,5 @@ struct ContentView: View {
 #Preview {
     ContentView()
         .modelContainer(for: Accomplishment.self, inMemory: true)
-        .environmentObject(LanguageManager.shared)
+        .environment(LanguageManager.shared)
 }

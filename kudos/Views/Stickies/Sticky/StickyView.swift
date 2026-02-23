@@ -119,7 +119,7 @@ struct StickyView: View {
             Text(item.text)
                 .font(.caption)
                 .fontWeight(.medium)
-                .foregroundColor(.white)
+                .foregroundStyle(.white)
                 .multilineTextAlignment(.center)
                 .lineLimit(2)
                 .padding(.horizontal, Space.small)

@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct LanguageSettingsView: View {
-    @EnvironmentObject var languageManager: LanguageManager
+    @Environment(LanguageManager.self) var languageManager
     @Environment(\.dismiss) var dismiss
 
     var body: some View {
@@ -19,7 +19,7 @@ struct LanguageSettingsView: View {
                         Text("🇪🇸")
                             .font(.system(size: 40))
                         Text("Español")
-                            .foregroundColor(languageManager.currentLanguage == "es" ? .blue : .primary)
+                            .foregroundStyle(languageManager.currentLanguage == "es" ? .blue : .primary)
                             .fontWeight(languageManager.currentLanguage == "es" ? .bold : .regular)
                     }
                     .padding()
@@ -38,7 +38,7 @@ struct LanguageSettingsView: View {
                         Text("🇬🇧")
                             .font(.system(size: 40))
                         Text("English")
-                            .foregroundColor(languageManager.currentLanguage == "en" ? .blue : .primary)
+                            .foregroundStyle(languageManager.currentLanguage == "en" ? .blue : .primary)
                             .fontWeight(languageManager.currentLanguage == "en" ? .bold : .regular)
                     }
                     .padding()
@@ -57,5 +57,5 @@ struct LanguageSettingsView: View {
 
 #Preview {
     LanguageSettingsView()
-        .environmentObject(LanguageManager.shared)
+        .environment(LanguageManager.shared)
 }

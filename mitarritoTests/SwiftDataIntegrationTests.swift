@@ -1,73 +1,106 @@
-@testable import kudos
+import Testing
 import SwiftData
-import SwiftUI
-import XCTest
+import Foundation
+@testable import kudos
 
-final class SwiftDataIntegrationTests: XCTestCase {
-    var modelContainer: ModelContainer!
-    var modelContext: ModelContext!
+@Suite("SwiftData Integration Tests")
+struct SwiftDataIntegrationTests {
 
-    override func setUp() async throws {
+    // Helper to create isolated test context for each test
+    func makeTestContext() throws -> ModelContext {
         let schema = Schema([Accomplishment.self])
-        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)
-
-        modelContainer = try ModelContainer(for: schema, configurations: [modelConfiguration])
-        modelContext = ModelContext(modelContainer)
+        let config = ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)
+        let container = try ModelContainer(for: schema, configurations: [config])
+        return ModelContext(container)
     }
 
-    func testSaveAndFetchAccomplishment() throws {
+    @Test("Save and fetch accomplishment")
+    func saveAndFetchAccomplishment() throws {
+        let context = try makeTestContext()
         let text = "Test logro para SwiftData"
         let color = "yellow"
 
-        let accomplishment = Accomplishment(text, color: color)
-        modelContext.insert(accomplishment)
+        let accomplishment = try Accomplishment(text, color: color)
+        context.insert(accomplishment)
 
         let descriptor = FetchDescriptor<Accomplishment>()
-        let fetchedAccomplishments = try modelContext.fetch(descriptor)
+        let fetchedAccomplishments = try context.fetch(descriptor)
 
-        XCTAssertEqual(fetchedAccomplishments.count, 1)
-        XCTAssertEqual(fetchedAccomplishments.first?.text, text)
-        XCTAssertEqual(fetchedAccomplishments.first?.color, color)
+        #expect(fetchedAccomplishments.count == 1)
+        let fetched = try #require(fetchedAccomplishments.first)
+        #expect(fetched.text == text)
+        #expect(fetched.color == color)
     }
 
-    func testDeleteAccomplishment() throws {
-        let accomplishment = Accomplishment("Logro para eliminar")
-        modelContext.insert(accomplishment)
+    @Test("Delete accomplishment")
+    func deleteAccomplishment() throws {
+        let context = try makeTestContext()
+        let accomplishment = try Accomplishment("Logro para eliminar")
+        context.insert(accomplishment)
 
         var descriptor = FetchDescriptor<Accomplishment>()
-        var fetchedAccomplishments = try modelContext.fetch(descriptor)
-        XCTAssertEqual(fetchedAccomplishments.count, 1)
+        var fetchedAccomplishments = try context.fetch(descriptor)
+        #expect(fetchedAccomplishments.count == 1)
 
-        modelContext.delete(accomplishment)
+        context.delete(accomplishment)
 
         descriptor = FetchDescriptor<Accomplishment>()
-        fetchedAccomplishments = try modelContext.fetch(descriptor)
-        XCTAssertEqual(fetchedAccomplishments.count, 0)
+        fetchedAccomplishments = try context.fetch(descriptor)
+        #expect(fetchedAccomplishments.count == 0)
     }
 
-    func testFetchWithSorting() throws {
-        let oldDate = Date(timeIntervalSinceNow: -86400) // Ayer
+    @Test("Fetch with sorting", arguments: [
+        (SortOrder.forward, "Logro antiguo"),
+        (SortOrder.reverse, "Logro nuevo")
+    ])
+    func fetchWithSorting(order: SortOrder, expectedFirst: String) throws {
+        let context = try makeTestContext()
+        let oldDate = Date(timeIntervalSinceNow: -86400) // Yesterday
         let newDate = Date()
 
-        let oldAccomplishment = Accomplishment("Logro antiguo")
+        let oldAccomplishment = try Accomplishment("Logro antiguo")
         oldAccomplishment.date = oldDate
 
-        let newAccomplishment = Accomplishment("Logro nuevo")
+        let newAccomplishment = try Accomplishment("Logro nuevo")
         newAccomplishment.date = newDate
 
-        modelContext.insert(oldAccomplishment)
-        modelContext.insert(newAccomplishment)
+        context.insert(oldAccomplishment)
+        context.insert(newAccomplishment)
 
-        var descriptor = FetchDescriptor<Accomplishment>(sortBy: [SortDescriptor(\.date)])
-        var fetchedAccomplishments = try modelContext.fetch(descriptor)
+        let sortDescriptor = SortDescriptor(\Accomplishment.date, order: order)
+        let descriptor = FetchDescriptor<Accomplishment>(sortBy: [sortDescriptor])
+        let fetchedAccomplishments = try context.fetch(descriptor)
 
-        XCTAssertEqual(fetchedAccomplishments.count, 2)
-        XCTAssertEqual(fetchedAccomplishments.first?.text, "Logro antiguo")
+        #expect(fetchedAccomplishments.count == 2)
+        let first = try #require(fetchedAccomplishments.first)
+        #expect(first.text == expectedFirst)
+    }
 
-        descriptor = FetchDescriptor<Accomplishment>(sortBy: [SortDescriptor(\.date, order: .reverse)])
-        fetchedAccomplishments = try modelContext.fetch(descriptor)
+    @Test("Multiple accomplishments maintain order")
+    func multipleAccomplishmentsOrder() throws {
+        let context = try makeTestContext()
 
-        XCTAssertEqual(fetchedAccomplishments.count, 2)
-        XCTAssertEqual(fetchedAccomplishments.first?.text, "Logro nuevo")
+        // Create accomplishments with specific dates
+        let dates = [
+            Date(timeIntervalSinceNow: -3600),  // 1 hour ago
+            Date(timeIntervalSinceNow: -7200),  // 2 hours ago
+            Date(timeIntervalSinceNow: -1800),  // 30 min ago
+        ]
+
+        for (index, date) in dates.enumerated() {
+            let accomplishment = try Accomplishment("Logro \(index)")
+            accomplishment.date = date
+            context.insert(accomplishment)
+        }
+
+        let descriptor = FetchDescriptor<Accomplishment>(
+            sortBy: [SortDescriptor(\.date, order: .reverse)]
+        )
+        let fetched = try context.fetch(descriptor)
+
+        #expect(fetched.count == 3)
+        #expect(fetched[0].text == "Logro 2") // Most recent
+        #expect(fetched[1].text == "Logro 0")
+        #expect(fetched[2].text == "Logro 1") // Oldest
     }
 }

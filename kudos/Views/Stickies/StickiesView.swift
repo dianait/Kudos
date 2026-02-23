@@ -30,17 +30,21 @@ struct StickiesView: View {
 
                 // Show the actual last item (with photo if it has one) or placeholder
                 if let item = lastItem {
-                    StickyView(item: item)
-                        .offset(x: .zero, y: .zero)
-                        .onTapGesture {
-                            openEdit()
-                        }
+                    Button {
+                        openEdit()
+                    } label: {
+                        StickyView(item: item)
+                            .offset(x: .zero, y: .zero)
+                    }
+                    .buttonStyle(.plain)
                 } else {
-                    StickyView(item: placeholderItem)
-                        .offset(x: .zero, y: .zero)
-                        .onTapGesture {
-                            openEdit()
-                        }
+                    Button {
+                        openEdit()
+                    } label: {
+                        StickyView(item: placeholderItem)
+                            .offset(x: .zero, y: .zero)
+                    }
+                    .buttonStyle(.plain)
                 }
             }
             .accessibilityElement(children: .combine)

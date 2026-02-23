@@ -62,18 +62,18 @@ struct EmptyStateView: View {
         VStack(spacing: CGFloat(Size.extraSmall.rawValue)) {
             Image(systemName: Icon.chart.rawValue)
                 .font(.system(size: iconSize))
-                .foregroundColor(.white.opacity(0.8))
+                .foregroundStyle(.white.opacity(0.8))
                 .padding(.bottom, CGFloat(Size.extraSmall.rawValue))
 
             Text(Copies.Carrusel.EmptyState.title)
                 .font(.system(size: CGFloat(Size.large.rawValue), weight: .bold))
-                .foregroundColor(.white)
+                .foregroundStyle(.white)
                 .multilineTextAlignment(.center)
 
             Text(Copies.Carrusel.EmptyState.description)
                 .font(.system(size: CGFloat(Size.medium.rawValue)))
                 .multilineTextAlignment(.center)
-                .foregroundColor(.white.opacity(0.9))
+                .foregroundStyle(.white.opacity(0.9))
                 .padding(.horizontal, CGFloat(Size.extraSmall.rawValue))
                 .padding(.bottom, CGFloat(Size.extraSmall.rawValue))
         }
@@ -92,11 +92,11 @@ struct EmptyStateView: View {
         HStack(spacing: CGFloat(Size.small.rawValue)) {
             Image(systemName: icon)
                 .font(.system(size: CGFloat(Size.extraSmall.rawValue), weight: .semibold))
-                .foregroundColor(.white)
+                .foregroundStyle(.white)
 
             Text(text)
                 .font(.system(size: CGFloat(Size.mediumSmall.rawValue)))
-                .foregroundColor(.white.opacity(0.95))
+                .foregroundStyle(.white.opacity(0.95))
         }
     }
 
@@ -112,7 +112,7 @@ struct EmptyStateView: View {
             .padding(.horizontal, CGFloat(Size.extraExtraLarge.rawValue))
             .padding(.vertical, CGFloat(Size.mediumSmall.rawValue))
             .background(Capsule().fill(Color.white))
-            .foregroundColor(.orange)
+            .foregroundStyle(.orange)
             .shadow(color: Color.black.opacity(0.15), radius: 8, x: 0, y: 4)
         }
         .padding(.top, CGFloat(Size.mediumSmall.rawValue))
@@ -133,7 +133,7 @@ struct EmptyStateView: View {
 
             Image(systemName: Icon.star.rawValue)
                 .font(.system(size: iconSize, weight: .bold))
-                .foregroundColor(.orange)
+                .foregroundStyle(.orange)
                 .shadow(color: Color.orange.opacity(0.5), radius: 2, x: 0, y: 0)
         }
     }

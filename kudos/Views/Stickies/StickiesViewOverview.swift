@@ -2,7 +2,7 @@ import SwiftData
 import SwiftUI
 
 struct StickiesViewOverview: View {
-    @EnvironmentObject var languageManager: LanguageManager
+    @Environment(LanguageManager.self) var languageManager
     @FocusState private var responseIsFocussed: Bool
     @State private var isEditModeActive: Bool = false
     @State private var characterCount: Int = 0
@@ -71,7 +71,8 @@ struct StickiesViewOverview: View {
                             if gesture.translation.height < Limits.saveDragThreshold, hasContent {
                                 let generator = UINotificationFeedbackGenerator()
                                 generator.notificationOccurred(.success)
-                                DispatchQueue.main.asyncAfter(deadline: .now() + Timing.saveActionDelay) {
+                                Task { @MainActor in
+                                    try? await Task.sleep(for: .seconds(Timing.saveActionDelay))
                                     save()
                                     withAnimation {
                                         showSavedMessage = true
@@ -101,7 +102,8 @@ struct StickiesViewOverview: View {
         }
         .onChange(of: mode) { oldValue, newValue in
             if newValue == .edit && oldValue == .view {
-                DispatchQueue.main.asyncAfter(deadline: .now() + Timing.accessibilityNotificationDelay) {
+                Task { @MainActor in
+                    try? await Task.sleep(for: .seconds(Timing.accessibilityNotificationDelay))
                     responseIsFocussed = true
                 }
             }
@@ -155,7 +157,7 @@ struct StickiesViewOverview: View {
                 // Placeholder text - only visible when text is empty
                 if text.isEmpty {
                     Text(Copies.StickiesViewOverView.textEditorPlaceHolder)
-                        .foregroundColor(.gray)
+                        .foregroundStyle(.gray)
                         .font(.body)
                         .padding([.leading, .trailing])
                         .padding(.top, 8)
@@ -167,7 +169,7 @@ struct StickiesViewOverview: View {
                     .focused($responseIsFocussed)
                     .scrollContentBackground(.hidden)
                     .background(Color.clear)
-                    .foregroundColor(.black)
+                    .foregroundStyle(.black)
                     .font(.body)
                     .onChange(of: text) { _, newValue in
                         characterCount = newValue.count
@@ -179,10 +181,12 @@ struct StickiesViewOverview: View {
                     }
                     .onAppear {
                         characterCount = text.count
-                        DispatchQueue.main.asyncAfter(deadline: .now() + Timing.focusDelay) {
+                        Task { @MainActor in
+                            try? await Task.sleep(for: .seconds(Timing.focusDelay))
                             responseIsFocussed = true
 
-                            DispatchQueue.main.asyncAfter(deadline: .now() + Timing.accessibilityNotificationDelay) {
+                            Task { @MainActor in
+                                try? await Task.sleep(for: .seconds(Timing.accessibilityNotificationDelay))
                                 UIAccessibility.post(
                                     notification: .screenChanged,
                                     argument: A11y.StickiesViewOverview.editModeNotification
@@ -211,7 +215,7 @@ struct StickiesViewOverview: View {
 
             Text("\(characterCount)/\(maxCharacters)")
                 .font(.caption)
-                .foregroundColor(characterCount > maxCharacters ? .red : .gray)
+                .foregroundStyle(characterCount > maxCharacters ? .red : .gray)
                 .frame(width: Dimensions.counterFrameWidth, alignment: .trailing)
                 .padding(.trailing)
                 .accessibilityLabel(
@@ -241,7 +245,7 @@ struct StickiesViewOverview: View {
             } label: {
                 Image(systemName: Icon.xmark.rawValue)
                     .font(.title2)
-                    .foregroundColor(.white)
+                    .foregroundStyle(.white)
                     .background(Circle().fill(Color.black.opacity(0.6)).frame(width: 30, height: 30))
             }
             .padding(8)
@@ -260,7 +264,7 @@ struct StickiesViewOverview: View {
             }
             .font(.subheadline)
             .fontWeight(.medium)
-            .foregroundColor(.white)
+            .foregroundStyle(.white)
             .padding(.horizontal, Space.medium)
             .padding(.vertical, Space.small)
             .background(Capsule().fill(Color.orange))

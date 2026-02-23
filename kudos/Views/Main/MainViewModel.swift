@@ -1,9 +1,19 @@
 import SwiftUI
+import Observation
+
+/// Represents the current mode of the main view
+public enum Mode {
+    case edit
+    case view
+}
 
 /// ViewModel for MainView that manages all state related to the main screen.
 ///
-/// This ViewModel consolidates multiple `@State` properties into a single `@StateObject`,
+/// This ViewModel consolidates multiple `@State` properties into a single `@State`,
 /// following MVVM pattern and improving code organization and testability.
+///
+/// Uses the modern `@Observable` macro (iOS 17+) for automatic change tracking
+/// without the need for `@Published` wrappers.
 ///
 /// Responsibilities:
 /// - Managing edit/view mode state
@@ -12,23 +22,24 @@ import SwiftUI
 /// - Managing celebration animations (confetti counter)
 /// - Controlling UI visibility (save indicators, messages, settings)
 /// - Managing drag gesture offset for save interaction
+@Observable
 @MainActor
-class MainViewModel: ObservableObject {
+class MainViewModel {
     // MARK: - Editing State
 
     /// Current text input for the achievement being created
-    @Published var text: String = ""
+    var text: String = ""
 
     /// Current mode: `.edit` when user is typing, `.view` when displaying
-    @Published var mode: Mode = .view
+    var mode: Mode = .view
 
     // MARK: - Photo State
 
     /// Selected photo data for the achievement (compressed JPEG)
-    @Published var selectedPhotoData: Data?
+    var selectedPhotoData: Data?
 
     /// Controls camera sheet visibility
-    @Published var showCamera: Bool = false
+    var showCamera: Bool = false
 
     /// Indicates if the current achievement has a photo
     var hasPhoto: Bool {
@@ -38,21 +49,21 @@ class MainViewModel: ObservableObject {
     // MARK: - Celebration State
 
     /// Counter for confetti animation triggers (increments on each save)
-    @Published var counter: Int = 0
+    var counter: Int = 0
 
     // MARK: - UI State
 
     /// Indicates when user has dragged enough to trigger save (visual feedback)
-    @Published var showSaveIndicator: Bool = false
+    var showSaveIndicator: Bool = false
 
     /// Shows confirmation message after successful save
-    @Published var showSavedMessage: Bool = false
+    var showSavedMessage: Bool = false
 
     /// Controls language settings sheet visibility
-    @Published var showLanguageSettings: Bool = false
+    var showLanguageSettings: Bool = false
 
     /// Current drag offset for save gesture (used in StickiesViewOverview)
-    @Published var dragOffset: CGSize = .zero
+    var dragOffset: CGSize = .zero
 
     // MARK: - Actions
 

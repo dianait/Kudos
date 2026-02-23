@@ -7,12 +7,12 @@ struct TimelineView: View {
             HStack {
                 Image(systemName: Icon.book.rawValue)
                     .font(.title)
-                    .foregroundColor(primaryColor)
+                    .foregroundStyle(primaryColor)
 
                 Text(Copies.AboutMe.Timeline.title)
                     .font(.system(.title2, design: .rounded))
                     .fontWeight(.bold)
-                    .foregroundColor(primaryColor)
+                    .foregroundStyle(primaryColor)
             }
             .padding(.vertical, Space.mediumLarge)
 
@@ -46,17 +46,17 @@ struct TimelineItem: View {
         VStack(alignment: .leading, spacing: Space.small) {
             HStack(spacing: Space.small) {
                 Image(systemName: icon)
-                    .foregroundColor(.orange)
+                    .foregroundStyle(.orange)
                     .font(.system(size: Space.mediumLarge))
 
                 Text(title)
                     .font(.system(.headline, design: .rounded))
-                    .foregroundColor(.primary)
+                    .foregroundStyle(.primary)
             }
 
             Text(description)
                 .font(.system(.subheadline, design: .rounded))
-                .foregroundColor(.secondary)
+                .foregroundStyle(.secondary)
                 .fixedSize(horizontal: false, vertical: true)
                 .padding(.leading, Space.small)
         }

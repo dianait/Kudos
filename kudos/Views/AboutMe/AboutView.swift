@@ -38,20 +38,20 @@ struct Headline: View {
                         size: CGFloat(Size.extraLarge.rawValue),
                         design: .rounded
                     ))
-                    .foregroundColor(.orange)
+                    .foregroundStyle(.orange)
                     .accessibilityIdentifier(A11y.MainView.titleIdentifier)
 
                 Text(Copies.AboutMe.description)
                     .font(.system(.subheadline, design: .rounded))
                     .fontWeight(.medium)
-                    .foregroundColor(.gray)
+                    .foregroundStyle(.gray)
             }
 
             Spacer()
 
             Image(systemName: Icon.sparkles.rawValue)
                 .font(.system(size: CGFloat(Size.extraLarge.rawValue)))
-                .foregroundColor(.orange)
+                .foregroundStyle(.orange)
         }
         .padding(.bottom, Space.small)
     }
@@ -73,17 +73,17 @@ struct SectionCard<Content: View>: View {
             HStack {
                 Image(systemName: icon)
                     .font(.title2)
-                    .foregroundColor(.orange)
+                    .foregroundStyle(.orange)
 
                 Text(title)
                     .font(.system(.title3, design: .rounded))
                     .fontWeight(.bold)
-                    .foregroundColor(.primary)
+                    .foregroundStyle(.primary)
             }
 
             content
                 .font(.body)
-                .foregroundColor(.secondary)
+                .foregroundStyle(.secondary)
         }
         .padding()
         .background(

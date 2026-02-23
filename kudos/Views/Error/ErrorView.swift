@@ -2,28 +2,28 @@ import SwiftUI
 
 struct ErrorView: View {
     let error: Error?
-    @EnvironmentObject var languageManager: LanguageManager
+    @Environment(LanguageManager.self) var languageManager
     
     var body: some View {
         VStack(spacing: Space.large) {
             Image(systemName: "exclamationmark.triangle")
                 .font(.system(size: 50))
-                .foregroundColor(.orange)
+                .foregroundStyle(.orange)
             
             Text(Copies.ErrorView.title)
                 .font(.headline)
-                .foregroundColor(.primary)
+                .foregroundStyle(.primary)
             
             if let error = error {
                 VStack(spacing: Space.small) {
                     Text(Copies.ErrorView.description)
                         .font(.subheadline)
-                        .foregroundColor(.secondary)
+                        .foregroundStyle(.secondary)
                         .multilineTextAlignment(.center)
                     
                     Text(error.localizedDescription)
                         .font(.caption)
-                        .foregroundColor(.gray)
+                        .foregroundStyle(.gray)
                         .multilineTextAlignment(.center)
                         .padding(.horizontal)
                 }
@@ -31,14 +31,14 @@ struct ErrorView: View {
             } else {
                 Text(Copies.ErrorView.description)
                     .font(.subheadline)
-                    .foregroundColor(.secondary)
+                    .foregroundStyle(.secondary)
                     .multilineTextAlignment(.center)
                     .padding()
             }
             
             Text(Copies.ErrorView.message)
                 .font(.subheadline)
-                .foregroundColor(.secondary)
+                .foregroundStyle(.secondary)
         }
         .padding()
         .background(Color("MainBackground"))
@@ -49,7 +49,7 @@ struct ErrorView: View {
 #if targetEnvironment(simulator)
 #Preview {
     ErrorView(error: NSError(domain: "Test", code: 1, userInfo: [NSLocalizedDescriptionKey: "Test error message"]))
-        .environmentObject(LanguageManager.shared)
+        .environment(LanguageManager.shared)
 }
 #endif
 

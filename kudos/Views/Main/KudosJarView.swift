@@ -20,7 +20,7 @@ struct KudosJarView: View {
                             size: CGFloat(Size.medium.rawValue),
                             weight: .bold
                         ))
-                        .foregroundColor(.white)
+                        .foregroundStyle(.white)
                         .padding(Dimensions.kudosJarBadgePadding)
                         .background(reduceTransparency ? Color.orange : Color.orange.opacity(0.9))
                         .clipShape(Circle())

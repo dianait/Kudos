@@ -7,7 +7,7 @@ struct SocialLinks: View {
                 .font(.caption)
             Text(Copies.AboutMe.Footer.socialLinks)
                 .font(.footnote)
-                .foregroundColor(.gray)
+                .foregroundStyle(.gray)
 
             HStack(spacing: Space.mediumLarge) {
                 ForEach(socialLinks, id: \.name) { link in
@@ -22,14 +22,14 @@ struct SocialLinks: View {
 
                             Text(link.name)
                                 .font(.caption)
-                                .foregroundColor(.gray)
+                                .foregroundStyle(.gray)
                         }
                     }
                 }
             }
             .padding()
             .background(Color.white.opacity(0.1))
-            .cornerRadius(Space.small)
+            .clipShape(.rect(cornerRadius: Space.small))
         }
         .frame(maxWidth: .infinity, alignment: .center)
         .padding(.top)

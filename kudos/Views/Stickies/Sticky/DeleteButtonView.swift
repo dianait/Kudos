@@ -8,7 +8,7 @@ struct DeleteButtonView: View {
             Spacer()
             Button(action: action) {
                 Image(systemName: Icon.trash.rawValue)
-                    .foregroundColor(.white)
+                    .foregroundStyle(.white)
                     .padding(CGFloat(Size.extraExtraSmall.rawValue))
                     .background(Color.red)
                     .clipShape(Circle())

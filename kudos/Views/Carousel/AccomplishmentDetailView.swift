@@ -5,7 +5,7 @@ struct AccomplishmentDetailView: View {
     let accomplishment: Accomplishment
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
-    @EnvironmentObject private var languageManager: LanguageManager
+    @Environment(LanguageManager.self) private var languageManager
     @State private var showDeleteConfirmation = false
 
     // Cached DateFormatter - expensive to create, so reuse
@@ -104,7 +104,7 @@ struct AccomplishmentDetailView: View {
         Text(accomplishment.text)
             .font(.title3)
             .fontWeight(.medium)
-            .foregroundColor(.primary)
+            .foregroundStyle(.primary)
             .multilineTextAlignment(.center)
             .padding()
             .frame(maxWidth: .infinity)
@@ -122,7 +122,7 @@ struct AccomplishmentDetailView: View {
             Text(accomplishment.text)
                 .font(.title2)
                 .fontWeight(.medium)
-                .foregroundColor(.primary)
+                .foregroundStyle(.primary)
                 .multilineTextAlignment(.leading)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding()
@@ -142,16 +142,16 @@ struct AccomplishmentDetailView: View {
         VStack(spacing: Space.small) {
             Image(systemName: "calendar")
                 .font(.title2)
-                .foregroundColor(.orange)
+                .foregroundStyle(.orange)
             
             Text(Copies.AccomplishmentDetail.dateLabel)
                 .font(.caption)
-                .foregroundColor(.secondary)
+                .foregroundStyle(.secondary)
             
             Text(formattedDate)
                 .font(.title3)
                 .fontWeight(.semibold)
-                .foregroundColor(.primary)
+                .foregroundStyle(.primary)
         }
         .padding()
         .background(
@@ -172,11 +172,11 @@ struct AccomplishmentDetailView: View {
                 Text(Copies.AccomplishmentDetail.deleteButton)
             }
             .font(.headline)
-            .foregroundColor(.white)
+            .foregroundStyle(.white)
             .padding()
             .frame(maxWidth: .infinity)
             .background(Color.red)
-            .cornerRadius(Space.small)
+            .clipShape(.rect(cornerRadius: Space.small))
         }
         .padding(.horizontal)
         .padding(.bottom, Space.extraLarge)

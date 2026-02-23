@@ -3,7 +3,7 @@ import SwiftUI
 
 @main
 struct KudosApp: App {
-    @StateObject private var languageManager = LanguageManager.shared
+    @State private var languageManager = LanguageManager.shared
     @State private var modelContainerError: Error?
     @State private var modelContainer: ModelContainer?
     @State private var isUsingInMemoryFallback: Bool = false
@@ -42,7 +42,7 @@ struct KudosApp: App {
             if let container = modelContainer {
                 ContentView()
                     .background(Color("MainBackground"))
-                    .environmentObject(languageManager)
+                    .environment(languageManager)
                     .modelContainer(container)
                     .alert(Copies.InMemoryWarning.title, isPresented: $showInMemoryWarning) {
                         Button(Copies.InMemoryWarning.okButton, role: .cancel) {
@@ -53,7 +53,7 @@ struct KudosApp: App {
                     }
             } else {
                 ErrorView(error: modelContainerError)
-                    .environmentObject(languageManager)
+                    .environment(languageManager)
             }
         }
     }

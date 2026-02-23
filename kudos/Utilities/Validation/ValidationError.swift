@@ -1,6 +1,6 @@
 import Foundation
 
-enum ValidationError: LocalizedError, Equatable {
+enum ValidationError: LocalizedError, Equatable, Sendable {
     case emptyText
     case textTooLong(maxLength: Int)
     case invalidColor

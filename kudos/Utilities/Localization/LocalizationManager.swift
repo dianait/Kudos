@@ -1,9 +1,44 @@
 import Foundation
 import SwiftUI
+import Observation
+import os.lock
 
+// MARK: - Thread-Safe Language Storage
+
+/// Thread-safe storage for the current language
+///
+/// Uses modern `OSAllocatedUnfairLock` (iOS 16+) for fast, type-safe concurrent access.
+/// This allows `localizedString(for:)` to be called safely from any thread without @MainActor isolation.
+private final class LanguageStorage: Sendable {
+    private let lock: OSAllocatedUnfairLock<String>
+
+    init(_ language: String) {
+        lock = OSAllocatedUnfairLock(initialState: language)
+    }
+
+    var current: String {
+        lock.withLock { $0 }
+    }
+
+    func update(_ language: String) {
+        lock.withLock { $0 = language }
+    }
+}
+
+// MARK: - Language Manager
+
+@Observable
 @MainActor
-final class LanguageManager: ObservableObject {
-    @Published var currentLanguage: String
+final class LanguageManager {
+    var currentLanguage: String {
+        didSet {
+            // Update thread-safe storage whenever language changes
+            languageStorage.update(currentLanguage)
+        }
+    }
+
+    /// Thread-safe storage for language access from any thread
+    private let languageStorage: LanguageStorage
 
     static let shared: LanguageManager = {
         let instance = LanguageManager()
@@ -25,6 +60,7 @@ final class LanguageManager: ObservableObject {
         }
 
         self.currentLanguage = initialLanguage
+        self.languageStorage = LanguageStorage(initialLanguage)
     }
 
     func setLanguage(_ language: String) {
@@ -34,9 +70,16 @@ final class LanguageManager: ObservableObject {
         UserDefaults.standard.set(language, forKey: Self.languageKey)
     }
 
+    /// Returns a localized string for the given key
+    ///
+    /// This method is `nonisolated` to allow usage from non-@MainActor contexts like
+    /// ValidationError.errorDescription (which conforms to LocalizedError protocol).
+    ///
+    /// **Thread Safety:** Uses internal thread-safe storage (NSLock) to safely read
+    /// the current language from any thread without requiring @MainActor isolation.
     nonisolated func localizedString(for key: String) -> String {
-        // Access currentLanguage safely from any thread by reading synchronously
-        let bundleLanguage = MainActor.assumeIsolated { self.currentLanguage }
+        // Read from thread-safe storage - safe from any thread
+        let bundleLanguage = languageStorage.current
 
         if let path = Bundle.main.path(forResource: bundleLanguage, ofType: "lproj"),
            let bundle = Bundle(path: path) {
@@ -46,3 +89,4 @@ final class LanguageManager: ObservableObject {
         return NSLocalizedString(key, comment: "")
     }
 }
+

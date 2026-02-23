@@ -132,7 +132,8 @@ struct CarouselView: View {
 
                 // Reset drag session after animation completes
                 // Using session ID comparison prevents race conditions with rapid gestures
-                DispatchQueue.main.asyncAfter(deadline: .now() + Timing.carouselTapDelay) {
+                Task { @MainActor in
+                    try? await Task.sleep(for: .seconds(Timing.carouselTapDelay))
                     // Only clear if this is still the same session
                     if dragSessionId == currentSessionId {
                         dragSessionId = nil

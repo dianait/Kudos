@@ -5,7 +5,7 @@ struct HeaderView: View {
     @Binding var text: String
     @Environment(\.screenSize) private var screenSize
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
-    @EnvironmentObject var languageManager: LanguageManager
+    @Environment(LanguageManager.self) var languageManager
 
     var shouldShowEditHeader: Bool {
         mode == .edit && !text.isEmpty
@@ -24,11 +24,11 @@ struct HeaderView: View {
             Text(title)
                 .font(.title2)
                 .fontWeight(.bold)
-                .foregroundColor(.orange)
+                .foregroundStyle(.orange)
                 .multilineTextAlignment(.center)
             Text(description)
                 .font(.subheadline)
-                .foregroundColor(Color("TextColor"))
+                .foregroundStyle(Color("TextColor"))
                 .multilineTextAlignment(.center)
                 .padding(.horizontal)
         }
@@ -52,11 +52,11 @@ struct HeaderView: View {
 #if targetEnvironment(simulator)
     #Preview("✏️ Edit Mode") {
         HeaderView(mode: .constant(.edit), text: .constant(""))
-            .environmentObject(LanguageManager.shared)
+            .environment(LanguageManager.shared)
     }
 
     #Preview("👀 View Mode") {
         HeaderView(mode: .constant(.view), text: .constant(""))
-            .environmentObject(LanguageManager.shared)
+            .environment(LanguageManager.shared)
     }
 #endif

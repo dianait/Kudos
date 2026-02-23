@@ -17,12 +17,12 @@ struct ConfirmationView: View {
                         Text(Copies.ConfirmationView.title)
                             .font(.title3)
                             .fontWeight(.bold)
-                            .foregroundColor(.white)
+                            .foregroundStyle(.white)
 
                         Text(Copies.ConfirmationView.description)
                             .font(.subheadline)
                             .multilineTextAlignment(.center)
-                            .foregroundColor(.white.opacity(reduceTransparency ? 1.0 : 0.9))
+                            .foregroundStyle(.white.opacity(reduceTransparency ? 1.0 : 0.9))
 
                         Button(action: {
                             withAnimation(reduceMotion ? .none : .default) {
@@ -32,7 +32,7 @@ struct ConfirmationView: View {
                         }) {
                             Text(Copies.ConfirmationView.button)
                                 .fontWeight(.semibold)
-                                .foregroundColor(.green)
+                                .foregroundStyle(.green)
                                 .padding(.horizontal, CGFloat(Size.extraLarge.rawValue))
                                 .padding(.vertical, CGFloat(Size.extraExtraSmall.rawValue))
                                 .background(Capsule().fill(Color.white))
@@ -43,7 +43,8 @@ struct ConfirmationView: View {
 
                     .padding(.vertical, CGFloat(Size.large.rawValue))
                     .padding(.horizontal, CGFloat(Size.extraExtraLarge.rawValue))
-                    .frame(width: UIScreen.main.bounds.width * 0.85)
+                    .frame(maxWidth: .infinity)
+                    .padding(.horizontal, CGFloat(Size.large.rawValue))
                     .background(
                         RoundedRectangle(cornerRadius: CGFloat(Size.extraLarge.rawValue))
                             .fill(Color.green)
@@ -62,7 +63,7 @@ struct ConfirmationView: View {
 
                             Image(systemName: Icon.checkmark.rawValue)
                                 .font(.system(size: CGFloat(Size.extraLarge.rawValue), weight: .bold))
-                                .foregroundColor(.green)
+                                .foregroundStyle(.green)
                                 .accessibilityHidden(true)
                         }
                     }
@@ -89,7 +90,8 @@ struct ConfirmationView: View {
             )
 
             if UIAccessibility.isVoiceOverRunning {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 15) {
+                Task { @MainActor in
+                    try? await Task.sleep(for: .seconds(15))
                     if isPresented {
                         isPresented = false
                         onDismiss?()

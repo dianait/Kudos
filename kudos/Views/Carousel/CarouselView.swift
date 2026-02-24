@@ -44,37 +44,29 @@ struct CarouselView: View {
     }
     
     var body: some View {
-        NavigationStack {
-            if items.isEmpty {
-                EmptyStateView()
-            } else {
-                ZStack {
-                    Color("MainBackground")
-                        .ignoresSafeArea()
-                    
-                    // Only render visible items using persistent IDs for better performance
-                    ForEach(visibleItems, id: \.item.persistentModelID) { index, item in
-                        cardView(for: item, at: index)
-                    }
+        if items.isEmpty {
+            EmptyStateView()
+        } else {
+            ZStack {
+                Color("MainBackground")
+                    .ignoresSafeArea()
+
+                ForEach(visibleItems, id: \.item.persistentModelID) { index, item in
+                    cardView(for: item, at: index)
                 }
-                .highPriorityGesture(dragGesture)
-                .accessibilityElement(children: .contain)
-                .accessibilityLabel(A11y.CarouselView.label)
-                .accessibilityHint(A11y.CarouselView.itemHint)
-                .onAppear {
-                    updateIndexMap()
-                }
-                .onChange(of: items.count) { _, _ in
-                    updateIndexMap()
-                }
-                .navigationDestination(isPresented: Binding(
-                    get: { selectedItem != nil },
-                    set: { if !$0 { selectedItem = nil } }
-                )) {
-                    if let item = selectedItem {
-                        AccomplishmentDetailView(accomplishment: item)
-                    }
-                }
+            }
+            .highPriorityGesture(dragGesture)
+            .accessibilityElement(children: .contain)
+            .accessibilityLabel(A11y.CarouselView.label)
+            .accessibilityHint(A11y.CarouselView.itemHint)
+            .onAppear {
+                updateIndexMap()
+            }
+            .onChange(of: items.count) { _, _ in
+                updateIndexMap()
+            }
+            .navigationDestination(item: $selectedItem) { item in
+                AccomplishmentDetailView(accomplishment: item)
             }
         }
     }

@@ -175,39 +175,34 @@ struct StickiesViewOverview: View {
                     .foregroundStyle(.black)
                     .font(.body)
                     .onChange(of: text) { _, newValue in
-                        characterCount = newValue.count
-
-                        if newValue.count > maxCharacters {
-                            text = String(newValue.prefix(maxCharacters))
-                            characterCount = maxCharacters
-                        }
-                    }
-                    .onAppear {
-                        characterCount = text.count
-                        Task { @MainActor in
-                            try? await Task.sleep(for: .seconds(Timing.focusDelay))
-                            responseIsFocussed = true
-
-                            Task { @MainActor in
-                                try? await Task.sleep(for: .seconds(Timing.accessibilityNotificationDelay))
-                                UIAccessibility.post(
-                                    notification: .screenChanged,
-                                    argument: A11y.StickiesViewOverview.editModeNotification
-                                )
-                            }
-
-                            isEditModeActive = true
-                        }
-                    }
-                    .onDisappear {
-                        isEditModeActive = false
-                    }
-                    .onReceive(text.publisher.last()) {
-                        if ($0 as Character).asciiValue == 10 {
+                        // Dismiss keyboard on newline
+                        if newValue.last == "\n" {
                             responseIsFocussed = false
                             text.removeLast()
                             characterCount = text.count
+                            return
                         }
+                        // Enforce character limit
+                        if newValue.count > maxCharacters {
+                            text = String(newValue.prefix(maxCharacters))
+                            characterCount = maxCharacters
+                        } else {
+                            characterCount = newValue.count
+                        }
+                    }
+                    .task {
+                        characterCount = text.count
+                        try? await Task.sleep(for: .seconds(Timing.focusDelay))
+                        responseIsFocussed = true
+                        isEditModeActive = true
+                        try? await Task.sleep(for: .seconds(Timing.accessibilityNotificationDelay))
+                        UIAccessibility.post(
+                            notification: .screenChanged,
+                            argument: A11y.StickiesViewOverview.editModeNotification
+                        )
+                    }
+                    .onDisappear {
+                        isEditModeActive = false
                     }
                     .padding([.leading, .trailing])
                     .frame(width: Dimensions.textEditorWidth, height: Dimensions.textEditorHeight)

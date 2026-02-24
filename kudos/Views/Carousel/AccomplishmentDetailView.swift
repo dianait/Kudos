@@ -8,33 +8,16 @@ struct AccomplishmentDetailView: View {
     @Environment(LanguageManager.self) private var languageManager
     @State private var showDeleteConfirmation = false
 
-    // Cached DateFormatter - expensive to create, so reuse
-    private static var dateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .full
-        formatter.timeStyle = .none
-        return formatter
-    }()
-
-    // Track which language the formatter was configured for
-    private static var formatterLanguage: String = ""
-
     // Determine if text is long enough to show only text view
     private var isLongText: Bool {
         accomplishment.text.count > 80
     }
 
     private var formattedDate: String {
-        let currentLanguage = languageManager.currentLanguage
-
-        // Only reconfigure formatter if language changed
-        if Self.formatterLanguage != currentLanguage {
-            let localeIdentifier = currentLanguage == "es" ? "es_ES" : "en_US"
-            Self.dateFormatter.locale = Locale(identifier: localeIdentifier)
-            Self.formatterLanguage = currentLanguage
-        }
-
-        return Self.dateFormatter.string(from: accomplishment.date)
+        let locale = Locale(identifier: languageManager.currentLanguage == "es" ? "es_ES" : "en_US")
+        return accomplishment.date.formatted(
+            .dateTime.day().month(.wide).year().locale(locale)
+        )
     }
     
     var body: some View {
@@ -164,9 +147,9 @@ struct AccomplishmentDetailView: View {
     
     @ViewBuilder
     private var deleteButtonView: some View {
-        Button(action: {
+        Button {
             showDeleteConfirmation = true
-        }) {
+        } label: {
             HStack {
                 Image(systemName: Icon.trash.rawValue)
                 Text(Copies.AccomplishmentDetail.deleteButton)

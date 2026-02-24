@@ -24,6 +24,9 @@
 
 // Stickies View Over View
 "text_editor_placeholder" = "Write here...";
+"stickies_overview_save_button" = "Save achievement";
+"stickies_overview_save_button_hint" = "Save your achievement";
+"stickies_overview_save_button_identifier" = "Save Button";
 
 // Carrusel - Empty State
 "carousel_empty_title" = "Save your achievements!";

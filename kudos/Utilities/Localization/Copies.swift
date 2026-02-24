@@ -71,6 +71,10 @@ enum Copies {
         static var textEditorPlaceHolder: String {
             return "text_editor_placeholder".localized
         }
+
+        static var saveButton: String {
+            return "stickies_overview_save_button".localized
+        }
     }
 
     enum Colors: String, CaseIterable {

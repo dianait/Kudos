@@ -48,9 +48,12 @@ struct StickiesViewOverview: View {
 
                     // Camera button
                     cameraButton
+
+                    // Save button
+                    saveButton
                 }
                 .offset(dragOffset)
-                .gesture(
+                .simultaneousGesture(
                     DragGesture(minimumDistance: CGFloat(Size.extraSmall.rawValue))
                         .onChanged { gesture in
                             if hasContent {
@@ -251,6 +254,39 @@ struct StickiesViewOverview: View {
             .padding(8)
             .accessibilityLabel(Copies.Camera.removePhoto)
         }
+    }
+
+    @ViewBuilder
+    private var saveButton: some View {
+        Button {
+            if hasContent {
+                let generator = UINotificationFeedbackGenerator()
+                generator.notificationOccurred(.success)
+                Task { @MainActor in
+                    try? await Task.sleep(for: .seconds(Timing.saveActionDelay))
+                    save()
+                    withAnimation {
+                        showSavedMessage = true
+                    }
+                }
+            }
+        } label: {
+            HStack(spacing: Space.small) {
+                Image(systemName: Icon.checkmark.rawValue)
+                Text(Copies.StickiesViewOverView.saveButton)
+            }
+            .font(.subheadline)
+            .fontWeight(.medium)
+            .foregroundStyle(.white)
+            .padding(.horizontal, Space.medium)
+            .padding(.vertical, Space.small)
+            .background(Capsule().fill(hasContent ? Color.green : Color.gray))
+        }
+        .disabled(!hasContent)
+        .padding(.top, Space.extraSmall)
+        .accessibilityLabel(A11y.StickiesViewOverview.saveButtonLabel)
+        .accessibilityHint(A11y.StickiesViewOverview.saveButtonHint)
+        .accessibilityIdentifier(A11y.StickiesViewOverview.saveButtonIdentifier)
     }
 
     @ViewBuilder

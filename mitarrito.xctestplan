@@ -1,0 +1,46 @@
+{
+  "configurations" : [
+    {
+      "id" : "4F4B13E6-80BA-4013-8354-A2D5EC36A43B",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "performanceAntipatternCheckerEnabled" : true,
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:kudos.xcodeproj",
+      "identifier" : "138F898A2BB02D1A00EA9F2F",
+      "name" : "kudos"
+    }
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:kudos.xcodeproj",
+        "identifier" : "138F899C2BB02D1C00EA9F2F",
+        "name" : "kudosTests"
+      }
+    },
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:kudos.xcodeproj",
+        "identifier" : "1313FB812D7DB54200C25462",
+        "name" : "kudosUITests"
+      }
+    },
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:kudos.xcodeproj",
+        "identifier" : "1313FB6A2D7DB2CD00C25462",
+        "name" : "miTarritoUITests"
+      }
+    }
+  ],
+  "version" : 1
+}

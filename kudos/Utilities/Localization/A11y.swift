@@ -44,6 +44,9 @@ enum A11y {
         }
         static let readyToSaveNotification = "stickies_overview_ready_to_save".localized
         static let saveAction = "stickies_overview_save_action".localized
+        static let saveButtonLabel = "stickies_overview_save_button".localized
+        static let saveButtonHint = "stickies_overview_save_button_hint".localized
+        static let saveButtonIdentifier = "stickies_overview_save_button_identifier".localized
     }
     
     enum CarouselView {

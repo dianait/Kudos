@@ -1,3 +1,6 @@
+// Tab Bar
+"home_tab" = "Home";
+
 // View Titles
 "celebrate_title_short" = "It's time to celebrate!";
 "celebrate_title_long" = "It's time to celebrate your achievements!";
@@ -68,11 +71,11 @@
 "footer_social_links" = "You can find me on:";
 
 // A11y Copies
-"tarrito_button_identifier" = "Jar Button";
-"tarrito_button_label" = "Jar with {count} {plural}";
-"tarrito_singular" = "saved achievement";
-"tarrito_plural" = "saved achievements";
-"tarrito_button_hint" = "Tap to see your achievements in detail";
+"jar_button_identifier" = "Jar Button";
+"jar_button_label" = "Jar with {count} {plural}";
+"jar_singular" = "saved achievement";
+"jar_plural" = "saved achievements";
+"jar_button_hint" = "Tap to see your achievements in detail";
 
 "stickies_view_stickie" = "Main Stickie";
 "stickies_view_hint" = "Tap to create your first achievement";
@@ -142,6 +145,17 @@
 "validation_alert_title" = "Cannot save";
 "validation_alert_ok" = "OK";
 "validation_alert_default_message" = "Please check your text and try again";
+
+// Wrapped Feature
+"wrapped_button" = "My Wrapped";
+"wrapped_intro_title" = "Your {year} in achievements";
+"wrapped_intro_subtitle" = "You saved {count} achievements";
+"wrapped_achievement_label" = "Achievement";
+"wrapped_outro_title" = "What an incredible year!";
+"wrapped_outro_subtitle" = "Keep celebrating every achievement";
+"wrapped_close" = "Close";
+"wrapped_button_hint" = "See your year in achievements";
+"wrapped_button_identifier" = "Wrapped Button";
 
 // Accomplishment Detail View
 "accomplishment_detail_date_label" = "Date";

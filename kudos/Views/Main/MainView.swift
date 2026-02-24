@@ -38,40 +38,6 @@ public struct MainView: View {
                 )
 
                 Spacer()
-                HStack {
-                    Button {
-                        viewModel.showLanguageSettings = true
-                    } label: {
-                        HStack {
-                            Image(systemName: Icon.settings.rawValue)
-                                .foregroundStyle(.white)
-                            Text(Copies.setingsTitle)
-                                .foregroundStyle(.white)
-                        }
-                        .padding(.vertical, Space.small)
-                        .padding(.horizontal, Space.medium)
-                        .background(Color("PrimaryButtonBackground"))
-                        .clipShape(.rect(cornerRadius: CGFloat(Size.extraSmall.rawValue)))
-                    }
-                    .accessibilityIdentifier(A11y.MainView.settingsIndentifierButton)
-
-                    NavigationLink(destination: AboutView()) {
-                        HStack {
-                            Image(systemName: Icon.info.rawValue)
-                                .foregroundStyle(.white)
-                            Text(Copies.aboutTitle)
-                                .foregroundStyle(.white)
-                        }
-                        .padding(.vertical, Space.small)
-                        .padding(.horizontal, Space.medium)
-                        .background(Color("PrimaryButtonBackground"))
-                        .clipShape(.rect(cornerRadius: CGFloat(Size.extraSmall.rawValue)))
-                    }
-                    .accessibilityLabel(A11y.MainView.aboutLabelButton)
-                    .accessibilityHint(A11y.MainView.aboutHintButton)
-                    .accessibilityIdentifier(A11y.MainView.aboutIndentifierButton)
-                }
-
             }
             .savedConfirmation(isPresented: $viewModel.showSavedMessage, onDismiss: {
                 Task { @MainActor in
@@ -81,10 +47,6 @@ public struct MainView: View {
             })
             .confettiCannon(counter: $viewModel.counter)
             .padding(.horizontal)
-            .sheet(isPresented: $viewModel.showLanguageSettings) {
-                LanguageSettingsView()
-                    .presentationDetents([.height(180)])
-            }
             .sheet(isPresented: $viewModel.showCamera) {
                 if CameraHelpers.isCameraAvailable() {
                     CameraPickerView(selectedImage: $selectedImage)
@@ -95,14 +57,12 @@ public struct MainView: View {
             }
             .onChange(of: selectedImage) { _, newImage in
                 if let image = newImage {
-                    // Compress and store the image
                     if let compressedData = CameraHelpers.compressImage(image) {
                         viewModel.selectedPhotoData = compressedData
                     }
                     selectedImage = nil
                 }
             }
-            .localized()
             .background(Color("MainBackground"))
         }
     }

@@ -32,7 +32,7 @@
 			containerPortal = 138F89832BB02D1A00EA9F2F /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 138F898A2BB02D1A00EA9F2F;
-			remoteInfo = mitarrito;
+			remoteInfo = kudos;
 		};
 		138F899E2BB02D1C00EA9F2F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -77,10 +77,11 @@
 		138F89942BB02D1C00EA9F2F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		138F89972BB02D1C00EA9F2F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		138F899D2BB02D1C00EA9F2F /* kudosTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = kudosTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		509B77D72F4DC57D00BBD13C /* kudos.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = kudos.xctestplan; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		1313FB832D7DB54300C25462 /* mitarritoUITests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = mitarritoUITests; sourceTree = "<group>"; };
+		1313FB832D7DB54300C25462 /* kudosUITests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = kudosUITests; sourceTree = "<group>"; };
 		135D1BBD2D7D995F00A85599 /* AboutMe */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = AboutMe; sourceTree = "<group>"; };
 		135D1BBE2D7D9D0200A85599 /* Carousel */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Carousel; sourceTree = "<group>"; };
 		135D1BBF2D7D9D3000A85599 /* Main */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Main; sourceTree = "<group>"; };
@@ -89,6 +90,7 @@
 		13A3F8042D8803CA002ED82B /* en.lproj */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = en.lproj; sourceTree = "<group>"; };
 		13A3F8112D8805A0002ED82B /* Utilities */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Utilities; sourceTree = "<group>"; };
 		13A3F8182D88082E002ED82B /* Settings */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Settings; sourceTree = "<group>"; };
+		C264C4CBC4584566B1B1C8F9 /* Wrapped */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Wrapped; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,6 +148,7 @@
 				135D1BBF2D7D9D3000A85599 /* Main */,
 				135D1BBE2D7D9D0200A85599 /* Carousel */,
 				135D1BBD2D7D995F00A85599 /* AboutMe */,
+				C264C4CBC4584566B1B1C8F9 /* Wrapped */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -177,9 +180,10 @@
 		138F89822BB02D1A00EA9F2F = {
 			isa = PBXGroup;
 			children = (
+				509B77D72F4DC57D00BBD13C /* kudos.xctestplan */,
 				138F898D2BB02D1A00EA9F2F /* kudos */,
-				138F89A02BB02D1C00EA9F2F /* mitarritoTests */,
-				1313FB832D7DB54300C25462 /* mitarritoUITests */,
+				138F89A02BB02D1C00EA9F2F /* kudosTests */,
+				1313FB832D7DB54300C25462 /* kudosUITests */,
 				1338C6EA2BB0ACAB0061FBEB /* Frameworks */,
 				138F898C2BB02D1A00EA9F2F /* Products */,
 			);
@@ -220,7 +224,7 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		138F89A02BB02D1C00EA9F2F /* mitarritoTests */ = {
+		138F89A02BB02D1C00EA9F2F /* kudosTests */ = {
 			isa = PBXGroup;
 			children = (
 				1366E97F2D7DAD38008FE4BE /* ViewComponentTests.swift */,
@@ -229,7 +233,7 @@
 				1366E9792D7DAC28008FE4BE /* ColorUtilityTests.swift */,
 				1366E9772D7DAC0B008FE4BE /* AccomplishmentTests.swift */,
 			);
-			path = mitarritoTests;
+			path = kudosTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -249,12 +253,12 @@
 				1313FB892D7DB54300C25462 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				1313FB832D7DB54300C25462 /* mitarritoUITests */,
+				1313FB832D7DB54300C25462 /* kudosUITests */,
 			);
 			name = kudosUITests;
 			packageProductDependencies = (
 			);
-			productName = mitarritoUITests;
+			productName = kudosUITests;
 			productReference = 1313FB822D7DB54200C25462 /* kudosUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
@@ -280,6 +284,7 @@
 				13A3F8042D8803CA002ED82B /* en.lproj */,
 				13A3F8112D8805A0002ED82B /* Utilities */,
 				13A3F8182D88082E002ED82B /* Settings */,
+				C264C4CBC4584566B1B1C8F9 /* Wrapped */,
 			);
 			name = kudos;
 			packageProductDependencies = (
@@ -439,9 +444,9 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7G4S2SGHRL;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = dev.dianait.mitarritoUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.dianait.kudosUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
@@ -457,9 +462,9 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7G4S2SGHRL;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = dev.dianait.mitarritoUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.dianait.kudosUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
@@ -521,7 +526,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -585,7 +590,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -618,7 +623,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -661,7 +666,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -688,7 +693,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7G4S2SGHRL;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.dianait.daymooddataTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -711,7 +716,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7G4S2SGHRL;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.dianait.daymooddataTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";

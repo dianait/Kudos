@@ -20,8 +20,8 @@ Open `kudos.xcodeproj` in Xcode 15.0+ and run (⌘R). Requires iOS 17.0+ deploym
 ⌘U
 
 # Or via command line
-xcodebuild test -project kudos.xcodeproj -scheme mitarritoTests -destination 'platform=iOS Simulator,name=iPhone 15'
-xcodebuild test -project kudos.xcodeproj -scheme mitarritoUITests -destination 'platform=iOS Simulator,name=iPhone 15'
+xcodebuild test -project kudos.xcodeproj -scheme kudosTests -destination 'platform=iOS Simulator,name=iPhone 15'
+xcodebuild test -project kudos.xcodeproj -scheme kudosUITests -destination 'platform=iOS Simulator,name=iPhone 15'
 ```
 
 - All new/modified functionality must have tests

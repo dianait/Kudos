@@ -4,21 +4,37 @@ import SwiftUI
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(LanguageManager.self) var languageManager
-    @Query private var items: [Accomplishment]
 
     var body: some View {
-        MainView(
-            textAction: { text in
-                addTextItem(text: text)
-            },
-            photoAction: { photoData, caption in
-                addPhotoItem(photoData: photoData, caption: caption)
+        TabView {
+            Tab(Copies.homeTab, systemImage: "house.fill") {
+                MainView(
+                    textAction: addTextItem,
+                    photoAction: addPhotoItem
+                )
             }
-        )
+
+            Tab(Copies.Wrapped.button, systemImage: "sparkles") {
+                WrappedView()
+            }
+
+            Tab(Copies.setingsTitle, systemImage: "gear") {
+                NavigationStack {
+                    LanguageSettingsView()
+                        .navigationTitle(Copies.setingsTitle)
+                }
+            }
+
+            Tab(Copies.aboutTitle, systemImage: "info.circle") {
+                NavigationStack {
+                    AboutView()
+                }
+            }
+        }
+        .localized()
     }
 
     private func addTextItem(text: String) {
-        // Validate before creating Accomplishment
         let validationResult = AccomplishmentValidator.validateText(text)
 
         switch validationResult {
@@ -27,11 +43,9 @@ struct ContentView: View {
                 let newItem = try Accomplishment(validatedText)
                 modelContext.insert(newItem)
             } catch {
-                // Log error but don't crash - validation should have caught this
                 print("Error creating Accomplishment: \(error.localizedDescription)")
             }
         case .failure(let error):
-            // Validation failed - log error
             print("Validation error: \(error.localizedDescription)")
         }
     }
@@ -41,7 +55,6 @@ struct ContentView: View {
             let newItem = try Accomplishment(photoData: photoData, text: caption)
             modelContext.insert(newItem)
         } catch {
-            // Log error but don't crash
             print("Error creating photo Accomplishment: \(error.localizedDescription)")
         }
     }

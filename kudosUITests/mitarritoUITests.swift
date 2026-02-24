@@ -27,7 +27,7 @@ final class KudosUITests: XCTestCase {
         XCTAssert(continueButton.waitForExistence(timeout: 1))
         continueButton.tap()
 
-        let tarritoButton = app.links["Tarrito Button"]
+        let tarritoButton = app.links["Jar Button"]
         XCTAssert(tarritoButton.waitForExistence(timeout: 1))
         tarritoButton.tap()
 

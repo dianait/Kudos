@@ -40,10 +40,10 @@ struct KudosJarView: View {
         }
         .buttonStyle(PlainButtonStyle())
         .accessibilityElement()
-        .accessibilityLabel(A11y.Tarrito.label(count: items.count))
-        .accessibilityHint(A11y.Tarrito.hint)
+        .accessibilityLabel(A11y.Jar.label(count: items.count))
+        .accessibilityHint(A11y.Jar.hint)
         .accessibilityAddTraits([.isLink, .updatesFrequently])
-        .accessibilityIdentifier(A11y.Tarrito.identifier)
+        .accessibilityIdentifier(A11y.Jar.identifier)
         .minimumScaleFactor(0.8)
         .frame(minWidth: Space.extraLarge, minHeight: Space.extraLarge)
     }

@@ -59,9 +59,6 @@ class MainViewModel {
     /// Shows confirmation message after successful save
     var showSavedMessage: Bool = false
 
-    /// Controls language settings sheet visibility
-    var showLanguageSettings: Bool = false
-
     /// Current drag offset for save gesture (used in StickiesViewOverview)
     var dragOffset: CGSize = .zero
 

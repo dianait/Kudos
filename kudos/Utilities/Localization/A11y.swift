@@ -1,12 +1,12 @@
 import Foundation
 
 enum A11y {
-    enum Tarrito {
-        static let identifier = "tarrito_button_identifier".localized
+    enum Jar {
+        static let identifier = "jar_button_identifier".localized
         static func label(count: Int) -> String {
-            "tarrito_button_label".localized.replacingOccurrences(of: "{count}", with: "\(count)").replacingOccurrences(of: "{plural}", with: count == 1 ? "tarrito_singular".localized : "tarrito_plural".localized)
+            "jar_button_label".localized.replacingOccurrences(of: "{count}", with: "\(count)").replacingOccurrences(of: "{plural}", with: count == 1 ? "jar_singular".localized : "jar_plural".localized)
         }
-        static let hint = "tarrito_button_hint".localized
+        static let hint = "jar_button_hint".localized
     }
 
     enum StickiesView {
@@ -61,6 +61,11 @@ enum A11y {
         static let deleteHint = "carousel_view_delete_hint".localized
     }
     
+    enum Wrapped {
+        static let buttonHint = "wrapped_button_hint".localized
+        static let buttonIdentifier = "wrapped_button_identifier".localized
+    }
+
     enum StickyView {
         static let label = "sticky_view_label".localized
         static let photoOnly = "sticky_view_photo_only".localized

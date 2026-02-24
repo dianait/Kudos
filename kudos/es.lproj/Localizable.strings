@@ -1,3 +1,6 @@
+// Tab Bar
+"home_tab" = "Inicio";
+
 // View Titles
 "celebrate_title_short" = "¡Es hora de celebrar!";
 "celebrate_title_long" = "¡Es hora de celebrar tus logros!";
@@ -68,11 +71,11 @@
 "footer_social_links" = "Puedes encontrarme en:";
 
 // A11y Copies
-"tarrito_button_identifier" = "Tarrito Button";
-"tarrito_button_label" = "Tarrito con {count} {plural}";
-"tarrito_singular" = "logro guardado";
-"tarrito_plural" = "logros guardados";
-"tarrito_button_hint" = "Toca para ver tus logros en detalle";
+"jar_button_identifier" = "Jar Button";
+"jar_button_label" = "Tarro con {count} {plural}";
+"jar_singular" = "logro guardado";
+"jar_plural" = "logros guardados";
+"jar_button_hint" = "Toca para ver tus logros en detalle";
 
 "stickies_view_stickie" = "Main Stickie";
 "stickies_view_hint" = "Toca para crear tu primer logro";
@@ -142,6 +145,17 @@
 "validation_alert_title" = "No se puede guardar";
 "validation_alert_ok" = "OK";
 "validation_alert_default_message" = "Por favor, revisa tu texto e inténtalo de nuevo";
+
+// Wrapped Feature
+"wrapped_button" = "Mi Wrapped";
+"wrapped_intro_title" = "Tu {year} en logros";
+"wrapped_intro_subtitle" = "Guardaste {count} logros";
+"wrapped_achievement_label" = "Logro";
+"wrapped_outro_title" = "¡Qué año tan increíble!";
+"wrapped_outro_subtitle" = "Sigue celebrando cada logro";
+"wrapped_close" = "Cerrar";
+"wrapped_button_hint" = "Ve tu año en logros";
+"wrapped_button_identifier" = "Wrapped Button";
 
 // Accomplishment Detail View
 "accomplishment_detail_date_label" = "Fecha";

@@ -25,17 +25,6 @@
                ReferencedContainer = "container:kudos.xcodeproj">
             </BuildableReference>
          </TestableReference>
-         <TestableReference
-            skipped = "NO"
-            parallelizable = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "1313FB6A2D7DB2CD00C25462"
-               BuildableName = "miTarritoUITests.xctest"
-               BlueprintName = "miTarritoUITests"
-               ReferencedContainer = "container:kudos.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

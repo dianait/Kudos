@@ -4,16 +4,16 @@ import Testing
 @Suite("Accessibility Text Tests")
 struct AccessibilityTextTests {
 
-    @Test("Tarrito label with different counts", arguments: [
-        (0, "Tarrito con 0 logros guardados"),
-        (1, "Tarrito con 1 logro guardado"),
-        (2, "Tarrito con 2 logros guardados"),
-        (5, "Tarrito con 5 logros guardados"),
-        (10, "Tarrito con 10 logros guardados"),
-        (100, "Tarrito con 100 logros guardados")
+    @Test("Jar label with different counts", arguments: [
+        (0, "Tarro con 0 logros guardados"),
+        (1, "Tarro con 1 logro guardado"),
+        (2, "Tarro con 2 logros guardados"),
+        (5, "Tarro con 5 logros guardados"),
+        (10, "Tarro con 10 logros guardados"),
+        (100, "Tarro con 100 logros guardados")
     ])
-    func tarritoLabel(count: Int, expected: String) {
-        #expect(A11y.Tarrito.label(count: count) == expected)
+    func jarLabel(count: Int, expected: String) {
+        #expect(A11y.Jar.label(count: count) == expected)
     }
 
     @Test("Stickies view label", arguments: [

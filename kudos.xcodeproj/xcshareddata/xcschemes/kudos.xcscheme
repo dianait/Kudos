@@ -27,8 +27,13 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES"
-      shouldAutocreateTestPlan = "YES">
+      shouldUseLaunchSchemeArgsEnv = "YES">
+      <TestPlans>
+         <TestPlanReference
+            reference = "container:kudos.xctestplan"
+            default = "YES">
+         </TestPlanReference>
+      </TestPlans>
       <Testables>
          <TestableReference
             skipped = "NO"
@@ -49,17 +54,6 @@
                BlueprintIdentifier = "1313FB812D7DB54200C25462"
                BuildableName = "kudosUITests.xctest"
                BlueprintName = "kudosUITests"
-               ReferencedContainer = "container:kudos.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO"
-            parallelizable = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "1313FB6A2D7DB2CD00C25462"
-               BuildableName = "miTarritoUITests.xctest"
-               BlueprintName = "miTarritoUITests"
                ReferencedContainer = "container:kudos.xcodeproj">
             </BuildableReference>
          </TestableReference>

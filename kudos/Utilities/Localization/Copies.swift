@@ -8,6 +8,8 @@ extension String {
 }
 
 enum Copies {
+    static var homeTab: String { "home_tab".localized }
+
     private static let minScreenWidth = CGFloat(380)
     static func viewTitle(screenWidth: CGFloat) -> String {
         screenWidth < minScreenWidth ? "celebrate_title_short".localized : "celebrate_title_long".localized
@@ -259,6 +261,19 @@ enum Copies {
         static var defaultMessage: String {
             return "validation_alert_default_message".localized
         }
+    }
+
+    enum Wrapped {
+        static var button: String { "wrapped_button".localized }
+        static func introTitle(year: Int) -> String {
+            "wrapped_intro_title".localized.replacingOccurrences(of: "{year}", with: "\(year)")
+        }
+        static func introSubtitle(count: Int) -> String {
+            "wrapped_intro_subtitle".localized.replacingOccurrences(of: "{count}", with: "\(count)")
+        }
+        static var outroTitle: String { "wrapped_outro_title".localized }
+        static var outroSubtitle: String { "wrapped_outro_subtitle".localized }
+        static var close: String { "wrapped_close".localized }
     }
 
     enum AccomplishmentDetail {

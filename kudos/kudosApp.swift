@@ -4,6 +4,7 @@ import SwiftUI
 @main
 struct KudosApp: App {
     @State private var languageManager = LanguageManager.shared
+    @State private var appSettings = AppSettings.shared
     @State private var modelContainerError: Error?
     @State private var modelContainer: ModelContainer?
     @State private var isUsingInMemoryFallback: Bool = false
@@ -43,7 +44,9 @@ struct KudosApp: App {
                 ContentView()
                     .background(Color("MainBackground"))
                     .environment(languageManager)
+                    .environment(appSettings)
                     .modelContainer(container)
+                    .preferredColorScheme(appSettings.colorSchemePreference.colorScheme)
                     .alert(Copies.InMemoryWarning.title, isPresented: $showInMemoryWarning) {
                         Button(Copies.InMemoryWarning.okButton, role: .cancel) {
                             showInMemoryWarning = false
@@ -54,6 +57,8 @@ struct KudosApp: App {
             } else {
                 ErrorView(error: modelContainerError)
                     .environment(languageManager)
+                    .environment(appSettings)
+                    .preferredColorScheme(appSettings.colorSchemePreference.colorScheme)
             }
         }
     }

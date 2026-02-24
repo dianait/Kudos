@@ -1,6 +1,14 @@
 // Tab Bar
 "home_tab" = "Home";
 
+// Settings View
+"settings_general_section" = "General";
+"settings_appearance_section" = "Appearance";
+"settings_color_scheme_label" = "Appearance";
+"settings_color_scheme_system" = "System";
+"settings_color_scheme_light" = "Light";
+"settings_color_scheme_dark" = "Dark";
+
 // View Titles
 "celebrate_title_short" = "It's time to celebrate!";
 "celebrate_title_long" = "It's time to celebrate your achievements!";

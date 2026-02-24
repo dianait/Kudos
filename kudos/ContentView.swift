@@ -20,8 +20,7 @@ struct ContentView: View {
 
             Tab(Copies.setingsTitle, systemImage: "gear") {
                 NavigationStack {
-                    LanguageSettingsView()
-                        .navigationTitle(Copies.setingsTitle)
+                    SettingsView()
                 }
             }
 

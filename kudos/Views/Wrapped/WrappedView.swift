@@ -40,7 +40,6 @@ struct WrappedView: View {
                     .padding(.trailing, Space.medium)
             }
         }
-        .preferredColorScheme(.dark)
     }
 
     // MARK: - Slides

@@ -56,6 +56,8 @@ struct SettingsView: View {
                 .pickerStyle(.segmented)
             }
         }
+        .scrollContentBackground(.hidden)
+        .background(Color("MainBackground"))
         .navigationTitle(Copies.setingsTitle)
         .localized()
     }

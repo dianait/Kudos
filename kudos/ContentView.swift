@@ -6,6 +6,9 @@ struct ContentView: View {
     @Environment(LanguageManager.self) var languageManager
 
     var body: some View {
+        // Reading currentLanguage here registers the dependency so SwiftUI
+        // re-evaluates the entire body (and Tab labels) when the language changes.
+        let _ = languageManager.currentLanguage
         TabView {
             Tab(Copies.homeTab, systemImage: "house.fill") {
                 MainView(

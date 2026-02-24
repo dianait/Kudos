@@ -1,54 +1,44 @@
-import XCTest
+import Testing
+import Foundation
 @testable import kudos
 
-final class AccomplishmentTests: XCTestCase {
+@Suite("Accomplishment Tests")
+struct AccomplishmentTests {
 
-    func testAccomplishmentInitialization() throws {
+    @Test("Initializes with valid text and color")
+    func initializationWithTextAndColor() throws {
         let text = "Mi primer logro"
         let color = "blue"
 
         let accomplishment = try Accomplishment(text, color: color)
 
-        XCTAssertEqual(accomplishment.text, text)
-        XCTAssertEqual(accomplishment.color, color)
-        XCTAssertNotNil(accomplishment.date)
+        #expect(accomplishment.text == text)
+        #expect(accomplishment.color == color)
+        #expect(accomplishment.date <= Date())
     }
 
-    func testRandomColorInitialization() throws {
-        let text = "Test logro"
-        let accomplishment = try Accomplishment(text)
+    @Test("Assigns random color from available palette when none specified")
+    func randomColorInitialization() throws {
+        let accomplishment = try Accomplishment("Test logro")
 
-        XCTAssertEqual(accomplishment.text, text)
-        XCTAssertTrue(AccomplishmentColor.availableColorStrings.contains(accomplishment.color))
+        #expect(accomplishment.text == "Test logro")
+        #expect(AccomplishmentColor.availableColorStrings.contains(accomplishment.color))
     }
-    
-    func testAccomplishmentValidationEmptyText() {
-        XCTAssertThrowsError(try Accomplishment("")) { error in
-            XCTAssertTrue(error is ValidationError)
-            if let validationError = error as? ValidationError {
-                XCTAssertEqual(validationError, .emptyText)
-            }
+
+    @Test("Validation rejects invalid text", arguments: [
+        ("", ValidationError.emptyText),
+        (String(repeating: "a", count: Limits.maxCharacters + 1), ValidationError.textTooLong(maxLength: Limits.maxCharacters))
+    ] as [(String, ValidationError)])
+    func validationRejectsInvalidText(input: String, expectedError: ValidationError) {
+        #expect(throws: expectedError) {
+            try Accomplishment(input)
         }
     }
-    
-    func testAccomplishmentValidationTextTooLong() {
-        let longText = String(repeating: "a", count: Limits.maxCharacters + 1)
-        XCTAssertThrowsError(try Accomplishment(longText)) { error in
-            XCTAssertTrue(error is ValidationError)
-            if let validationError = error as? ValidationError {
-                if case .textTooLong = validationError {
-                    // Expected error
-                } else {
-                    XCTFail("Expected textTooLong error")
-                }
-            }
-        }
-    }
-    
-    func testAccomplishmentTrimsWhitespace() throws {
-        let textWithWhitespace = "  Mi logro  "
-        let accomplishment = try Accomplishment(textWithWhitespace)
-        
-        XCTAssertEqual(accomplishment.text, "Mi logro")
+
+    @Test("Trims leading and trailing whitespace from text")
+    func trimmingWhitespace() throws {
+        let accomplishment = try Accomplishment("  Mi logro  ")
+
+        #expect(accomplishment.text == "Mi logro")
     }
 }

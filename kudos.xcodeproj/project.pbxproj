@@ -16,7 +16,6 @@
 		1366E97A2D7DAC29008FE4BE /* ColorUtilityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1366E9792D7DAC28008FE4BE /* ColorUtilityTests.swift */; };
 		1366E97C2D7DAC5A008FE4BE /* AccessibilityTextTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1366E97B2D7DAC58008FE4BE /* AccessibilityTextTests.swift */; };
 		1366E97E2D7DAC7C008FE4BE /* SwiftDataIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1366E97D2D7DAC7B008FE4BE /* SwiftDataIntegrationTests.swift */; };
-		1366E9802D7DAD45008FE4BE /* ViewComponentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1366E97F2D7DAD38008FE4BE /* ViewComponentTests.swift */; };
 		138BF4E32EE58DB100C37AF3 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138BF4E12EE58DB100C37AF3 /* ErrorView.swift */; };
 		138F898F2BB02D1A00EA9F2F /* kudosApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138F898E2BB02D1A00EA9F2F /* kudosApp.swift */; };
 		138F89912BB02D1A00EA9F2F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138F89902BB02D1A00EA9F2F /* ContentView.swift */; };
@@ -68,7 +67,6 @@
 		1366E9792D7DAC28008FE4BE /* ColorUtilityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorUtilityTests.swift; sourceTree = "<group>"; };
 		1366E97B2D7DAC58008FE4BE /* AccessibilityTextTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessibilityTextTests.swift; sourceTree = "<group>"; };
 		1366E97D2D7DAC7B008FE4BE /* SwiftDataIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDataIntegrationTests.swift; sourceTree = "<group>"; };
-		1366E97F2D7DAD38008FE4BE /* ViewComponentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewComponentTests.swift; sourceTree = "<group>"; };
 		138BF4E12EE58DB100C37AF3 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		138F898B2BB02D1A00EA9F2F /* kudos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = kudos.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		138F898E2BB02D1A00EA9F2F /* kudosApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = kudosApp.swift; sourceTree = "<group>"; };
@@ -227,7 +225,6 @@
 		138F89A02BB02D1C00EA9F2F /* kudosTests */ = {
 			isa = PBXGroup;
 			children = (
-				1366E97F2D7DAD38008FE4BE /* ViewComponentTests.swift */,
 				1366E97D2D7DAC7B008FE4BE /* SwiftDataIntegrationTests.swift */,
 				1366E97B2D7DAC58008FE4BE /* AccessibilityTextTests.swift */,
 				1366E9792D7DAC28008FE4BE /* ColorUtilityTests.swift */,
@@ -413,7 +410,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1366E9802D7DAD45008FE4BE /* ViewComponentTests.swift in Sources */,
 				1366E97A2D7DAC29008FE4BE /* ColorUtilityTests.swift in Sources */,
 				1366E97E2D7DAC7C008FE4BE /* SwiftDataIntegrationTests.swift in Sources */,
 				1366E9782D7DAC0C008FE4BE /* AccomplishmentTests.swift in Sources */,

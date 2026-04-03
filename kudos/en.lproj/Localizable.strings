@@ -165,6 +165,19 @@
 "wrapped_button_hint" = "See your year in achievements";
 "wrapped_button_identifier" = "Wrapped Button";
 
+// Tip Jar
+"tipjar_section_title" = "Support Kudos";
+"tipjar_support_button" = "Support the app";
+"tipjar_supporter_badge" = "❤️ Supporter";
+"tipjar_supporter_thanks" = "Thank you for your support!";
+"tipjar_sheet_title" = "Support Kudos";
+"tipjar_sheet_description" = "If Kudos helps you celebrate your achievements, you can buy me a coffee. One-time, no subscriptions.";
+"tipjar_buy_button" = "Buy me a coffee";
+"tipjar_restore_button" = "Restore purchase";
+"tipjar_thank_you_title" = "Thank you so much! ❤️";
+"tipjar_thank_you_description" = "Your support means a lot and helps keep Kudos growing.";
+"tipjar_error_title" = "Something went wrong";
+
 // Accomplishment Detail View
 "accomplishment_detail_date_label" = "Date";
 "accomplishment_detail_delete_button" = "Delete achievement";

@@ -4,6 +4,8 @@ struct StickyView: View {
     var item: Accomplishment
     var delete: (() -> Void)? = nil
 
+    @State private var cachedImage: UIImage?
+
     var isEditMode: Bool {
         delete != nil
     }
@@ -23,50 +25,55 @@ struct StickyView: View {
     }
 
     var body: some View {
-        if item.hasPhoto, let photoData = item.photoData, let uiImage = UIImage(data: photoData) {
-            // Photo mode: date outside image like text stickies
-            ZStack {
-                photoBackgroundView(image: uiImage)
+        Group {
+            if item.hasPhoto, let uiImage = cachedImage {
+                // Photo mode: date outside image like text stickies
+                ZStack {
+                    photoBackgroundView(image: uiImage)
 
-                // Delete button at top-right of image
-                if isEditMode {
-                    VStack {
-                        HStack {
+                    // Delete button at top-right of image
+                    if isEditMode {
+                        VStack {
+                            HStack {
+                                Spacer()
+                                DeleteButtonView(action: { delete?() })
+                            }
                             Spacer()
-                            DeleteButtonView(action: { delete?() })
                         }
-                        Spacer()
+                        .padding(Space.small)
+                        .offset(x: .zero, y: -30)
                     }
-                    .padding(Space.small)
-                    .offset(x: .zero, y: -30)
-                }
 
-                // Caption at bottom if has text
-                if item.hasText {
-                    textOverlayView
-                }
+                    // Caption at bottom if has text
+                    if item.hasText {
+                        textOverlayView
+                    }
 
-                // Date label positioned outside, top-left (like text stickies)
-                if isEditMode {
-                    DateLabelView(date: item.date)
-                        .accessibilityLabel(A11y.StickyView.dateLabel(date: item.date))
-                        .offset(x: -175, y: -145)
+                    // Date label positioned outside, top-left (like text stickies)
+                    if isEditMode {
+                        DateLabelView(date: item.date)
+                            .accessibilityLabel(A11y.StickyView.dateLabel(date: item.date))
+                            .offset(x: -175, y: -145)
+                    }
                 }
-            }
-            .frame(width: photoStickySize, height: photoStickySize)
-            .accessibilityElement(children: .combine)
-            .accessibilityLabel(accessibilityLabelText)
-        } else {
-            // Text mode: original layout
-            VStack {
-                ZStack(alignment: .topTrailing) {
-                    BackgroundImageView(color: item.color)
-                    textModeOverlay
+                .frame(width: photoStickySize, height: photoStickySize)
+                .accessibilityElement(children: .combine)
+                .accessibilityLabel(accessibilityLabelText)
+            } else {
+                // Text mode: original layout
+                VStack {
+                    ZStack(alignment: .topTrailing) {
+                        BackgroundImageView(color: item.color)
+                        textModeOverlay
+                    }
                 }
+                .frame(width: Dimensions.stickyWidth, height: Dimensions.stickyHeight)
+                .accessibilityElement(children: .combine)
+                .accessibilityLabel(accessibilityLabelText)
             }
-            .frame(width: Dimensions.stickyWidth, height: Dimensions.stickyHeight)
-            .accessibilityElement(children: .combine)
-            .accessibilityLabel(accessibilityLabelText)
+        }
+        .task(id: item.photoData) {
+            cachedImage = item.photoData.flatMap { UIImage(data: $0) }
         }
     }
 

@@ -70,6 +70,29 @@ All magic numbers are extracted to `Utilities/Constants/`:
 - `Timing` - Animation durations
 - `Limits` - Character limits (maxCharacters = 140)
 
+## Documentation
+
+Detailed conventions with examples live in `docs/`. **Do NOT read all docs upfront.**
+When working on a task, use this map to find and read only the docs relevant to your task:
+
+```
+docs/
+├── documentation-guidelines.md
+├── views/
+│   ├── mvvm-viewmodel-threshold.md
+│   ├── cache-uiimage-in-state.md
+│   └── swiftdata-decorative-objects-in-state.md
+├── localization/
+│   └── copies-a11y-localized-enums.md
+├── utilities/
+│   ├── constants-as-typed-enums.md
+│   └── observable-persistence-in-didset.md
+└── testing/
+    └── (testing-exceptions.md — created when needed)
+```
+
+To create or improve a doc from a conversation, use the `/create-doc` skill.
+
 ## Workflow Preferences
 
 - **Before editing**: Read relevant files to understand context

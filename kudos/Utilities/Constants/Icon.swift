@@ -19,4 +19,5 @@ enum Icon: String {
     case camera = "camera.fill"
     case photo = "photo.fill"
     case xmark = "xmark.circle.fill"
+    case heart = "heart.fill"
 }

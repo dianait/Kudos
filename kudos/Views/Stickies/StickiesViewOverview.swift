@@ -18,6 +18,8 @@ struct StickiesViewOverview: View {
     @Binding var dragOffset: CGSize
     @Binding var selectedPhotoData: Data?
 
+    @State private var cachedPreviewImage: UIImage?
+
     var onShowCamera: () -> Void
     var textAction: (String) -> Void
     var photoAction: (Data, String?) -> Void
@@ -34,7 +36,7 @@ struct StickiesViewOverview: View {
                 VStack {
                     ZStack {
                         // Show photo preview if selected, otherwise show sticky background
-                        if let photoData = selectedPhotoData, let uiImage = UIImage(data: photoData) {
+                        if let uiImage = cachedPreviewImage {
                             photoPreviewView(image: uiImage)
                         } else {
                             StickiesView(mode: $mode)
@@ -110,6 +112,12 @@ struct StickiesViewOverview: View {
                     responseIsFocussed = true
                 }
             }
+        }
+        .onAppear {
+            cachedPreviewImage = selectedPhotoData.flatMap { UIImage(data: $0) }
+        }
+        .onChange(of: selectedPhotoData) { _, newData in
+            cachedPreviewImage = newData.flatMap { UIImage(data: $0) }
         }
         .alert(Copies.ValidationAlert.title, isPresented: $showValidationError) {
             Button(Copies.ValidationAlert.okButton, role: .cancel) {

@@ -76,16 +76,17 @@ struct CarouselView: View {
         ZStack {
             // Show delete button and date in carousel
             StickyView(item: item, delete: { removeItem(item: item) })
-            
-            // Tap gesture for navigation - only active when not dragging
-            Color.clear
-                .contentShape(Rectangle())
-                .onTapGesture {
-                    // Only navigate if we're not dragging and enough time has passed
-                    if !isDragging && canTap {
-                        selectedItem = item
-                    }
+
+            // Tap for navigation - only active when not dragging
+            Button {
+                if !isDragging && canTap {
+                    selectedItem = item
                 }
+            } label: {
+                Color.clear
+                    .contentShape(Rectangle())
+            }
+            .buttonStyle(.plain)
         }
         .rotation3DEffect(
             .degrees(Double(cardRotation(index))),

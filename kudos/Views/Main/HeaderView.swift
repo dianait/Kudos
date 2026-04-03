@@ -38,7 +38,7 @@ struct HeaderView: View {
             RoundedRectangle(cornerRadius: Space.small)
                 .fill(Color.appPrimaryYellow.opacity(0.2))
                 .overlay(
-                    RoundedRectangle(cornerRadius: CGFloat(Size.small.rawValue))
+                    RoundedRectangle(cornerRadius: Space.small)
                         .stroke(Color.orange.opacity(0.5), lineWidth: 2)
                 )
         )

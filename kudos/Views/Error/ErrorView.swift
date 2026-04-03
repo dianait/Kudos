@@ -48,8 +48,14 @@ struct ErrorView: View {
 
 #if targetEnvironment(simulator)
 #Preview {
-    ErrorView(error: NSError(domain: "Test", code: 1, userInfo: [NSLocalizedDescriptionKey: "Test error message"]))
-        .environment(LanguageManager.shared)
+    ErrorView(
+        error: NSError(
+            domain: "Test",
+            code: 1,
+            userInfo: [NSLocalizedDescriptionKey: "Test error message"]
+        )
+    )
+    .environment(LanguageManager.shared)
 }
 #endif
 

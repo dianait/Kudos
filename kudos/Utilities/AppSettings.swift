@@ -34,7 +34,9 @@ enum AppColorScheme: String, CaseIterable {
 @Observable
 @MainActor
 final class AppSettings {
-    var colorSchemePreference: AppColorScheme
+    var colorSchemePreference: AppColorScheme {
+        didSet { UserDefaults.standard.set(colorSchemePreference.rawValue, forKey: Self.colorSchemeKey) }
+    }
 
     static let shared = AppSettings()
     private static let colorSchemeKey = "selectedColorScheme"
@@ -46,10 +48,5 @@ final class AppSettings {
         } else {
             self.colorSchemePreference = .system
         }
-    }
-
-    func setColorScheme(_ scheme: AppColorScheme) {
-        colorSchemePreference = scheme
-        UserDefaults.standard.set(scheme.rawValue, forKey: Self.colorSchemeKey)
     }
 }

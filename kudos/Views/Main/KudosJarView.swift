@@ -38,7 +38,7 @@ struct KudosJarView: View {
             }
             .offset(x: CGFloat(Size.large.rawValue), y: .zero)
         }
-        .buttonStyle(PlainButtonStyle())
+        .buttonStyle(.plain)
         .accessibilityElement()
         .accessibilityLabel(A11y.Jar.label(count: items.count))
         .accessibilityHint(A11y.Jar.hint)

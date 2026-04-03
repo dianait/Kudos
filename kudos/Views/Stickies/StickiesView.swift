@@ -15,13 +15,10 @@ struct StickiesView: View {
         lastItem?.text ?? ""
     }
 
-    /// Default placeholder item when no accomplishments exist
-    private var placeholderItem: Accomplishment {
-        Accomplishment(
-            validatedText: " ",
-            validatedColor: Copies.Colors.yellow.rawValue
-        )
-    }
+    @State private var placeholderItem = Accomplishment(validatedText: " ", validatedColor: Copies.Colors.yellow.rawValue)
+    @State private var backgroundItem1 = Accomplishment(validatedText: Copies.StickisView.accomplishmentExample3, validatedColor: Copies.Colors.green.rawValue)
+    @State private var backgroundItem2 = Accomplishment(validatedText: Copies.StickisView.accomplishmentExample2, validatedColor: Copies.Colors.blue.rawValue)
+    @State private var backgroundItem3 = Accomplishment(validatedText: Copies.StickisView.accomplishmentExample1, validatedColor: Copies.Colors.orange.rawValue)
 
     var body: some View {
         HStack {
@@ -29,23 +26,12 @@ struct StickiesView: View {
                 backgroundStickies()
 
                 // Show the actual last item (with photo if it has one) or placeholder
-                if let item = lastItem {
-                    Button {
-                        openEdit()
-                    } label: {
-                        StickyView(item: item)
-                            .offset(x: .zero, y: .zero)
-                    }
-                    .buttonStyle(.plain)
-                } else {
-                    Button {
-                        openEdit()
-                    } label: {
-                        StickyView(item: placeholderItem)
-                            .offset(x: .zero, y: .zero)
-                    }
-                    .buttonStyle(.plain)
+                Button {
+                    openEdit()
+                } label: {
+                    StickyView(item: lastItem ?? placeholderItem)
                 }
+                .buttonStyle(.plain)
             }
             .accessibilityElement(children: .combine)
             .accessibilityLabel(A11y.StickiesView.label(lastMessage: lastMessage))
@@ -61,7 +47,7 @@ struct StickiesView: View {
     @ViewBuilder
     private func backgroundStickies() -> some View {
         Group {
-            StickyView(item: Accomplishment(validatedText: Copies.StickisView.accomplishmentExample3, validatedColor: Copies.Colors.green.rawValue))
+            StickyView(item: backgroundItem1)
                 .offset(
                     x: -CGFloat(Size.extraExtraExtraLarge.rawValue),
                     y: -CGFloat(Size.extraExtraLarge.rawValue)
@@ -69,31 +55,21 @@ struct StickiesView: View {
                 .rotationEffect(Angle(degrees: -CGFloat(Size.mediumLarge.rawValue)))
                 .accessibilityHidden(true)
 
-            StickyView(
-                item: Accomplishment(
-                    validatedText: Copies.StickisView.accomplishmentExample2,
-                    validatedColor: Copies.Colors.blue.rawValue
+            StickyView(item: backgroundItem2)
+                .offset(
+                    x: CGFloat(Size.extraExtraExtraLarge.rawValue),
+                    y: -CGFloat(Size.extraLarge.rawValue)
                 )
-            )
-            .offset(
-                x: CGFloat(Size.extraExtraExtraLarge.rawValue),
-                y: -CGFloat(Size.extraLarge.rawValue)
-            )
-            .rotationEffect(Angle(degrees: CGFloat(Size.mediumLarge.rawValue)))
-            .accessibilityHidden(true)
+                .rotationEffect(Angle(degrees: CGFloat(Size.mediumLarge.rawValue)))
+                .accessibilityHidden(true)
 
-            StickyView(
-                item: Accomplishment(
-                    validatedText: Copies.StickisView.accomplishmentExample1,
-                    validatedColor: Copies.Colors.orange.rawValue
+            StickyView(item: backgroundItem3)
+                .offset(
+                    x: CGFloat(Size.extraSmall.rawValue),
+                    y: CGFloat(Size.extraLarge.rawValue)
                 )
-            )
-            .offset(
-                x: CGFloat(Size.extraSmall.rawValue),
-                y: CGFloat(Size.extraLarge.rawValue)
-            )
-            .rotationEffect(Angle(degrees: CGFloat(Size.extraSmall.rawValue)))
-            .accessibilityHidden(true)
+                .rotationEffect(Angle(degrees: CGFloat(Size.extraSmall.rawValue)))
+                .accessibilityHidden(true)
         }
     }
 

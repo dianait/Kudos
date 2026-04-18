@@ -165,14 +165,6 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		1338C6E42BB0A8D30061FBEB /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				138F89922BB02D1A00EA9F2F /* Accomplishment.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		1338C6EA2BB0ACAB0061FBEB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -214,11 +206,11 @@
 		138F898D2BB02D1A00EA9F2F /* kudos */ = {
 			isa = PBXGroup;
 			children = (
+				509F51EF2F93CACB0075353A /* Data */,
 				5013DD882F938A43007B9241 /* Domain */,
 				13A3F8112D8805A0002ED82B /* Utilities */,
 				13A3F8042D8803CA002ED82B /* en.lproj */,
 				13A3F8032D8803C1002ED82B /* es.lproj */,
-				1338C6E42BB0A8D30061FBEB /* Model */,
 				1338C6E32BB0A8C10061FBEB /* Views */,
 				138F89902BB02D1A00EA9F2F /* ContentView.swift */,
 				138F898E2BB02D1A00EA9F2F /* kudosApp.swift */,
@@ -267,6 +259,14 @@
 				509B7B7C2F4F038400BBD13C /* TipJarStore.swift */,
 			);
 			path = Store;
+			sourceTree = "<group>";
+		};
+		509F51EF2F93CACB0075353A /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				138F89922BB02D1A00EA9F2F /* Accomplishment.swift */,
+			);
+			path = Data;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

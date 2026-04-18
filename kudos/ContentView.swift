@@ -5,16 +5,13 @@ struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(LanguageManager.self) var languageManager
     @State private var viewModel: MainViewModel?
-   
+
     var body: some View {
         Group {
             if let viewModel {
                 TabView {
                     Tab(Copies.homeTab, systemImage: "house.fill") {
-                        MainView(
-                            viewModel: viewModel,
-                            photoAction: addPhotoItem
-                        )
+                        MainView(viewModel: viewModel)
                     }
 
                     Tab(Copies.Wrapped.button, systemImage: "sparkles") {
@@ -45,19 +42,6 @@ struct ContentView: View {
             viewModel = vm
         }
     }
-
-    private func addPhotoItem(photoData: Data, caption: String?) {
-        do {
-            let newItem = try Accomplishment(
-                photoData: photoData,
-                text: caption,
-                color: AccomplishmentColor.randomColorString()
-            )
-            modelContext.insert(newItem)
-        } catch {
-            print("Error creating photo Accomplishment: \(error.localizedDescription)")
-        }
-    }
 }
 
 #Preview {
@@ -70,11 +54,13 @@ enum MainViewModelFactory {
     static func make(modelContext: ModelContext) -> MainViewModel {
         let repository = SwiftDataAccomplishmentRepository(modelContext: modelContext)
         let addAccomplishmentUseCase = AddAccomplishmentUseCase(repository: repository)
+        let addPhotoAccomplishmentUseCase = AddPhotoAccomplishmentUseCase(repository: repository)
         let getAccomplishmentsUseCase = GetAccomplishmentsUseCase(repository: repository)
         let deleteAccomplishmentUseCase = DeleteAccomplishmentUseCase(repository: repository)
 
         return MainViewModel(
             addAccomplishmentUseCase: addAccomplishmentUseCase,
+            addPhotoAccomplishmentUseCase: addPhotoAccomplishmentUseCase,
             getAccomplishmentsUseCase: getAccomplishmentsUseCase,
             deleteAccomplishmentUseCase: deleteAccomplishmentUseCase
         )

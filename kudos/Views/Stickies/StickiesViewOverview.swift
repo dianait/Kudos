@@ -6,8 +6,6 @@ struct StickiesViewOverview: View {
     @FocusState private var responseIsFocussed: Bool
     @State private var characterCount: Int = 0
     private let maxCharacters: Int = Limits.maxCharacters
-    var photoAction: (Data, String?) -> Void
-    
     private var lastItem: Accomplishment? {
         viewModel.accomplishments.first
     }

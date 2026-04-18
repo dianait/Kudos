@@ -12,6 +12,15 @@ final class SwiftDataAccomplishmentRepository: AccomplishmentRepositoryProtocol 
         let model = try Accomplishment(from: accomplishment)
         modelContext.insert(model)
     }
+
+    func savePhoto(_ accomplishment: NewPhotoAccomplishment) throws {
+        let model = try Accomplishment(
+            photoData: accomplishment.photoData,
+            text: accomplishment.caption,
+            color: accomplishment.color
+        )
+        modelContext.insert(model)
+    }
     
     func fetchAllSortedByDateDescending() throws -> [Accomplishment] {
             try modelContext.fetch(

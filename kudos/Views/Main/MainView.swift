@@ -6,15 +6,8 @@ public struct MainView: View {
     @Environment(LanguageManager.self) var languageManager
     @State private var selectedImage: UIImage?
 
-    var photoAction: (Data, String?) -> Void
-    
-    public init(
-        viewModel: MainViewModel,
-        photoAction: @escaping (Data, String?) -> Void
-    ) {
+    public init(viewModel: MainViewModel) {
         self.viewModel = viewModel
-        self.photoAction = photoAction
-
     }
 
     public var body: some View {
@@ -26,10 +19,7 @@ public struct MainView: View {
                 HeaderView(mode: $viewModel.mode, text: $viewModel.text)
                     .padding(.top, Space.mediumLarge)
 
-                StickiesViewOverview(
-                    viewModel: viewModel,
-                    photoAction: photoAction,
-                )
+                StickiesViewOverview(viewModel: viewModel)
                 Spacer()
             }
             .savedConfirmation(isPresented: $viewModel.showSavedMessage, onDismiss: {

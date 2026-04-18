@@ -19,15 +19,18 @@ public final class MainViewModel {
     var accomplishmentsCount: Int { accomplishments.count }
 
     private let addAccomplishmentUseCase: AddAccomplishmentUseCaseProtocol
+    private let addPhotoAccomplishmentUseCase: AddPhotoAccomplishmentUseCaseProtocol
     private let getAccomplishmentsUseCase: GetAccomplishmentsUseCaseProtocol
     private let deleteAccomplishmentUseCase: DeleteAccomplishmentUseCaseProtocol
-    
+
     init(
         addAccomplishmentUseCase: AddAccomplishmentUseCaseProtocol,
+        addPhotoAccomplishmentUseCase: AddPhotoAccomplishmentUseCaseProtocol,
         getAccomplishmentsUseCase: GetAccomplishmentsUseCaseProtocol,
         deleteAccomplishmentUseCase: DeleteAccomplishmentUseCaseProtocol
     ) {
         self.addAccomplishmentUseCase = addAccomplishmentUseCase
+        self.addPhotoAccomplishmentUseCase = addPhotoAccomplishmentUseCase
         self.getAccomplishmentsUseCase = getAccomplishmentsUseCase
         self.deleteAccomplishmentUseCase = deleteAccomplishmentUseCase
     }
@@ -41,20 +44,24 @@ public final class MainViewModel {
       }
 
     func save() {
-        guard selectedPhotoData == nil else { return }
         do {
-            try addAccomplishmentUseCase.execute(text: text)
+            if let photoData = selectedPhotoData {
+                let caption = text.trimmingCharacters(in: .whitespacesAndNewlines)
+                try addPhotoAccomplishmentUseCase.execute(
+                    photoData: photoData,
+                    caption: caption.isEmpty ? nil : caption
+                )
+            } else {
+                try addAccomplishmentUseCase.execute(text: text)
+            }
             errorMessage = nil
             showSavedMessage = true
-        
             loadAccomplishments()
-            
             text = ""
             selectedPhotoData = nil
             mode = .view
             dragOffset = .zero
             showSaveIndicator = false
-
         } catch {
             errorMessage = error.localizedDescription
         }

@@ -30,6 +30,7 @@
 		509B7B7D2F4F038400BBD13C /* TipJarStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509B7B7C2F4F038400BBD13C /* TipJarStore.swift */; };
 		509F51B82F93C9860075353A /* ValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509F51A32F93C9860075353A /* ValidationError.swift */; };
 		509F51F42F93CF6A0075353A /* GetAccomplishmentsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509F51F32F93CF640075353A /* GetAccomplishmentsUseCase.swift */; };
+		509F51F62F93DCDE0075353A /* DeleteAccomplishmentUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509F51F52F93DCDD0075353A /* DeleteAccomplishmentUseCase.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,6 +91,7 @@
 		509B7B7C2F4F038400BBD13C /* TipJarStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipJarStore.swift; sourceTree = "<group>"; };
 		509F51A32F93C9860075353A /* ValidationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationError.swift; sourceTree = "<group>"; };
 		509F51F32F93CF640075353A /* GetAccomplishmentsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAccomplishmentsUseCase.swift; sourceTree = "<group>"; };
+		509F51F52F93DCDD0075353A /* DeleteAccomplishmentUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccomplishmentUseCase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -274,6 +276,7 @@
 		509F51F02F93CCCE0075353A /* useCases */ = {
 			isa = PBXGroup;
 			children = (
+				509F51F52F93DCDD0075353A /* DeleteAccomplishmentUseCase.swift */,
 				509F51F32F93CF640075353A /* GetAccomplishmentsUseCase.swift */,
 				5013DD8A2F938A4E007B9241 /* AddAcomplishmentUseCase.swift */,
 			);
@@ -445,6 +448,7 @@
 				1338C6DD2BB0A2BF0061FBEB /* View+ConfettiCannon.swift in Sources */,
 				138F89912BB02D1A00EA9F2F /* ContentView.swift in Sources */,
 				5013DD912F938D09007B9241 /* AccomplishmentValidatorNew.swift in Sources */,
+				509F51F62F93DCDE0075353A /* DeleteAccomplishmentUseCase.swift in Sources */,
 				509F51F42F93CF6A0075353A /* GetAccomplishmentsUseCase.swift in Sources */,
 				509F51B82F93C9860075353A /* ValidationError.swift in Sources */,
 				138BF4E32EE58DB100C37AF3 /* ErrorView.swift in Sources */,

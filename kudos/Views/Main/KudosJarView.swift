@@ -2,6 +2,7 @@ import SwiftUI
 
 struct KudosJarView: View {
     let accomplishments: [Accomplishment]
+    let onDelete: (Accomplishment) -> Void
     @Environment(\.accessibilityReduceTransparency) var reduceTransparency
 
     private var count: Int {
@@ -10,7 +11,7 @@ struct KudosJarView: View {
 
     var body: some View {
         NavigationLink(
-            destination: CarouselView(accomplishments: accomplishments)
+            destination: CarouselView(accomplishments: accomplishments, onDelete: onDelete)
         ) {
             HStack {
                 Spacer()

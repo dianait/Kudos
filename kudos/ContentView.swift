@@ -67,10 +67,12 @@ enum MainViewModelFactory {
         let repository = SwiftDataAccomplishmentRepository(modelContext: modelContext)
         let addAccomplishmentUseCase = AddAccomplishmentUseCase(repository: repository)
         let getAccomplishmentsUseCase = GetAccomplishmentsUseCase(repository: repository)
+        let deleteAccomplishmentUseCase = DeleteAccomplishmentUseCase(repository: repository)
 
         return MainViewModel(
             addAccomplishmentUseCase: addAccomplishmentUseCase,
-            getAccomplishmentsUseCase: getAccomplishmentsUseCase
+            getAccomplishmentsUseCase: getAccomplishmentsUseCase,
+            deleteAccomplishmentUseCase: deleteAccomplishmentUseCase
         )
     }
 }

@@ -20,7 +20,9 @@ public struct MainView: View {
     public var body: some View {
         NavigationStack {
             VStack(spacing: Space.extraLarge + Space.medium) {
-                KudosJarView(accomplishments: viewModel.accomplishments)
+                KudosJarView(accomplishments: viewModel.accomplishments) { item in
+                    viewModel.delete(item)
+                }
                 HeaderView(mode: $viewModel.mode, text: $viewModel.text)
                     .padding(.top, Space.mediumLarge)
 

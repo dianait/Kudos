@@ -20,13 +20,16 @@ public final class MainViewModel {
 
     private let addAccomplishmentUseCase: AddAccomplishmentUseCaseProtocol
     private let getAccomplishmentsUseCase: GetAccomplishmentsUseCaseProtocol
+    private let deleteAccomplishmentUseCase: DeleteAccomplishmentUseCaseProtocol
     
     init(
         addAccomplishmentUseCase: AddAccomplishmentUseCaseProtocol,
-        getAccomplishmentsUseCase: GetAccomplishmentsUseCaseProtocol
+        getAccomplishmentsUseCase: GetAccomplishmentsUseCaseProtocol,
+        deleteAccomplishmentUseCase: DeleteAccomplishmentUseCaseProtocol
     ) {
         self.addAccomplishmentUseCase = addAccomplishmentUseCase
         self.getAccomplishmentsUseCase = getAccomplishmentsUseCase
+        self.deleteAccomplishmentUseCase = deleteAccomplishmentUseCase
     }
     
     func loadAccomplishments() {
@@ -44,8 +47,7 @@ public final class MainViewModel {
             try addAccomplishmentUseCase.execute(text: text)
             errorMessage = nil
             showSavedMessage = true
-            accomplishmentsCount += 1
-            
+        
             loadAccomplishments()
             
             text = ""
@@ -56,6 +58,17 @@ public final class MainViewModel {
 
         } catch {
             errorMessage = error.localizedDescription
+        }
+    }
+    
+    func delete(_ accomplishment: Accomplishment) {
+        do {
+            print("Deleting:", accomplishment)
+            try deleteAccomplishmentUseCase.execute(accomplishment)
+            loadAccomplishments()
+        } catch {
+            errorMessage = error.localizedDescription
+            print("Delete error:", error)
         }
     }
 

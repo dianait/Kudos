@@ -43,9 +43,15 @@ final class Accomplishment {
     }
     
     init(from new: NewAccomplishment) throws {
-          self.date = Date()
-          self.text = try AccomplishmentValidator.validateText(new.text)
-          self.color = new.color
-          self.photoData = nil
-      }  
+        self.date = Date()
+        self.color = new.color
+        if let photoData = new.photoData {
+            guard !photoData.isEmpty else { throw ValidationError.emptyPhoto }
+            self.photoData = photoData
+            self.text = (try? AccomplishmentValidator.validateText(new.text ?? "")) ?? ""
+        } else {
+            self.photoData = nil
+            self.text = try AccomplishmentValidator.validateText(new.text ?? "")
+        }
+    }
 }

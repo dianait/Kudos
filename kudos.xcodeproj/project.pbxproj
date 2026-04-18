@@ -32,7 +32,6 @@
 		509F51B82F93C9860075353A /* ValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509F51A32F93C9860075353A /* ValidationError.swift */; };
 		509F51F42F93CF6A0075353A /* GetAccomplishmentsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509F51F32F93CF640075353A /* GetAccomplishmentsUseCase.swift */; };
 		509F51F62F93DCDE0075353A /* DeleteAccomplishmentUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509F51F52F93DCDD0075353A /* DeleteAccomplishmentUseCase.swift */; };
-		578169E234FB416A8FCE9B60 /* NewPhotoAccomplishment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87898D09157B4C45AE6E5518 /* NewPhotoAccomplishment.swift */; };
 		5ED910E15E2F435AB0DE73B0 /* AddPhotoAccomplishmentUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807DE005AA7E45CFA2294C28 /* AddPhotoAccomplishmentUseCase.swift */; };
 /* End PBXBuildFile section */
 
@@ -90,7 +89,6 @@
 		5013DD8C2F938A92007B9241 /* AccomplishmentRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccomplishmentRepository.swift; sourceTree = "<group>"; };
 		5013DD8E2F938BAA007B9241 /* NewAccomplishment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAccomplishment.swift; sourceTree = "<group>"; };
 		5013DD902F938D09007B9241 /* AccomplishmentValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccomplishmentValidator.swift; sourceTree = "<group>"; };
-		87898D09157B4C45AE6E5518 /* NewPhotoAccomplishment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPhotoAccomplishment.swift; sourceTree = "<group>"; };
 		807DE005AA7E45CFA2294C28 /* AddPhotoAccomplishmentUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoAccomplishmentUseCase.swift; sourceTree = "<group>"; };
 		502ED54B2F943B200076B94F /* AccomplishmentRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccomplishmentRepositoryProtocol.swift; sourceTree = "<group>"; };
 		509B77D72F4DC57D00BBD13C /* kudos.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = kudos.xctestplan; sourceTree = "<group>"; };
@@ -259,7 +257,6 @@
 				502ED54B2F943B200076B94F /* AccomplishmentRepositoryProtocol.swift */,
 				509F51F02F93CCCE0075353A /* useCases */,
 				5013DD8E2F938BAA007B9241 /* NewAccomplishment.swift */,
-				87898D09157B4C45AE6E5518 /* NewPhotoAccomplishment.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -458,7 +455,6 @@
 				138F89912BB02D1A00EA9F2F /* ContentView.swift in Sources */,
 				5013DD912F938D09007B9241 /* AccomplishmentValidator.swift in Sources */,
 				509F51F62F93DCDE0075353A /* DeleteAccomplishmentUseCase.swift in Sources */,
-				578169E234FB416A8FCE9B60 /* NewPhotoAccomplishment.swift in Sources */,
 				5ED910E15E2F435AB0DE73B0 /* AddPhotoAccomplishmentUseCase.swift in Sources */,
 				509F51F42F93CF6A0075353A /* GetAccomplishmentsUseCase.swift in Sources */,
 				509F51B82F93C9860075353A /* ValidationError.swift in Sources */,

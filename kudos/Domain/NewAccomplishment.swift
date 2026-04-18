@@ -1,4 +1,5 @@
 struct NewAccomplishment {
-    let text: String
-    let color: String  
+    let text: String?
+    let photoData: Data?
+    let color: String
 }

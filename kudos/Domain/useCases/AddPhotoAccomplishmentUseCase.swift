@@ -1,3 +1,5 @@
+import SwiftUI
+
 protocol AddPhotoAccomplishmentUseCaseProtocol {
     func execute(photoData: Data, caption: String?) throws
 }
@@ -10,11 +12,11 @@ final class AddPhotoAccomplishmentUseCase: AddPhotoAccomplishmentUseCaseProtocol
     }
 
     func execute(photoData: Data, caption: String?) throws {
-        let new = NewPhotoAccomplishment(
+        let new = NewAccomplishment(
+            text: caption,
             photoData: photoData,
-            caption: caption,
             color: AccomplishmentColor.randomColorString()
         )
-        try repository.savePhoto(new)
+        try repository.save(new)
     }
 }

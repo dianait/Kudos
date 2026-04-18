@@ -12,6 +12,7 @@ final class AddAccomplishmentUseCase: AddAccomplishmentUseCaseProtocol {
         let validatedText = try AccomplishmentValidator.validateText(text)
         let accomplishment = NewAccomplishment(
             text: validatedText,
+            photoData: nil,
             color: AccomplishmentColor.randomColorString()
         )
         try repository.save(accomplishment)

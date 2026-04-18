@@ -10,7 +10,10 @@ final class AddAccomplishmentUseCase: AddAccomplishmentUseCaseProtocol {
     
     func execute(text: String) throws {
         let validatedText = try AccomplishmentValidator.validateText(text)
-        let accomplishment = NewAccomplishment(text: validatedText)
+        let accomplishment = NewAccomplishment(
+            text: validatedText,
+            color: AccomplishmentColor.randomColorString()
+        )
         try repository.save(accomplishment)
     }
 }

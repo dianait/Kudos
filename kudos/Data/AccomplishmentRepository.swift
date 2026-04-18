@@ -1,13 +1,6 @@
 import SwiftData
 import Foundation
 
-
-protocol AccomplishmentRepositoryProtocol {
-    func save(_ accomplishment: NewAccomplishment) throws
-    func fetchAllSortedByDateDescending() throws -> [Accomplishment]
-    func delete(_ accomplishment: Accomplishment) throws
-}
-
 final class SwiftDataAccomplishmentRepository: AccomplishmentRepositoryProtocol {
     private let modelContext: ModelContext
     
@@ -16,7 +9,7 @@ final class SwiftDataAccomplishmentRepository: AccomplishmentRepositoryProtocol 
     }
 
     func save(_ accomplishment: NewAccomplishment) throws {
-        let model = try Accomplishment(accomplishment.text)
+        let model = try Accomplishment(from: accomplishment)
         modelContext.insert(model)
     }
     

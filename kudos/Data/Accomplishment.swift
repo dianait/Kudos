@@ -17,14 +17,14 @@ final class Accomplishment {
         !text.isEmpty
     }
 
-    init(_ text: String, color: String = AccomplishmentColor.randomColorString()) throws {
+    init(_ text: String, color: String) throws {
         self.date = Date()
         self.text = try AccomplishmentValidator.validateText(text)
         self.color = color
         self.photoData = nil
     }
 
-    init(photoData: Data, text: String? = nil, color: String = AccomplishmentColor.randomColorString()) throws {
+    init(photoData: Data, text: String? = nil, color: String) throws {
         guard !photoData.isEmpty else {
             throw ValidationError.emptyPhoto
         }
@@ -41,4 +41,11 @@ final class Accomplishment {
         self.color = validatedColor
         self.photoData = photoData
     }
+    
+    init(from new: NewAccomplishment) throws {
+          self.date = Date()
+          self.text = try AccomplishmentValidator.validateText(new.text)
+          self.color = new.color
+          self.photoData = nil
+      }  
 }

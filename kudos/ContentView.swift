@@ -48,7 +48,11 @@ struct ContentView: View {
 
     private func addPhotoItem(photoData: Data, caption: String?) {
         do {
-            let newItem = try Accomplishment(photoData: photoData, text: caption)
+            let newItem = try Accomplishment(
+                photoData: photoData,
+                text: caption,
+                color: AccomplishmentColor.randomColorString()
+            )
             modelContext.insert(newItem)
         } catch {
             print("Error creating photo Accomplishment: \(error.localizedDescription)")

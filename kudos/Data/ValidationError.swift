@@ -1,6 +1,6 @@
 import Foundation
 
-enum ValidationError: LocalizedError, Equatable, Sendable {
+enum ValidationError: LocalizedError {
     case emptyText
     case textTooLong(maxLength: Int)
     case invalidColor
@@ -19,23 +19,6 @@ enum ValidationError: LocalizedError, Equatable, Sendable {
             return "validation_error_empty_photo".localized
         case .emptyContent:
             return "validation_error_empty_content".localized
-        }
-    }
-
-    static func == (lhs: ValidationError, rhs: ValidationError) -> Bool {
-        switch (lhs, rhs) {
-        case (.emptyText, .emptyText):
-            return true
-        case (.textTooLong(let lhsMax), .textTooLong(let rhsMax)):
-            return lhsMax == rhsMax
-        case (.invalidColor, .invalidColor):
-            return true
-        case (.emptyPhoto, .emptyPhoto):
-            return true
-        case (.emptyContent, .emptyContent):
-            return true
-        default:
-            return false
         }
     }
 }

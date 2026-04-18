@@ -27,6 +27,7 @@
 		5013DD8D2F938A96007B9241 /* AccomplishmentRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5013DD8C2F938A92007B9241 /* AccomplishmentRepository.swift */; };
 		5013DD8F2F938BB0007B9241 /* NewAccomplishment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5013DD8E2F938BAA007B9241 /* NewAccomplishment.swift */; };
 		5013DD912F938D09007B9241 /* AccomplishmentValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5013DD902F938D09007B9241 /* AccomplishmentValidator.swift */; };
+		502ED54C2F943B240076B94F /* AccomplishmentRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502ED54B2F943B200076B94F /* AccomplishmentRepositoryProtocol.swift */; };
 		509B7B7D2F4F038400BBD13C /* TipJarStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509B7B7C2F4F038400BBD13C /* TipJarStore.swift */; };
 		509F51B82F93C9860075353A /* ValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509F51A32F93C9860075353A /* ValidationError.swift */; };
 		509F51F42F93CF6A0075353A /* GetAccomplishmentsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509F51F32F93CF640075353A /* GetAccomplishmentsUseCase.swift */; };
@@ -87,6 +88,7 @@
 		5013DD8C2F938A92007B9241 /* AccomplishmentRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccomplishmentRepository.swift; sourceTree = "<group>"; };
 		5013DD8E2F938BAA007B9241 /* NewAccomplishment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAccomplishment.swift; sourceTree = "<group>"; };
 		5013DD902F938D09007B9241 /* AccomplishmentValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccomplishmentValidator.swift; sourceTree = "<group>"; };
+		502ED54B2F943B200076B94F /* AccomplishmentRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccomplishmentRepositoryProtocol.swift; sourceTree = "<group>"; };
 		509B77D72F4DC57D00BBD13C /* kudos.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = kudos.xctestplan; sourceTree = "<group>"; };
 		509B7B7C2F4F038400BBD13C /* TipJarStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipJarStore.swift; sourceTree = "<group>"; };
 		509F51A32F93C9860075353A /* ValidationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationError.swift; sourceTree = "<group>"; };
@@ -248,11 +250,9 @@
 		5013DD882F938A43007B9241 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				502ED54B2F943B200076B94F /* AccomplishmentRepositoryProtocol.swift */,
 				509F51F02F93CCCE0075353A /* useCases */,
-				509F51A32F93C9860075353A /* ValidationError.swift */,
-				5013DD902F938D09007B9241 /* AccomplishmentValidator.swift */,
 				5013DD8E2F938BAA007B9241 /* NewAccomplishment.swift */,
-				5013DD8C2F938A92007B9241 /* AccomplishmentRepository.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -268,6 +268,9 @@
 		509F51EF2F93CACB0075353A /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				509F51A32F93C9860075353A /* ValidationError.swift */,
+				5013DD902F938D09007B9241 /* AccomplishmentValidator.swift */,
+				5013DD8C2F938A92007B9241 /* AccomplishmentRepository.swift */,
 				138F89922BB02D1A00EA9F2F /* Accomplishment.swift */,
 			);
 			path = Data;
@@ -459,6 +462,7 @@
 				5013DD8B2F938A55007B9241 /* AddAcomplishmentUseCase.swift in Sources */,
 				509B7B7D2F4F038400BBD13C /* TipJarStore.swift in Sources */,
 				1338C6DF2BB0A2BF0061FBEB /* Triangle.swift in Sources */,
+				502ED54C2F943B240076B94F /* AccomplishmentRepositoryProtocol.swift in Sources */,
 				1338C6E02BB0A2BF0061FBEB /* SlimRectangle.swift in Sources */,
 				138F898F2BB02D1A00EA9F2F /* kudosApp.swift in Sources */,
 				1338C6DE2BB0A2BF0061FBEB /* RoundedCross.swift in Sources */,

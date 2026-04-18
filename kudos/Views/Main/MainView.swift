@@ -73,11 +73,3 @@ public struct MainView: View {
         }
     }
 }
-
-#if targetEnvironment(simulator)
-    #Preview {
-        MainView(textAction: { _ in }, photoAction: { _, _ in })
-            .environment(LanguageManager.shared)
-            .preferredColorScheme(.dark)
-    }
-#endif

@@ -1,5 +1,4 @@
 import SwiftUI
-import Observation
 
 public enum Mode {
     case edit
@@ -7,9 +6,7 @@ public enum Mode {
 }
 
 @Observable
-
 public final class MainViewModel {
-
     var mode: Mode = .view
     var text: String = ""
     var counter: Int = 0

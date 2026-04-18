@@ -90,8 +90,8 @@
 		13A3F8042D8803CA002ED82B /* en.lproj */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = en.lproj; sourceTree = "<group>"; };
 		13A3F8112D8805A0002ED82B /* Utilities */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Utilities; sourceTree = "<group>"; };
 		13A3F8182D88082E002ED82B /* Settings */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Settings; sourceTree = "<group>"; };
-		C264C4CBC4584566B1B1C8F9 /* Wrapped */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Wrapped; sourceTree = "<group>"; };
 		509B7B802F4F038400BBD13C /* TipJar */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = TipJar; sourceTree = "<group>"; };
+		C264C4CBC4584566B1B1C8F9 /* Wrapped */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Wrapped; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -219,14 +219,6 @@
 			path = kudos;
 			sourceTree = "<group>";
 		};
-		509B7B812F4F038400BBD13C /* Store */ = {
-			isa = PBXGroup;
-			children = (
-				509B7B7C2F4F038400BBD13C /* TipJarStore.swift */,
-			);
-			path = Store;
-			sourceTree = "<group>";
-		};
 		138F89962BB02D1C00EA9F2F /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
@@ -244,6 +236,14 @@
 				1366E9772D7DAC0B008FE4BE /* AccomplishmentTests.swift */,
 			);
 			path = kudosTests;
+			sourceTree = "<group>";
+		};
+		509B7B812F4F038400BBD13C /* Store */ = {
+			isa = PBXGroup;
+			children = (
+				509B7B7C2F4F038400BBD13C /* TipJarStore.swift */,
+			);
+			path = Store;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -294,8 +294,8 @@
 				13A3F8042D8803CA002ED82B /* en.lproj */,
 				13A3F8112D8805A0002ED82B /* Utilities */,
 				13A3F8182D88082E002ED82B /* Settings */,
-				C264C4CBC4584566B1B1C8F9 /* Wrapped */,
 				509B7B802F4F038400BBD13C /* TipJar */,
+				C264C4CBC4584566B1B1C8F9 /* Wrapped */,
 			);
 			name = kudos;
 			packageProductDependencies = (

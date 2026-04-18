@@ -26,7 +26,7 @@
 		5013DD8B2F938A55007B9241 /* AddAcomplishmentUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5013DD8A2F938A4E007B9241 /* AddAcomplishmentUseCase.swift */; };
 		5013DD8D2F938A96007B9241 /* AccomplishmentRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5013DD8C2F938A92007B9241 /* AccomplishmentRepository.swift */; };
 		5013DD8F2F938BB0007B9241 /* NewAccomplishment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5013DD8E2F938BAA007B9241 /* NewAccomplishment.swift */; };
-		5013DD912F938D09007B9241 /* AccomplishmentValidatorNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5013DD902F938D09007B9241 /* AccomplishmentValidatorNew.swift */; };
+		5013DD912F938D09007B9241 /* AccomplishmentValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5013DD902F938D09007B9241 /* AccomplishmentValidator.swift */; };
 		509B7B7D2F4F038400BBD13C /* TipJarStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509B7B7C2F4F038400BBD13C /* TipJarStore.swift */; };
 		509F51B82F93C9860075353A /* ValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509F51A32F93C9860075353A /* ValidationError.swift */; };
 		509F51F42F93CF6A0075353A /* GetAccomplishmentsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509F51F32F93CF640075353A /* GetAccomplishmentsUseCase.swift */; };
@@ -86,7 +86,7 @@
 		5013DD8A2F938A4E007B9241 /* AddAcomplishmentUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAcomplishmentUseCase.swift; sourceTree = "<group>"; };
 		5013DD8C2F938A92007B9241 /* AccomplishmentRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccomplishmentRepository.swift; sourceTree = "<group>"; };
 		5013DD8E2F938BAA007B9241 /* NewAccomplishment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAccomplishment.swift; sourceTree = "<group>"; };
-		5013DD902F938D09007B9241 /* AccomplishmentValidatorNew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccomplishmentValidatorNew.swift; sourceTree = "<group>"; };
+		5013DD902F938D09007B9241 /* AccomplishmentValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccomplishmentValidator.swift; sourceTree = "<group>"; };
 		509B77D72F4DC57D00BBD13C /* kudos.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = kudos.xctestplan; sourceTree = "<group>"; };
 		509B7B7C2F4F038400BBD13C /* TipJarStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipJarStore.swift; sourceTree = "<group>"; };
 		509F51A32F93C9860075353A /* ValidationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationError.swift; sourceTree = "<group>"; };
@@ -250,7 +250,7 @@
 			children = (
 				509F51F02F93CCCE0075353A /* useCases */,
 				509F51A32F93C9860075353A /* ValidationError.swift */,
-				5013DD902F938D09007B9241 /* AccomplishmentValidatorNew.swift */,
+				5013DD902F938D09007B9241 /* AccomplishmentValidator.swift */,
 				5013DD8E2F938BAA007B9241 /* NewAccomplishment.swift */,
 				5013DD8C2F938A92007B9241 /* AccomplishmentRepository.swift */,
 			);
@@ -447,7 +447,7 @@
 			files = (
 				1338C6DD2BB0A2BF0061FBEB /* View+ConfettiCannon.swift in Sources */,
 				138F89912BB02D1A00EA9F2F /* ContentView.swift in Sources */,
-				5013DD912F938D09007B9241 /* AccomplishmentValidatorNew.swift in Sources */,
+				5013DD912F938D09007B9241 /* AccomplishmentValidator.swift in Sources */,
 				509F51F62F93DCDE0075353A /* DeleteAccomplishmentUseCase.swift in Sources */,
 				509F51F42F93CF6A0075353A /* GetAccomplishmentsUseCase.swift in Sources */,
 				509F51B82F93C9860075353A /* ValidationError.swift in Sources */,

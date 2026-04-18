@@ -9,7 +9,7 @@ final class AddAccomplishmentUseCase: AddAccomplishmentUseCaseProtocol {
     }
     
     func execute(text: String) throws {
-        let validatedText = try AccomplishmentValidatorNew.validateText(text)
+        let validatedText = try AccomplishmentValidator.validateText(text)
         let accomplishment = NewAccomplishment(text: validatedText)
         try repository.save(accomplishment)
     }

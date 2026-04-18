@@ -1,8 +1,7 @@
-import SwiftData
 import SwiftUI
 
 struct KudosJarView: View {
-    @Query private var items: [Accomplishment]
+    let count: Int
     @Environment(\.accessibilityReduceTransparency) var reduceTransparency
 
     var body: some View {
@@ -15,7 +14,7 @@ struct KudosJarView: View {
                         .aspectRatio(contentMode: .fit)
                         .frame(width: Dimensions.kudosJarWidth, height: Dimensions.kudosJarHeight)
 
-                    Text("\(items.count)")
+                    Text("\(count)")
                         .font(.system(
                             size: CGFloat(Size.medium.rawValue),
                             weight: .bold
@@ -40,7 +39,7 @@ struct KudosJarView: View {
         }
         .buttonStyle(.plain)
         .accessibilityElement()
-        .accessibilityLabel(A11y.Jar.label(count: items.count))
+        .accessibilityLabel(A11y.Jar.label(count: count))
         .accessibilityHint(A11y.Jar.hint)
         .accessibilityAddTraits([.isLink, .updatesFrequently])
         .accessibilityIdentifier(A11y.Jar.identifier)
@@ -50,6 +49,5 @@ struct KudosJarView: View {
 }
 
 #Preview {
-    KudosJarView()
-        .modelContainer(for: Accomplishment.self, inMemory: true)
+    KudosJarView(count: 3)
 }

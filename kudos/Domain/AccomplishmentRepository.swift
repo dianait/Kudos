@@ -2,6 +2,7 @@ import SwiftData
 
 protocol AccomplishmentRepositoryProtocol {
     func save(_ accomplishment: NewAccomplishment) throws
+    func count() throws -> Int
 }
 
 final class SwiftDataAccomplishmentRepository: AccomplishmentRepositoryProtocol {
@@ -14,5 +15,9 @@ final class SwiftDataAccomplishmentRepository: AccomplishmentRepositoryProtocol 
     func save(_ accomplishment: NewAccomplishment) throws {
         let model = try Accomplishment(accomplishment.text)
         modelContext.insert(model)
+    }
+    
+    func count() throws -> Int {
+        try modelContext.fetchCount(FetchDescriptor<Accomplishment>())
     }
 }

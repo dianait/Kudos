@@ -7,10 +7,10 @@ struct ContentView: View {
    
     var body: some View {
         let repository = SwiftDataAccomplishmentRepository(modelContext: modelContext)
-        let useCase = AddAccomplishmentUseCase(repository: repository)
-        let viewModel = MainViewModel(addAccomplishmentUseCase: useCase)
-
-        let _ = languageManager.currentLanguage
+        let addUseCase = AddAccomplishmentUseCase(repository: repository)
+        let countUseCase = GetAccomplishmentCountUseCase(repository: repository)
+        let viewModel = MainViewModel(addAccomplishmentUseCase: addUseCase,
+                                      getAccomplishmentCountUseCase: countUseCase)
         TabView {
             Tab(Copies.homeTab, systemImage: "house.fill") {
                 MainView(

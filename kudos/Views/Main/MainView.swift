@@ -20,7 +20,7 @@ public struct MainView: View {
     public var body: some View {
         NavigationStack {
             VStack(spacing: Space.extraLarge + Space.medium) {
-                KudosJarView()
+                KudosJarView(count: viewModel.accomplishmentsCount)
 
                 HeaderView(mode: $viewModel.mode, text: $viewModel.text)
                     .padding(.top, Space.mediumLarge)
@@ -28,7 +28,7 @@ public struct MainView: View {
                 StickiesViewOverview(
                     mode: $viewModel.mode,
                     text: $viewModel.text,
-                    counter: $viewModel.counter,
+                    counter: $viewModel.accomplishmentsCount,
                     showSaveIndicator: $viewModel.showSaveIndicator,
                     showSavedMessage: $viewModel.showSavedMessage,
                     dragOffset: $viewModel.dragOffset,
@@ -41,8 +41,10 @@ public struct MainView: View {
                         viewModel.save()
                     }
                 )
-
                 Spacer()
+            }
+            .onAppear {
+                viewModel.loadAccomplishmentsCount()
             }
             .savedConfirmation(isPresented: $viewModel.showSavedMessage, onDismiss: {
                 Task { @MainActor in
@@ -50,7 +52,7 @@ public struct MainView: View {
                     viewModel.hideSavedMessage()
                 }
             })
-            .confettiCannon(counter: $viewModel.counter)
+            .confettiCannon(counter: $viewModel.accomplishmentsCount)
             .padding(.horizontal)
             .sheet(isPresented: $viewModel.showCamera) {
                 if CameraHelpers.isCameraAvailable() {

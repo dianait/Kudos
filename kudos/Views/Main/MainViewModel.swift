@@ -9,19 +9,31 @@ public enum Mode {
 public final class MainViewModel {
     var mode: Mode = .view
     var text: String = ""
-    var counter: Int = 0
     var showSaveIndicator: Bool = false
     var showSavedMessage: Bool = false
     var dragOffset: CGSize = .zero
     var selectedPhotoData: Data?
     var showCamera: Bool = false
     var errorMessage: String?
+    var accomplishmentsCount: Int = 0
 
     private let addAccomplishmentUseCase: AddAccomplishmentUseCaseProtocol
+    private let getAccomplishmentCountUseCase: GetAccomplishmentCountUseCaseProtocol
     
-    init(addAccomplishmentUseCase: AddAccomplishmentUseCaseProtocol) {
-        self.addAccomplishmentUseCase = addAccomplishmentUseCase
-    }
+    init(addAccomplishmentUseCase: AddAccomplishmentUseCaseProtocol,
+         getAccomplishmentCountUseCase: GetAccomplishmentCountUseCaseProtocol) {
+           self.addAccomplishmentUseCase = addAccomplishmentUseCase
+           self.getAccomplishmentCountUseCase = getAccomplishmentCountUseCase
+       }
+    
+    func loadAccomplishmentsCount() {
+         do {
+             accomplishmentsCount = try getAccomplishmentCountUseCase.execute()
+         } catch {
+             errorMessage = error.localizedDescription
+         }
+
+     }
 
     func save() {
         guard selectedPhotoData == nil else { return }
@@ -29,7 +41,7 @@ public final class MainViewModel {
             try addAccomplishmentUseCase.execute(text: text)
             errorMessage = nil
             showSavedMessage = true
-            counter += 1
+            accomplishmentsCount += 1
             text = ""
             selectedPhotoData = nil
             mode = .view

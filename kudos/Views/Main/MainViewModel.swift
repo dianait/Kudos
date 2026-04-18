@@ -15,8 +15,8 @@ public final class MainViewModel {
     var selectedPhotoData: Data?
     var showCamera: Bool = false
     var errorMessage: String?
-    var accomplishmentsCount: Int = 0
     var accomplishments: [Accomplishment] = []
+    var accomplishmentsCount: Int { accomplishments.count }
 
     private let addAccomplishmentUseCase: AddAccomplishmentUseCaseProtocol
     private let getAccomplishmentsUseCase: GetAccomplishmentsUseCaseProtocol
@@ -35,7 +35,6 @@ public final class MainViewModel {
     func loadAccomplishments() {
           do {
               accomplishments = try getAccomplishmentsUseCase.execute()
-              accomplishmentsCount = accomplishments.count
           } catch {
               errorMessage = error.localizedDescription
           }

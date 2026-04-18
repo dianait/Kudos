@@ -250,6 +250,8 @@
 		5013DD882F938A43007B9241 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				509F51A32F93C9860075353A /* ValidationError.swift */,
+				5013DD902F938D09007B9241 /* AccomplishmentValidator.swift */,
 				502ED54B2F943B200076B94F /* AccomplishmentRepositoryProtocol.swift */,
 				509F51F02F93CCCE0075353A /* useCases */,
 				5013DD8E2F938BAA007B9241 /* NewAccomplishment.swift */,
@@ -268,8 +270,6 @@
 		509F51EF2F93CACB0075353A /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				509F51A32F93C9860075353A /* ValidationError.swift */,
-				5013DD902F938D09007B9241 /* AccomplishmentValidator.swift */,
 				5013DD8C2F938A92007B9241 /* AccomplishmentRepository.swift */,
 				138F89922BB02D1A00EA9F2F /* Accomplishment.swift */,
 			);

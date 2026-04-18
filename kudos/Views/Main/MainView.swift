@@ -5,6 +5,7 @@ public struct MainView: View {
     @Bindable var viewModel: MainViewModel
     @Environment(LanguageManager.self) var languageManager
     @State private var selectedImage: UIImage?
+    @State private var confettiCounter: Int = 0
 
     public init(viewModel: MainViewModel) {
         self.viewModel = viewModel
@@ -28,7 +29,7 @@ public struct MainView: View {
                     viewModel.hideSavedMessage()
                 }
             })
-            .confettiCannon(counter: $viewModel.accomplishmentsCount)
+            .confettiCannon(counter: $confettiCounter)
             .padding(.horizontal)
             .sheet(isPresented: $viewModel.showCamera) {
                 if CameraHelpers.isCameraAvailable() {
@@ -45,6 +46,12 @@ public struct MainView: View {
                     }
                     selectedImage = nil
                 }
+            }
+            .onChange(of: viewModel.accomplishmentsCount) { _, newValue in
+                confettiCounter = newValue
+            }
+            .onAppear {
+                confettiCounter = viewModel.accomplishmentsCount
             }
             .background(Color("MainBackground"))
         }

@@ -1,8 +1,11 @@
 import SwiftData
+import Foundation
+
 
 protocol AccomplishmentRepositoryProtocol {
     func save(_ accomplishment: NewAccomplishment) throws
     func count() throws -> Int
+    func fetchAllSortedByDateDescending() throws -> [Accomplishment]
 }
 
 final class SwiftDataAccomplishmentRepository: AccomplishmentRepositoryProtocol {
@@ -20,4 +23,14 @@ final class SwiftDataAccomplishmentRepository: AccomplishmentRepositoryProtocol 
     func count() throws -> Int {
         try modelContext.fetchCount(FetchDescriptor<Accomplishment>())
     }
+    
+    func fetchAllSortedByDateDescending() throws -> [Accomplishment] {
+            try modelContext.fetch(
+                FetchDescriptor<Accomplishment>(
+                    sortBy: [SortDescriptor(\.date, order: .reverse)]
+                )
+
+            )
+
+        }
 }

@@ -1,16 +1,9 @@
-import SwiftData
 import SwiftUI
 
 struct StickiesView: View {
-    @Query(sort: \Accomplishment.date, order: .reverse) private var items: [Accomplishment]
+    let lastItem: Accomplishment?
     @Binding var mode: Mode
 
-    /// The most recent accomplishment to display
-    private var lastItem: Accomplishment? {
-        mode == .view ? items.first : nil
-    }
-
-    /// Text to show (for accessibility and fallback)
     private var lastMessage: String {
         lastItem?.text ?? ""
     }
@@ -24,12 +17,10 @@ struct StickiesView: View {
         HStack {
             ZStack {
                 backgroundStickies()
-
-                // Show the actual last item (with photo if it has one) or placeholder
                 Button {
                     openEdit()
                 } label: {
-                    StickyView(item: lastItem ?? placeholderItem)
+                    StickyView(item: mode == .view ? (lastItem ?? placeholderItem) : placeholderItem)
                 }
                 .buttonStyle(.plain)
             }
@@ -79,6 +70,5 @@ struct StickiesView: View {
 }
 
 #Preview {
-    StickiesView(mode: .constant(.view))
-        .modelContainer(for: Accomplishment.self, inMemory: true)
+    StickiesView(lastItem: nil, mode: .constant(.view))
 }

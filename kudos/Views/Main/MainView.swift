@@ -33,6 +33,7 @@ public struct MainView: View {
                     showSavedMessage: $viewModel.showSavedMessage,
                     dragOffset: $viewModel.dragOffset,
                     selectedPhotoData: $viewModel.selectedPhotoData,
+                    lastItem: viewModel.accomplishments.first,
                     onShowCamera: {
                         viewModel.showCamera = true
                     },
@@ -44,7 +45,7 @@ public struct MainView: View {
                 Spacer()
             }
             .onAppear {
-                viewModel.loadAccomplishmentsCount()
+                viewModel.loadInitialData()
             }
             .savedConfirmation(isPresented: $viewModel.showSavedMessage, onDismiss: {
                 Task { @MainActor in

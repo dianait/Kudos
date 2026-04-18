@@ -15,6 +15,7 @@ struct StickiesViewOverview: View {
     @Binding var dragOffset: CGSize
     @Binding var selectedPhotoData: Data?
     @State private var cachedPreviewImage: UIImage?
+    let lastItem: Accomplishment?
 
     var onShowCamera: () -> Void
     var photoAction: (Data, String?) -> Void
@@ -33,7 +34,7 @@ struct StickiesViewOverview: View {
                         if let uiImage = cachedPreviewImage {
                             photoPreviewView(image: uiImage)
                         } else {
-                            StickiesView(mode: $mode)
+                            StickiesView(lastItem: lastItem, mode: $mode)
                         }
                         if selectedPhotoData == nil {
                             textInputView
@@ -88,7 +89,7 @@ struct StickiesViewOverview: View {
                     }
                 }
             } else {
-                StickiesView(mode: $mode)
+                StickiesView(lastItem: lastItem, mode: $mode)
             }
         }
         .onChange(of: mode) { oldValue, newValue in

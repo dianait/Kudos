@@ -16,15 +16,21 @@ public final class MainViewModel {
     var showCamera: Bool = false
     var errorMessage: String?
     var accomplishmentsCount: Int = 0
+    var accomplishments: [Accomplishment] = []
 
     private let addAccomplishmentUseCase: AddAccomplishmentUseCaseProtocol
     private let getAccomplishmentCountUseCase: GetAccomplishmentCountUseCaseProtocol
+    private let getAccomplishmentsUseCase: GetAccomplishmentsUseCaseProtocol
     
-    init(addAccomplishmentUseCase: AddAccomplishmentUseCaseProtocol,
-         getAccomplishmentCountUseCase: GetAccomplishmentCountUseCaseProtocol) {
-           self.addAccomplishmentUseCase = addAccomplishmentUseCase
-           self.getAccomplishmentCountUseCase = getAccomplishmentCountUseCase
-       }
+    init(
+        addAccomplishmentUseCase: AddAccomplishmentUseCaseProtocol,
+        getAccomplishmentCountUseCase: GetAccomplishmentCountUseCaseProtocol,
+        getAccomplishmentsUseCase: GetAccomplishmentsUseCaseProtocol
+    ) {
+        self.addAccomplishmentUseCase = addAccomplishmentUseCase
+        self.getAccomplishmentCountUseCase = getAccomplishmentCountUseCase
+        self.getAccomplishmentsUseCase = getAccomplishmentsUseCase
+    }
     
     func loadAccomplishmentsCount() {
          do {
@@ -32,8 +38,20 @@ public final class MainViewModel {
          } catch {
              errorMessage = error.localizedDescription
          }
-
      }
+    
+    func loadAccomplishments() {
+          do {
+              accomplishments = try getAccomplishmentsUseCase.execute()
+          } catch {
+              errorMessage = error.localizedDescription
+          }
+      }
+    
+    func loadInitialData() {
+        loadAccomplishmentsCount()
+        loadAccomplishments()
+    }
 
     func save() {
         guard selectedPhotoData == nil else { return }

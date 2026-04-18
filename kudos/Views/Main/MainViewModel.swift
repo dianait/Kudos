@@ -19,39 +19,24 @@ public final class MainViewModel {
     var accomplishments: [Accomplishment] = []
 
     private let addAccomplishmentUseCase: AddAccomplishmentUseCaseProtocol
-    private let getAccomplishmentCountUseCase: GetAccomplishmentCountUseCaseProtocol
     private let getAccomplishmentsUseCase: GetAccomplishmentsUseCaseProtocol
     
     init(
         addAccomplishmentUseCase: AddAccomplishmentUseCaseProtocol,
-        getAccomplishmentCountUseCase: GetAccomplishmentCountUseCaseProtocol,
         getAccomplishmentsUseCase: GetAccomplishmentsUseCaseProtocol
     ) {
         self.addAccomplishmentUseCase = addAccomplishmentUseCase
-        self.getAccomplishmentCountUseCase = getAccomplishmentCountUseCase
         self.getAccomplishmentsUseCase = getAccomplishmentsUseCase
     }
-    
-    func loadAccomplishmentsCount() {
-         do {
-             accomplishmentsCount = try getAccomplishmentCountUseCase.execute()
-         } catch {
-             errorMessage = error.localizedDescription
-         }
-     }
     
     func loadAccomplishments() {
           do {
               accomplishments = try getAccomplishmentsUseCase.execute()
+              accomplishmentsCount = accomplishments.count
           } catch {
               errorMessage = error.localizedDescription
           }
       }
-    
-    func loadInitialData() {
-        loadAccomplishmentsCount()
-        loadAccomplishments()
-    }
 
     func save() {
         guard selectedPhotoData == nil else { return }
@@ -60,6 +45,9 @@ public final class MainViewModel {
             errorMessage = nil
             showSavedMessage = true
             accomplishmentsCount += 1
+            
+            loadAccomplishments()
+            
             text = ""
             selectedPhotoData = nil
             mode = .view

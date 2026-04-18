@@ -1,11 +1,17 @@
 import SwiftUI
 
 struct KudosJarView: View {
-    let count: Int
+    let accomplishments: [Accomplishment]
     @Environment(\.accessibilityReduceTransparency) var reduceTransparency
 
+    private var count: Int {
+        accomplishments.count
+    }
+
     var body: some View {
-        NavigationLink(destination: CarouselView()) {
+        NavigationLink(
+            destination: CarouselView(accomplishments: accomplishments)
+        ) {
             HStack {
                 Spacer()
                 ZStack(alignment: .top) {
@@ -46,8 +52,4 @@ struct KudosJarView: View {
         .minimumScaleFactor(0.8)
         .frame(minWidth: Space.extraLarge, minHeight: Space.extraLarge)
     }
-}
-
-#Preview {
-    KudosJarView(count: 3)
 }

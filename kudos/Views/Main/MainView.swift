@@ -20,8 +20,7 @@ public struct MainView: View {
     public var body: some View {
         NavigationStack {
             VStack(spacing: Space.extraLarge + Space.medium) {
-                KudosJarView(count: viewModel.accomplishmentsCount)
-
+                KudosJarView(accomplishments: viewModel.accomplishments)
                 HeaderView(mode: $viewModel.mode, text: $viewModel.text)
                     .padding(.top, Space.mediumLarge)
 
@@ -45,7 +44,7 @@ public struct MainView: View {
                 Spacer()
             }
             .onAppear {
-                viewModel.loadInitialData()
+                viewModel.loadAccomplishments()
             }
             .savedConfirmation(isPresented: $viewModel.showSavedMessage, onDismiss: {
                 Task { @MainActor in

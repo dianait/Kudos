@@ -2,7 +2,7 @@ import SwiftUI
 import UIKit
 
 public struct MainView: View {
-    @State private var viewModel: MainViewModel
+    @Bindable var viewModel: MainViewModel
     @Environment(LanguageManager.self) var languageManager
     @State private var selectedImage: UIImage?
 
@@ -12,7 +12,7 @@ public struct MainView: View {
         viewModel: MainViewModel,
         photoAction: @escaping (Data, String?) -> Void
     ) {
-        self._viewModel = State(initialValue: viewModel)
+        self.viewModel = viewModel
         self.photoAction = photoAction
 
     }
@@ -25,26 +25,10 @@ public struct MainView: View {
                     .padding(.top, Space.mediumLarge)
 
                 StickiesViewOverview(
-                    mode: $viewModel.mode,
-                    text: $viewModel.text,
-                    counter: $viewModel.accomplishmentsCount,
-                    showSaveIndicator: $viewModel.showSaveIndicator,
-                    showSavedMessage: $viewModel.showSavedMessage,
-                    dragOffset: $viewModel.dragOffset,
-                    selectedPhotoData: $viewModel.selectedPhotoData,
-                    lastItem: viewModel.accomplishments.first,
-                    onShowCamera: {
-                        viewModel.showCamera = true
-                    },
+                    viewModel: viewModel,
                     photoAction: photoAction,
-                    onSave: {
-                        viewModel.save()
-                    }
                 )
                 Spacer()
-            }
-            .onAppear {
-                viewModel.loadAccomplishments()
             }
             .savedConfirmation(isPresented: $viewModel.showSavedMessage, onDismiss: {
                 Task { @MainActor in

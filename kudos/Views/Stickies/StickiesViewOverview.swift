@@ -1,59 +1,53 @@
-import SwiftData
 import SwiftUI
 
 struct StickiesViewOverview: View {
+    @Bindable var viewModel: MainViewModel
     @Environment(LanguageManager.self) var languageManager
     @FocusState private var responseIsFocussed: Bool
-    @State private var isEditModeActive: Bool = false
     @State private var characterCount: Int = 0
     private let maxCharacters: Int = Limits.maxCharacters
-    @Binding var mode: Mode
-    @Binding var text: String
-    @Binding var counter: Int
-    @Binding var showSaveIndicator: Bool
-    @Binding var showSavedMessage: Bool
-    @Binding var dragOffset: CGSize
-    @Binding var selectedPhotoData: Data?
-    @State private var cachedPreviewImage: UIImage?
-    let lastItem: Accomplishment?
-
-    var onShowCamera: () -> Void
     var photoAction: (Data, String?) -> Void
-    var onSave: () -> Void
+    
+    private var lastItem: Accomplishment? {
+        viewModel.accomplishments.first
+    }
+    
+    private var previewImage: UIImage? {
+        viewModel.selectedPhotoData.flatMap { UIImage(data: $0) }
+    }
 
-    /// Whether there is content to save (text or photo)
     private var hasContent: Bool {
-        !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || selectedPhotoData != nil
+        !viewModel.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || viewModel.selectedPhotoData != nil
     }
 
     var body: some View {
         ZStack {
-            if mode == .edit {
+            if viewModel.mode == .edit {
                 VStack {
                     ZStack {
-                        if let uiImage = cachedPreviewImage {
-                            photoPreviewView(image: uiImage)
+                        if let previewImage {
+                            photoPreviewView(image: previewImage)
                         } else {
-                            StickiesView(lastItem: lastItem, mode: $mode)
+                            StickiesView(lastItem: lastItem, mode: $viewModel.mode)
                         }
-                        if selectedPhotoData == nil {
+                        if viewModel.selectedPhotoData == nil {
                             textInputView
                         }
                     }
                     cameraButton
                     saveButton
                 }
-                .offset(dragOffset)
+                .offset(viewModel.dragOffset)
                 .simultaneousGesture(
                     DragGesture(minimumDistance: CGFloat(Size.extraSmall.rawValue))
                         .onChanged { gesture in
                             if hasContent {
                                 let dragAmount = gesture.translation.height
                                 let dampedAmount = min(0, dragAmount * Limits.dragDampingFactor)
-                                dragOffset = CGSize(width: 0, height: dampedAmount)
-                                showSaveIndicator = dragAmount < Limits.saveIndicatorThreshold
+                                viewModel.dragOffset = CGSize(width: 0, height: dampedAmount)
+                                viewModel.showSaveIndicator = dragAmount < Limits.saveIndicatorThreshold
 
-                                if dragAmount < Limits.saveIndicatorThreshold, !showSaveIndicator {
+                                if dragAmount < Limits.saveIndicatorThreshold, !viewModel.showSaveIndicator {
                                     UIAccessibility.post(
                                         notification: .announcement,
                                         argument: A11y.StickiesViewOverview.readyToSaveNotification
@@ -67,16 +61,16 @@ struct StickiesViewOverview: View {
                                 generator.notificationOccurred(.success)
                                 Task { @MainActor in
                                     try? await Task.sleep(for: .seconds(Timing.saveActionDelay))
-                                    onSave()
+                                    viewModel.save()
                                     withAnimation(.spring(response: AnimationConstants.springResponse, dampingFraction: AnimationConstants.springDampingFraction)) {
-                                        dragOffset = .zero
-                                        showSaveIndicator = false
+                                        viewModel.dragOffset = .zero
+                                        viewModel.showSaveIndicator = false
                                     }
                                 }
                             } else {
                                 withAnimation(.spring(response: AnimationConstants.springResponse, dampingFraction: AnimationConstants.springDampingFraction)) {
-                                    dragOffset = .zero
-                                    showSaveIndicator = false
+                                    viewModel.dragOffset = .zero
+                                    viewModel.showSaveIndicator = false
                                 }
                             }
                         }
@@ -85,26 +79,20 @@ struct StickiesViewOverview: View {
                     if hasContent {
                         let generator = UINotificationFeedbackGenerator()
                         generator.notificationOccurred(.success)
-                        onSave()
+                        viewModel.save()
                     }
                 }
             } else {
-                StickiesView(lastItem: lastItem, mode: $mode)
+                StickiesView(lastItem: lastItem, mode: $viewModel.mode)
             }
         }
-        .onChange(of: mode) { oldValue, newValue in
+        .onChange(of: viewModel.mode) { oldValue, newValue in
             if newValue == .edit && oldValue == .view {
                 Task { @MainActor in
                     try? await Task.sleep(for: .seconds(Timing.accessibilityNotificationDelay))
                     responseIsFocussed = true
                 }
             }
-        }
-        .onAppear {
-            cachedPreviewImage = selectedPhotoData.flatMap { UIImage(data: $0) }
-        }
-        .onChange(of: selectedPhotoData) { _, newData in
-            cachedPreviewImage = newData.flatMap { UIImage(data: $0) }
         }
         .localized()
     }
@@ -115,7 +103,7 @@ struct StickiesViewOverview: View {
     private var textInputView: some View {
         VStack {
             ZStack(alignment: .topLeading) {
-                if text.isEmpty {
+                if viewModel.text.isEmpty {
                     Text(Copies.StickiesViewOverView.textEditorPlaceHolder)
                         .foregroundStyle(.gray)
                         .font(.body)
@@ -124,39 +112,35 @@ struct StickiesViewOverview: View {
                         .accessibilityHidden(true)
                 }
 
-                TextEditor(text: $text)
+                TextEditor(text: $viewModel.text)
                     .focused($responseIsFocussed)
                     .scrollContentBackground(.hidden)
                     .background(Color.clear)
                     .foregroundStyle(.black)
                     .font(.body)
-                    .onChange(of: text) { _, newValue in
+                    .onChange(of: viewModel.text) { _, newValue in
                         if newValue.last == "\n" {
                             responseIsFocussed = false
-                            text.removeLast()
-                            characterCount = text.count
+                            viewModel.text.removeLast()
+                            characterCount = viewModel.text.count
                             return
                         }
                         if newValue.count > maxCharacters {
-                            text = String(newValue.prefix(maxCharacters))
+                            viewModel.text = String(newValue.prefix(maxCharacters))
                             characterCount = maxCharacters
                         } else {
                             characterCount = newValue.count
                         }
                     }
                     .task {
-                        characterCount = text.count
+                        characterCount = viewModel.text.count
                         try? await Task.sleep(for: .seconds(Timing.focusDelay))
                         responseIsFocussed = true
-                        isEditModeActive = true
                         try? await Task.sleep(for: .seconds(Timing.accessibilityNotificationDelay))
                         UIAccessibility.post(
                             notification: .screenChanged,
                             argument: A11y.StickiesViewOverview.editModeNotification
                         )
-                    }
-                    .onDisappear {
-                        isEditModeActive = false
                     }
                     .padding([.leading, .trailing])
                     .frame(width: Dimensions.textEditorWidth, height: Dimensions.textEditorHeight)
@@ -191,7 +175,7 @@ struct StickiesViewOverview: View {
 
             Button {
                 withAnimation {
-                    selectedPhotoData = nil
+                    viewModel.selectedPhotoData = nil
                 }
             } label: {
                 Image(systemName: Icon.xmark.rawValue)
@@ -212,10 +196,10 @@ struct StickiesViewOverview: View {
                 generator.notificationOccurred(.success)
                 Task { @MainActor in
                     try? await Task.sleep(for: .seconds(Timing.saveActionDelay))
-                    onSave()
+                    viewModel.save()
                     withAnimation {
-                        dragOffset = .zero
-                        showSaveIndicator = false
+                        viewModel.dragOffset = .zero
+                        viewModel.showSaveIndicator = false
                     }
                 }
             }
@@ -241,11 +225,11 @@ struct StickiesViewOverview: View {
     @ViewBuilder
     private var cameraButton: some View {
         Button {
-            onShowCamera()
+            viewModel.showCamera.toggle()
         } label: {
             HStack(spacing: Space.small) {
                 Image(systemName: Icon.camera.rawValue)
-                Text(selectedPhotoData == nil ? Copies.Camera.addPhoto : Copies.Camera.changePhoto)
+                Text(viewModel.selectedPhotoData == nil ? Copies.Camera.addPhoto : Copies.Camera.changePhoto)
             }
             .font(.subheadline)
             .fontWeight(.medium)

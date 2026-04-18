@@ -6,10 +6,7 @@ struct StickiesViewOverview: View {
     @FocusState private var responseIsFocussed: Bool
     @State private var isEditModeActive: Bool = false
     @State private var characterCount: Int = 0
-    @State private var validationError: ValidationError?
-    @State private var showValidationError: Bool = false
     private let maxCharacters: Int = Limits.maxCharacters
-
     @Binding var mode: Mode
     @Binding var text: String
     @Binding var counter: Int
@@ -17,11 +14,9 @@ struct StickiesViewOverview: View {
     @Binding var showSavedMessage: Bool
     @Binding var dragOffset: CGSize
     @Binding var selectedPhotoData: Data?
-
     @State private var cachedPreviewImage: UIImage?
 
     var onShowCamera: () -> Void
-    var textAction: (String) -> Void
     var photoAction: (Data, String?) -> Void
     var onSave: () -> Void
 
@@ -35,23 +30,16 @@ struct StickiesViewOverview: View {
             if mode == .edit {
                 VStack {
                     ZStack {
-                        // Show photo preview if selected, otherwise show sticky background
                         if let uiImage = cachedPreviewImage {
                             photoPreviewView(image: uiImage)
                         } else {
                             StickiesView(mode: $mode)
                         }
-
-                        // Text input overlay (only when no photo selected)
                         if selectedPhotoData == nil {
                             textInputView
                         }
                     }
-
-                    // Camera button
                     cameraButton
-
-                    // Save button
                     saveButton
                 }
                 .offset(dragOffset)
@@ -78,9 +66,8 @@ struct StickiesViewOverview: View {
                                 generator.notificationOccurred(.success)
                                 Task { @MainActor in
                                     try? await Task.sleep(for: .seconds(Timing.saveActionDelay))
-                                    save()
-                                    withAnimation {
-                                        showSavedMessage = true
+                                    onSave()
+                                    withAnimation(.spring(response: AnimationConstants.springResponse, dampingFraction: AnimationConstants.springDampingFraction)) {
                                         dragOffset = .zero
                                         showSaveIndicator = false
                                     }
@@ -97,8 +84,7 @@ struct StickiesViewOverview: View {
                     if hasContent {
                         let generator = UINotificationFeedbackGenerator()
                         generator.notificationOccurred(.success)
-                        save()
-                        showSavedMessage = true
+                        onSave()
                     }
                 }
             } else {
@@ -119,44 +105,7 @@ struct StickiesViewOverview: View {
         .onChange(of: selectedPhotoData) { _, newData in
             cachedPreviewImage = newData.flatMap { UIImage(data: $0) }
         }
-        .alert(Copies.ValidationAlert.title, isPresented: $showValidationError) {
-            Button(Copies.ValidationAlert.okButton, role: .cancel) {
-                showValidationError = false
-            }
-        } message: {
-            Text(validationError?.errorDescription ?? Copies.ValidationAlert.defaultMessage)
-        }
         .localized()
-    }
-
-    private func save() {
-        // Check if we have a photo to save
-        if let photoData = selectedPhotoData {
-            // Save with photo (text is optional caption)
-            let caption = text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? nil : text
-            photoAction(photoData, caption)
-            characterCount = 0
-            onSave()
-            mode = .view
-            return
-        }
-
-        // No photo - validate text before saving
-        let validationResult = AccomplishmentValidator.validateText(text)
-
-        switch validationResult {
-        case .success(let validatedText):
-            textAction(validatedText)
-            characterCount = 0
-            onSave()
-            mode = .view
-        case .failure(let error):
-            // Validation failed - keep edit mode and show error to user
-            validationError = error
-            showValidationError = true
-            // Keep focus on text editor so user can fix the issue
-            responseIsFocussed = true
-        }
     }
 
     // MARK: - Subviews
@@ -165,7 +114,6 @@ struct StickiesViewOverview: View {
     private var textInputView: some View {
         VStack {
             ZStack(alignment: .topLeading) {
-                // Placeholder text - only visible when text is empty
                 if text.isEmpty {
                     Text(Copies.StickiesViewOverView.textEditorPlaceHolder)
                         .foregroundStyle(.gray)
@@ -175,7 +123,6 @@ struct StickiesViewOverview: View {
                         .accessibilityHidden(true)
                 }
 
-                // TextEditor - always present but only visible when there's text
                 TextEditor(text: $text)
                     .focused($responseIsFocussed)
                     .scrollContentBackground(.hidden)
@@ -183,14 +130,12 @@ struct StickiesViewOverview: View {
                     .foregroundStyle(.black)
                     .font(.body)
                     .onChange(of: text) { _, newValue in
-                        // Dismiss keyboard on newline
                         if newValue.last == "\n" {
                             responseIsFocussed = false
                             text.removeLast()
                             characterCount = text.count
                             return
                         }
-                        // Enforce character limit
                         if newValue.count > maxCharacters {
                             text = String(newValue.prefix(maxCharacters))
                             characterCount = maxCharacters
@@ -243,7 +188,6 @@ struct StickiesViewOverview: View {
                 .clipShape(RoundedRectangle(cornerRadius: CGFloat(Size.small.rawValue)))
                 .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 3)
 
-            // Remove photo button
             Button {
                 withAnimation {
                     selectedPhotoData = nil
@@ -267,9 +211,10 @@ struct StickiesViewOverview: View {
                 generator.notificationOccurred(.success)
                 Task { @MainActor in
                     try? await Task.sleep(for: .seconds(Timing.saveActionDelay))
-                    save()
+                    onSave()
                     withAnimation {
-                        showSavedMessage = true
+                        dragOffset = .zero
+                        showSaveIndicator = false
                     }
                 }
             }

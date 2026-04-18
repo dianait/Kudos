@@ -3,12 +3,20 @@ import SwiftUI
 import UIKit
 
 public struct MainView: View {
-    @State private var viewModel = MainViewModel()
+    @State private var viewModel: MainViewModel
     @Environment(LanguageManager.self) var languageManager
     @State private var selectedImage: UIImage?
 
-    var textAction: (String) -> Void
     var photoAction: (Data, String?) -> Void
+    
+    public init(
+        viewModel: MainViewModel,
+        photoAction: @escaping (Data, String?) -> Void
+    ) {
+        self._viewModel = State(initialValue: viewModel)
+        self.photoAction = photoAction
+
+    }
 
     public var body: some View {
         NavigationStack {
@@ -29,11 +37,9 @@ public struct MainView: View {
                     onShowCamera: {
                         viewModel.showCamera = true
                     },
-                    textAction: textAction,
                     photoAction: photoAction,
                     onSave: {
-                        viewModel.incrementCounter()
-                        viewModel.resetAllInput()
+                        viewModel.save()
                     }
                 )
 

@@ -4,15 +4,17 @@ import SwiftUI
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(LanguageManager.self) var languageManager
-
+   
     var body: some View {
-        // Reading currentLanguage here registers the dependency so SwiftUI
-        // re-evaluates the entire body (and Tab labels) when the language changes.
+        let repository = SwiftDataAccomplishmentRepository(modelContext: modelContext)
+        let useCase = AddAccomplishmentUseCase(repository: repository)
+        let viewModel = MainViewModel(addAccomplishmentUseCase: useCase)
+
         let _ = languageManager.currentLanguage
         TabView {
             Tab(Copies.homeTab, systemImage: "house.fill") {
                 MainView(
-                    textAction: addTextItem,
+                    viewModel: viewModel,
                     photoAction: addPhotoItem
                 )
             }
@@ -34,22 +36,6 @@ struct ContentView: View {
             }
         }
         .localized()
-    }
-
-    private func addTextItem(text: String) {
-        let validationResult = AccomplishmentValidator.validateText(text)
-
-        switch validationResult {
-        case .success(let validatedText):
-            do {
-                let newItem = try Accomplishment(validatedText)
-                modelContext.insert(newItem)
-            } catch {
-                print("Error creating Accomplishment: \(error.localizedDescription)")
-            }
-        case .failure(let error):
-            print("Validation error: \(error.localizedDescription)")
-        }
     }
 
     private func addPhotoItem(photoData: Data, caption: String?) {

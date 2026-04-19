@@ -16,7 +16,7 @@ struct WrappedView: View {
             ScrollView(.vertical) {
                 LazyVStack(spacing: 0) {
                     introSlide
-                    ForEach(Array(viewModel.currentYearItems.enumerated()), id: \.element.persistentModelID) { index, item in
+                    ForEach(Array(viewModel.currentYearItems.enumerated()), id: \.element.id) { index, item in
                         achievementSlide(for: item, index: index)
                     }
                     outroSlide
@@ -68,7 +68,7 @@ struct WrappedView: View {
         }
     }
     
-    private func achievementSlide(for item: Accomplishment, index: Int) -> some View {
+    private func achievementSlide(for item: AccomplishmentItem, index: Int) -> some View {
         VStack(spacing: 16) {
             Spacer()
             if let photoData = item.photoData,

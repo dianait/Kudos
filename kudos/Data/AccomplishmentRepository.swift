@@ -9,19 +9,23 @@ final class SwiftDataAccomplishmentRepository: AccomplishmentRepositoryProtocol 
     }
 
     func save(_ accomplishment: NewAccomplishment) throws {
-        let model = try Accomplishment(from: accomplishment)
-        modelContext.insert(model)
+        let entity = try AccomplishmentEntity(from: accomplishment)
+        modelContext.insert(entity)
+        try modelContext.save()
     }
     
-    func fetchAllSortedByDateDescending() throws -> [Accomplishment] {
-            try modelContext.fetch(
-                FetchDescriptor<Accomplishment>(
-                    sortBy: [SortDescriptor(\.date, order: .reverse)]
-            )
-        )
+    func fetchAllSortedByDateDescending() throws -> [AccomplishmentItem] {
+        let descriptor = FetchDescriptor<AccomplishmentEntity>(
+            sortBy: [SortDescriptor(\.date, order: .reverse)])
+        let entities = try modelContext.fetch(descriptor)
+        return entities.map { $0.toDomain() }
     }
     
-    func delete(_ accomplishment: Accomplishment) throws {
-            modelContext.delete(accomplishment)
+    func delete(_ accomplishment: AccomplishmentItem) throws {
+        let descriptor = FetchDescriptor<AccomplishmentEntity>()
+        let entities = try modelContext.fetch(descriptor)
+        guard let entity = entities.first(where: { $0.id == accomplishment.id }) else { return }
+        modelContext.delete(entity)
+        try modelContext.save()
     }
 }

@@ -6,7 +6,7 @@ struct StickiesViewOverview: View {
     @FocusState private var responseIsFocussed: Bool
     @State private var characterCount: Int = 0
     private let maxCharacters: Int = Limits.maxCharacters
-    private var lastItem: Accomplishment? {
+    private var lastItem: AccomplishmentItem? {
         viewModel.accomplishments.first
     }
     

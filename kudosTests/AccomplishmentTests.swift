@@ -10,7 +10,7 @@ struct AccomplishmentTests {
         let text = "Mi primer logro"
         let color = "blue"
 
-        let accomplishment = try Accomplishment(text, color: color)
+        let accomplishment = try AccomplishmentEntity(text, color: color)
 
         #expect(accomplishment.text == text)
         #expect(accomplishment.color == color)
@@ -19,7 +19,7 @@ struct AccomplishmentTests {
 
     @Test("Assigns random color from available palette when none specified")
     func randomColorInitialization() throws {
-        let accomplishment = try Accomplishment("Test logro")
+        let accomplishment = try AccomplishmentEntity("Test logro")
 
         #expect(accomplishment.text == "Test logro")
         #expect(AccomplishmentColor.availableColorStrings.contains(accomplishment.color))
@@ -31,13 +31,13 @@ struct AccomplishmentTests {
     ] as [(String, ValidationError)])
     func validationRejectsInvalidText(input: String, expectedError: ValidationError) {
         #expect(throws: expectedError) {
-            try Accomplishment(input)
+            try AccomplishmentEntity(input)
         }
     }
 
     @Test("Trims leading and trailing whitespace from text")
     func trimmingWhitespace() throws {
-        let accomplishment = try Accomplishment("  Mi logro  ")
+        let accomplishment = try AccomplishmentEntity("  Mi logro  ")
 
         #expect(accomplishment.text == "Mi logro")
     }

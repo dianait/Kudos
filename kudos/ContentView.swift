@@ -46,6 +46,6 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
-        .modelContainer(for: Accomplishment.self, inMemory: true)
+        .modelContainer(for: AccomplishmentEntity.self, inMemory: true)
         .environment(LanguageManager.shared)
 }

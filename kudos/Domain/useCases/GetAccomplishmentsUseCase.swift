@@ -1,5 +1,5 @@
 protocol GetAccomplishmentsUseCaseProtocol {
-    func execute() throws -> [Accomplishment]
+    func execute() throws -> [AccomplishmentItem]
 }
 
 final class GetAccomplishmentsUseCase: GetAccomplishmentsUseCaseProtocol {
@@ -9,7 +9,7 @@ final class GetAccomplishmentsUseCase: GetAccomplishmentsUseCaseProtocol {
         self.repository = repository
     }
 
-    func execute() throws -> [Accomplishment] {
+    func execute() throws -> [AccomplishmentItem] {
         try repository.fetchAllSortedByDateDescending()
     }
 }

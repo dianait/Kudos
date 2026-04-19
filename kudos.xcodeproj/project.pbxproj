@@ -19,7 +19,7 @@
 		138BF4E32EE58DB100C37AF3 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138BF4E12EE58DB100C37AF3 /* ErrorView.swift */; };
 		138F898F2BB02D1A00EA9F2F /* kudosApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138F898E2BB02D1A00EA9F2F /* kudosApp.swift */; };
 		138F89912BB02D1A00EA9F2F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138F89902BB02D1A00EA9F2F /* ContentView.swift */; };
-		138F89932BB02D1A00EA9F2F /* Accomplishment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138F89922BB02D1A00EA9F2F /* Accomplishment.swift */; };
+		138F89932BB02D1A00EA9F2F /* AccomplishmentEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138F89922BB02D1A00EA9F2F /* AccomplishmentEntity.swift */; };
 		138F89952BB02D1C00EA9F2F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 138F89942BB02D1C00EA9F2F /* Assets.xcassets */; };
 		138F89982BB02D1C00EA9F2F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 138F89972BB02D1C00EA9F2F /* Preview Assets.xcassets */; };
 		13B947132BBEF93C0076724B /* Inject in Frameworks */ = {isa = PBXBuildFile; productRef = 13B947122BBEF93C0076724B /* Inject */; };
@@ -82,7 +82,7 @@
 		138F898B2BB02D1A00EA9F2F /* kudos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = kudos.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		138F898E2BB02D1A00EA9F2F /* kudosApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = kudosApp.swift; sourceTree = "<group>"; };
 		138F89902BB02D1A00EA9F2F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		138F89922BB02D1A00EA9F2F /* Accomplishment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Accomplishment.swift; sourceTree = "<group>"; };
+		138F89922BB02D1A00EA9F2F /* AccomplishmentEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccomplishmentEntity.swift; sourceTree = "<group>"; };
 		138F89942BB02D1C00EA9F2F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		138F89972BB02D1C00EA9F2F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		138F899D2BB02D1C00EA9F2F /* kudosTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = kudosTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -284,7 +284,7 @@
 			isa = PBXGroup;
 			children = (
 				5013DD8C2F938A92007B9241 /* AccomplishmentRepository.swift */,
-				138F89922BB02D1A00EA9F2F /* Accomplishment.swift */,
+				138F89922BB02D1A00EA9F2F /* AccomplishmentEntity.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -473,7 +473,7 @@
 				138BF4E32EE58DB100C37AF3 /* ErrorView.swift in Sources */,
 				5013DD8D2F938A96007B9241 /* AccomplishmentRepository.swift in Sources */,
 				1338C6E12BB0A2BF0061FBEB /* ConfettiSwiftUI.swift in Sources */,
-				138F89932BB02D1A00EA9F2F /* Accomplishment.swift in Sources */,
+				138F89932BB02D1A00EA9F2F /* AccomplishmentEntity.swift in Sources */,
 				5013DD8F2F938BB0007B9241 /* NewAccomplishment.swift in Sources */,
 				5013DD8B2F938A55007B9241 /* AddAccomplishmentUseCase.swift in Sources */,
 				509B7B7D2F4F038400BBD13C /* TipJarStore.swift in Sources */,

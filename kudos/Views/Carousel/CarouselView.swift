@@ -1,15 +1,15 @@
 import SwiftUI
 
 struct CarouselView: View {
-    let accomplishments: [Accomplishment]
-    let onDelete: (Accomplishment) -> Void
+    let accomplishments: [AccomplishmentEntity]
+    let onDelete: (AccomplishmentEntity) -> Void
 
     @State private var currentIndex: Int = 0
     @State private var translation: CGFloat = 0
-    @State private var selectedItem: Accomplishment? = nil
+    @State private var selectedItem: AccomplishmentItem? = nil
     @State private var dragSessionId: UUID?
     @State private var lastDragEndTime: Date = .distantPast
-    @State private var itemToDelete: Accomplishment?
+    @State private var itemToDelete: AccomplishmentEntity?
     @State private var dragResetTask: Task<Void, Never>?
 
     private var isDragging: Bool {
@@ -35,9 +35,9 @@ struct CarouselView: View {
         return start..<end
     }
 
-    private var visibleItems: [(index: Int, item: Accomplishment)] {
+    private var visibleItems: [(index: Int, item: AccomplishmentEntity)] {
         Array(visibleRange)
-            .compactMap { index -> (Int, Accomplishment)? in
+            .compactMap { index -> (Int, AccomplishmentEntity)? in
                 guard index < accomplishments.count else { return nil }
                 return (index, accomplishments[index])
             }
@@ -89,7 +89,7 @@ struct CarouselView: View {
     }
 
     @ViewBuilder
-    private func cardView(for item: Accomplishment, at index: Int) -> some View {
+    private func cardView(for item: AccomplishmentEntity, at index: Int) -> some View {
         StickyView(item: item, delete: {
             itemToDelete = item
         })

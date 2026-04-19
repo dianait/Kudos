@@ -4,7 +4,7 @@ import Foundation
 @MainActor
 final class WrappedViewModel {
     private let getAccomplishmentsUseCase: GetAccomplishmentsUseCaseProtocol
-    var allItems: [Accomplishment] = []
+    var allItems: [AccomplishmentItem] = []
     var errorMessage: String?
     init(getAccomplishmentsUseCase: GetAccomplishmentsUseCaseProtocol) {
         self.getAccomplishmentsUseCase = getAccomplishmentsUseCase
@@ -19,7 +19,7 @@ final class WrappedViewModel {
         }
     }
 
-    var currentYearItems: [Accomplishment] {
+    var currentYearItems: [AccomplishmentItem] {
         let year = Calendar.current.component(.year, from: Date())
         return allItems.filter { Calendar.current.component(.year, from: $0.date) == year }
     }

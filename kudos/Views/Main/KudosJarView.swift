@@ -1,8 +1,8 @@
 import SwiftUI
 
 struct KudosJarView: View {
-    let accomplishments: [Accomplishment]
-    let onDelete: (Accomplishment) -> Void
+    let accomplishments: [AccomplishmentItem]
+    let onDelete: (AccomplishmentItem) -> Void
     @Environment(\.accessibilityReduceTransparency) var reduceTransparency
 
     private var count: Int {

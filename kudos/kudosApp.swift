@@ -14,7 +14,7 @@ struct KudosApp: App {
     init() {
         // Initialize ModelContainer safely
         let schema = Schema([
-            Accomplishment.self,
+            AccomplishmentEntity.self,
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 

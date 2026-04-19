@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct StickyView: View {
-    var item: Accomplishment
+    var item: AccomplishmentItem
     var delete: (() -> Void)? = nil
 
     @State private var cachedImage: UIImage?
@@ -63,7 +63,7 @@ struct StickyView: View {
                 // Text mode: original layout
                 VStack {
                     ZStack(alignment: .topTrailing) {
-                        BackgroundImageView(color: item.color)
+                        BackgroundImageView(color: item.colorHex)
                         textModeOverlay
                     }
                 }
@@ -148,32 +148,3 @@ struct StickyView: View {
         }
     }
 }
-
-#if targetEnvironment(simulator)
-    let itemMock = Accomplishment(
-        validatedText: "🎉 Tu primer logro aquí",
-        validatedColor: "yellow"
-    )
-
-    #Preview("👀 View Mode") {
-        StickyView(item: itemMock)
-    }
-
-    #Preview("✏️ Texto largo") {
-        StickyView(item: Accomplishment(
-            validatedText: "🎉 Tu primer logro aquí esto es un texto muy largo que necestio de una línea para que se note el reajuste del layout",
-            validatedColor: "yellow"
-        )) {}
-    }
-
-    #Preview("✏️ Texto más largo") {
-        StickyView(item: Accomplishment(
-            validatedText: "🎉 Tu primer logro aquí esto es un texto muy largo que necestio de una línea para que se note el reajuste del layout y el texto sea todavía mas largo",
-            validatedColor: "yellow"
-        )) {}
-    }
-
-    #Preview("✏️ Edit Mode") {
-        StickyView(item: itemMock) {}
-    }
-#endif

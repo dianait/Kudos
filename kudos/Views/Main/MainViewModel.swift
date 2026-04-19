@@ -16,7 +16,7 @@ public final class MainViewModel {
     var selectedPhotoData: Data?
     var showCamera: Bool = false
     var errorMessage: String?
-    var accomplishments: [Accomplishment] = []
+    var accomplishments: [AccomplishmentItem] = []
     var accomplishmentsCount: Int { accomplishments.count }
 
     private let addAccomplishmentUseCase: AddAccomplishmentUseCaseProtocol
@@ -68,14 +68,12 @@ public final class MainViewModel {
         }
     }
     
-    func delete(_ accomplishment: Accomplishment) {
+    func delete(_ accomplishment: AccomplishmentItem) {
         do {
-            print("Deleting:", accomplishment)
             try deleteAccomplishmentUseCase.execute(accomplishment)
             loadAccomplishments()
         } catch {
             errorMessage = error.localizedDescription
-            print("Delete error:", error)
         }
     }
 

@@ -2,7 +2,7 @@ import SwiftData
 import SwiftUI
 
 struct AccomplishmentDetailView: View {
-    let accomplishment: Accomplishment
+    let accomplishment: AccomplishmentItem
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
     @Environment(LanguageManager.self) private var languageManager
@@ -113,7 +113,7 @@ struct AccomplishmentDetailView: View {
         .padding()
         .background(
             RoundedRectangle(cornerRadius: Space.medium)
-                .fill(Color.fromString(accomplishment.color).opacity(0.3))
+                .fill(Color.fromString(accomplishment.colorHex).opacity(0.3))
                 .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 2)
         )
         .padding(.horizontal)
@@ -174,18 +174,3 @@ struct AccomplishmentDetailView: View {
         }
     }
 }
-
-#if targetEnvironment(simulator)
-#Preview {
-    NavigationStack {
-        AccomplishmentDetailView(
-            accomplishment: Accomplishment(
-                validatedText: "🎉 Mi primer logro importante que quiero celebrar",
-                validatedColor: "yellow"
-            )
-        )
-    }
-    .modelContainer(for: Accomplishment.self, inMemory: true)
-}
-#endif
-

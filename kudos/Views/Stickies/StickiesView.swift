@@ -1,17 +1,44 @@
 import SwiftUI
 
 struct StickiesView: View {
-    let lastItem: Accomplishment?
+    let lastItem: AccomplishmentItem?
     @Binding var mode: Mode
 
     private var lastMessage: String {
         lastItem?.text ?? ""
     }
 
-    @State private var placeholderItem = Accomplishment(validatedText: " ", validatedColor: Copies.Colors.yellow.rawValue)
-    @State private var backgroundItem1 = Accomplishment(validatedText: Copies.StickiesView.accomplishmentExample3, validatedColor: Copies.Colors.green.rawValue)
-    @State private var backgroundItem2 = Accomplishment(validatedText: Copies.StickiesView.accomplishmentExample2, validatedColor: Copies.Colors.blue.rawValue)
-    @State private var backgroundItem3 = Accomplishment(validatedText: Copies.StickiesView.accomplishmentExample1, validatedColor: Copies.Colors.orange.rawValue)
+    @State private var placeholderItem = AccomplishmentItem(
+        id: "1",
+        date: Date(),
+        text: " ",
+        colorHex: Copies.Colors.yellow.rawValue,
+        photoData: nil
+    )
+
+    @State private var backgroundItem1 = AccomplishmentItem(
+        id: "2",
+        date: Date(),
+        text: Copies.StickiesView.accomplishmentExample3,
+        colorHex: Copies.Colors.green.rawValue,
+        photoData: nil
+    )
+
+    @State private var backgroundItem2 = AccomplishmentItem(
+        id: "3",
+        date: Date(),
+        text: Copies.StickiesView.accomplishmentExample2,
+        colorHex: Copies.Colors.blue.rawValue,
+        photoData: nil
+    )
+
+    @State private var backgroundItem3 = AccomplishmentItem(
+        id: "4",
+        date: Date(),
+        text: Copies.StickiesView.accomplishmentExample1,
+        colorHex: Copies.Colors.orange.rawValue,
+        photoData: nil
+    )
 
     var body: some View {
         HStack {

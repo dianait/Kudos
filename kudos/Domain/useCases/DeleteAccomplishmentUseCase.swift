@@ -1,5 +1,5 @@
 protocol DeleteAccomplishmentUseCaseProtocol {
-    func execute(_ accomplishment: Accomplishment) throws
+    func execute(_ accomplishment: AccomplishmentItem) throws
 }
 
 final class DeleteAccomplishmentUseCase: DeleteAccomplishmentUseCaseProtocol {
@@ -9,7 +9,7 @@ final class DeleteAccomplishmentUseCase: DeleteAccomplishmentUseCaseProtocol {
         self.repository = repository
     }
 
-    func execute(_ accomplishment: Accomplishment) throws {
+    func execute(_ accomplishment: AccomplishmentItem) throws {
         try repository.delete(accomplishment)
     }
 }

@@ -8,7 +8,7 @@ struct SwiftDataIntegrationTests {
 
     // Helper to create isolated test context for each test
     func makeTestContext() throws -> ModelContext {
-        let schema = Schema([Accomplishment.self])
+        let schema = Schema([AccomplishmentEntity.self])
         let config = ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)
         let container = try ModelContainer(for: schema, configurations: [config])
         return ModelContext(container)
@@ -20,10 +20,10 @@ struct SwiftDataIntegrationTests {
         let text = "Test logro para SwiftData"
         let color = "yellow"
 
-        let accomplishment = try Accomplishment(text, color: color)
+        let accomplishment = try AccomplishmentEntity(text, color: color)
         context.insert(accomplishment)
 
-        let descriptor = FetchDescriptor<Accomplishment>()
+        let descriptor = FetchDescriptor<AccomplishmentEntity>()
         let fetchedAccomplishments = try context.fetch(descriptor)
 
         #expect(fetchedAccomplishments.count == 1)
@@ -35,16 +35,16 @@ struct SwiftDataIntegrationTests {
     @Test("Delete accomplishment")
     func deleteAccomplishment() throws {
         let context = try makeTestContext()
-        let accomplishment = try Accomplishment("Logro para eliminar")
+        let accomplishment = try AccomplishmentEntity("Logro para eliminar")
         context.insert(accomplishment)
 
-        var descriptor = FetchDescriptor<Accomplishment>()
+        var descriptor = FetchDescriptor<AccomplishmentEntity>()
         var fetchedAccomplishments = try context.fetch(descriptor)
         #expect(fetchedAccomplishments.count == 1)
 
         context.delete(accomplishment)
 
-        descriptor = FetchDescriptor<Accomplishment>()
+        descriptor = FetchDescriptor<AccomplishmentEntity>()
         fetchedAccomplishments = try context.fetch(descriptor)
         #expect(fetchedAccomplishments.count == 0)
     }
@@ -58,17 +58,17 @@ struct SwiftDataIntegrationTests {
         let oldDate = Date(timeIntervalSinceNow: -86400) // Yesterday
         let newDate = Date()
 
-        let oldAccomplishment = try Accomplishment("Logro antiguo")
+        let oldAccomplishment = try AccomplishmentEntity("Logro antiguo")
         oldAccomplishment.date = oldDate
 
-        let newAccomplishment = try Accomplishment("Logro nuevo")
+        let newAccomplishment = try AccomplishmentEntity("Logro nuevo")
         newAccomplishment.date = newDate
 
         context.insert(oldAccomplishment)
         context.insert(newAccomplishment)
 
-        let sortDescriptor = SortDescriptor(\Accomplishment.date, order: order)
-        let descriptor = FetchDescriptor<Accomplishment>(sortBy: [sortDescriptor])
+        let sortDescriptor = SortDescriptor(\AccomplishmentEntity.date, order: order)
+        let descriptor = FetchDescriptor<AccomplishmentEntity>(sortBy: [sortDescriptor])
         let fetchedAccomplishments = try context.fetch(descriptor)
 
         #expect(fetchedAccomplishments.count == 2)
@@ -88,12 +88,12 @@ struct SwiftDataIntegrationTests {
         ]
 
         for (index, date) in dates.enumerated() {
-            let accomplishment = try Accomplishment("Logro \(index)")
+            let accomplishment = try AccomplishmentEntity("Logro \(index)")
             accomplishment.date = date
             context.insert(accomplishment)
         }
 
-        let descriptor = FetchDescriptor<Accomplishment>(
+        let descriptor = FetchDescriptor<AccomplishmentEntity>(
             sortBy: [SortDescriptor(\.date, order: .reverse)]
         )
         let fetched = try context.fetch(descriptor)

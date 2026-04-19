@@ -6,6 +6,7 @@ public enum Mode {
 }
 
 @Observable
+@MainActor
 public final class MainViewModel {
     var mode: Mode = .view
     var text: String = ""

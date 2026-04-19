@@ -45,11 +45,10 @@ struct MainView: View {
                     selectedImage = nil
                 }
             }
-            .onChange(of: viewModel.accomplishmentsCount) { _, newValue in
-                confettiCounter = newValue
-            }
-            .onAppear {
-                confettiCounter = viewModel.accomplishmentsCount
+            .onChange(of: viewModel.accomplishmentsCount) { oldValue, newValue in
+                if newValue > oldValue {
+                    confettiCounter += 1
+                }
             }
             .background(Color("MainBackground"))
         }

@@ -38,12 +38,10 @@ extension AccomplishmentEntity {
 }
 
 extension AccomplishmentEntity {
-    convenience init(from new: NewAccomplishment) throws {
-        let rawText = new.text ?? ""
-        let validatedText = try AccomplishmentValidator.validateText(rawText)
+    convenience init(from new: NewAccomplishment) {
         self.init(
             date: Date(),
-            text: validatedText,
+            text: new.text ?? "",
             colorHex: new.color,
             photoData: new.photoData
         )

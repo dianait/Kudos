@@ -1,4 +1,4 @@
-import SwiftUI
+import Foundation
 
 struct NewAccomplishment {
     let text: String?

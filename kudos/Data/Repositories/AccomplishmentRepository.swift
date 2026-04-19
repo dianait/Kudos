@@ -9,7 +9,7 @@ final class SwiftDataAccomplishmentRepository: AccomplishmentRepositoryProtocol 
     }
 
     func save(_ accomplishment: NewAccomplishment) throws {
-        let entity = try AccomplishmentEntity(from: accomplishment)
+        let entity = AccomplishmentEntity(from: accomplishment)
         modelContext.insert(entity)
         try modelContext.save()
     }

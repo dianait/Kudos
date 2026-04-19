@@ -1,4 +1,4 @@
-import SwiftUI
+import Foundation
 
 protocol AddPhotoAccomplishmentUseCaseProtocol {
     func execute(photoData: Data, caption: String?) throws
@@ -12,8 +12,13 @@ final class AddPhotoAccomplishmentUseCase: AddPhotoAccomplishmentUseCaseProtocol
     }
 
     func execute(photoData: Data, caption: String?) throws {
+        let validatedCaption: String? = try caption.flatMap { raw in
+            let trimmed = raw.trimmingCharacters(in: .whitespacesAndNewlines)
+            guard !trimmed.isEmpty else { return nil }
+            return try AccomplishmentValidator.validateText(trimmed)
+        }
         let new = NewAccomplishment(
-            text: caption,
+            text: validatedCaption,
             photoData: photoData,
             color: AccomplishmentColor.randomColorString()
         )

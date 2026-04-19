@@ -187,3 +187,6 @@
 "accomplishment_detail_delete_confirmation_message" = "Esta acción no se puede deshacer. El logro se eliminará permanentemente.";
 "accomplishment_detail_delete_cancel" = "Cancelar";
 "accomplishment_detail_delete_confirm" = "Eliminar";
+
+// Carousel Filter
+"carousel_filter_all" = "Todo";

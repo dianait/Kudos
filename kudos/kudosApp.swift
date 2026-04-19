@@ -5,7 +5,6 @@ import SwiftUI
 struct KudosApp: App {
     @State private var languageManager = LanguageManager.shared
     @State private var appSettings = AppSettings.shared
-    @State private var tipJarStore = TipJarStore.shared
     @State private var modelContainerError: Error?
     @State private var modelContainer: ModelContainer?
     @State private var isUsingInMemoryFallback: Bool = false
@@ -46,10 +45,8 @@ struct KudosApp: App {
                     .background(Color("MainBackground"))
                     .environment(languageManager)
                     .environment(appSettings)
-                    .environment(tipJarStore)
                     .modelContainer(modelContainer)
                     .preferredColorScheme(appSettings.colorSchemePreference.colorScheme)
-                    .task { await tipJarStore.load() }
                     .alert(Copies.InMemoryWarning.title, isPresented: $showInMemoryWarning) {
                         Button(Copies.InMemoryWarning.okButton, role: .cancel) {
                             showInMemoryWarning = false

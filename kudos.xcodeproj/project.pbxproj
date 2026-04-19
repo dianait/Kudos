@@ -30,6 +30,7 @@
 		5013DD912F938D09007B9241 /* AccomplishmentValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5013DD902F938D09007B9241 /* AccomplishmentValidator.swift */; };
 		502ED54C2F943B240076B94F /* AccomplishmentRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502ED54B2F943B200076B94F /* AccomplishmentRepositoryProtocol.swift */; };
 		504E5A2D2F951666007468F4 /* Limits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504E5A172F951666007468F4 /* Limits.swift */; };
+		504E5A3A2F951666007468F4 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504E5A282F951666007468F4 /* AppSettings.swift */; };
 		504E5A732F951A41007468F4 /* AddPhotoAccomplishmentUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504E5A722F951A41007468F4 /* AddPhotoAccomplishmentUseCaseTests.swift */; };
 		504E5A752F951A46007468F4 /* AddAccomplishmentUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504E5A742F951A46007468F4 /* AddAccomplishmentUseCaseTests.swift */; };
 		504E5A772F951A50007468F4 /* AccomplishmentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504E5A762F951A50007468F4 /* AccomplishmentTests.swift */; };
@@ -38,7 +39,6 @@
 		504E5A882F951CE4007468F4 /* LocalizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504E5A832F951CE4007468F4 /* LocalizationManager.swift */; };
 		504E5AB02F9521AD007468F4 /* MainViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504E5AAF2F9521AD007468F4 /* MainViewModelTests.swift */; };
 		504E5AB22F9521B1007468F4 /* WrappedViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504E5AB12F9521B1007468F4 /* WrappedViewModelTests.swift */; };
-		509B7B7D2F4F038400BBD13C /* TipJarStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509B7B7C2F4F038400BBD13C /* TipJarStore.swift */; };
 		509F51B82F93C9860075353A /* ValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509F51A32F93C9860075353A /* ValidationError.swift */; };
 		509F51F42F93CF6A0075353A /* GetAccomplishmentsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509F51F32F93CF640075353A /* GetAccomplishmentsUseCase.swift */; };
 		509F51F62F93DCDE0075353A /* DeleteAccomplishmentUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509F51F52F93DCDD0075353A /* DeleteAccomplishmentUseCase.swift */; };
@@ -106,6 +106,7 @@
 		5013DD902F938D09007B9241 /* AccomplishmentValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccomplishmentValidator.swift; sourceTree = "<group>"; };
 		502ED54B2F943B200076B94F /* AccomplishmentRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccomplishmentRepositoryProtocol.swift; sourceTree = "<group>"; };
 		504E5A172F951666007468F4 /* Limits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Limits.swift; sourceTree = "<group>"; };
+		504E5A282F951666007468F4 /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
 		504E5A722F951A41007468F4 /* AddPhotoAccomplishmentUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoAccomplishmentUseCaseTests.swift; sourceTree = "<group>"; };
 		504E5A742F951A46007468F4 /* AddAccomplishmentUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAccomplishmentUseCaseTests.swift; sourceTree = "<group>"; };
 		504E5A762F951A50007468F4 /* AccomplishmentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccomplishmentTests.swift; sourceTree = "<group>"; };
@@ -115,7 +116,6 @@
 		504E5AAF2F9521AD007468F4 /* MainViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModelTests.swift; sourceTree = "<group>"; };
 		504E5AB12F9521B1007468F4 /* WrappedViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrappedViewModelTests.swift; sourceTree = "<group>"; };
 		509B77D72F4DC57D00BBD13C /* kudos.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = kudos.xctestplan; sourceTree = "<group>"; };
-		509B7B7C2F4F038400BBD13C /* TipJarStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipJarStore.swift; sourceTree = "<group>"; };
 		509F51A32F93C9860075353A /* ValidationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationError.swift; sourceTree = "<group>"; };
 		509F51F32F93CF640075353A /* GetAccomplishmentsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAccomplishmentsUseCase.swift; sourceTree = "<group>"; };
 		509F51F52F93DCDD0075353A /* DeleteAccomplishmentUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccomplishmentUseCase.swift; sourceTree = "<group>"; };
@@ -132,7 +132,6 @@
 		504E5A852F951CE4007468F4 /* Localization */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Localization; sourceTree = "<group>"; };
 		504E5A8C2F951CEB007468F4 /* Helpers */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Helpers; sourceTree = "<group>"; };
 		504E5A982F951D04007468F4 /* Constants */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Constants; sourceTree = "<group>"; };
-		509B7B802F4F038400BBD13C /* TipJar */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = TipJar; sourceTree = "<group>"; };
 		C264C4CBC4584566B1B1C8F9 /* Wrapped */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Wrapped; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
@@ -188,7 +187,6 @@
 				504E5A802F951C46007468F4 /* Utilities */,
 				138BF4E22EE58DB100C37AF3 /* Error */,
 				13A3F8182D88082E002ED82B /* Settings */,
-				509B7B802F4F038400BBD13C /* TipJar */,
 				135D1BC02D7D9D6200A85599 /* Stickies */,
 				135D1BBF2D7D9D3000A85599 /* Main */,
 				135D1BBE2D7D9D0200A85599 /* Carousel */,
@@ -395,7 +393,7 @@
 			isa = PBXGroup;
 			children = (
 				504E5A832F951CE4007468F4 /* LocalizationManager.swift */,
-				509B7B7C2F4F038400BBD13C /* TipJarStore.swift */,
+				504E5A282F951666007468F4 /* AppSettings.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -469,7 +467,6 @@
 				504E5A852F951CE4007468F4 /* Localization */,
 				504E5A8C2F951CEB007468F4 /* Helpers */,
 				504E5A982F951D04007468F4 /* Constants */,
-				509B7B802F4F038400BBD13C /* TipJar */,
 				C264C4CBC4584566B1B1C8F9 /* Wrapped */,
 			);
 			name = kudos;
@@ -595,13 +592,13 @@
 				509F51B82F93C9860075353A /* ValidationError.swift in Sources */,
 				504E5A2D2F951666007468F4 /* Limits.swift in Sources */,
 				504E5A882F951CE4007468F4 /* LocalizationManager.swift in Sources */,
+				504E5A3A2F951666007468F4 /* AppSettings.swift in Sources */,
 				138BF4E32EE58DB100C37AF3 /* ErrorView.swift in Sources */,
 				5013DD8D2F938A96007B9241 /* AccomplishmentRepository.swift in Sources */,
 				1338C6E12BB0A2BF0061FBEB /* ConfettiSwiftUI.swift in Sources */,
 				138F89932BB02D1A00EA9F2F /* AccomplishmentEntity.swift in Sources */,
 				5013DD8F2F938BB0007B9241 /* NewAccomplishment.swift in Sources */,
 				5013DD8B2F938A55007B9241 /* AddAccomplishmentUseCase.swift in Sources */,
-				509B7B7D2F4F038400BBD13C /* TipJarStore.swift in Sources */,
 				1338C6DF2BB0A2BF0061FBEB /* Triangle.swift in Sources */,
 				502ED54C2F943B240076B94F /* AccomplishmentRepositoryProtocol.swift in Sources */,
 				1338C6E02BB0A2BF0061FBEB /* SlimRectangle.swift in Sources */,

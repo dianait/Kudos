@@ -278,19 +278,9 @@ enum Copies {
         static var outroSubtitle: String { "wrapped_outro_subtitle".localized }
         static var close: String { "wrapped_close".localized }
     }
-
-    enum TipJar {
-        static var sectionTitle: String { "tipjar_section_title".localized }
-        static var supportButton: String { "tipjar_support_button".localized }
-        static var supporterBadge: String { "tipjar_supporter_badge".localized }
-        static var supporterThanks: String { "tipjar_supporter_thanks".localized }
-        static var sheetTitle: String { "tipjar_sheet_title".localized }
-        static var sheetDescription: String { "tipjar_sheet_description".localized }
-        static var buyButton: String { "tipjar_buy_button".localized }
-        static var restoreButton: String { "tipjar_restore_button".localized }
-        static var thankYouTitle: String { "tipjar_thank_you_title".localized }
-        static var thankYouDescription: String { "tipjar_thank_you_description".localized }
-        static var errorTitle: String { "tipjar_error_title".localized }
+    
+    enum CarouselFilter {
+        static var all: String { "carousel_filter_all".localized }
     }
 
     enum AccomplishmentDetail {

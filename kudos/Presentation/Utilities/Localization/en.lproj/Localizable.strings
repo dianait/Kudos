@@ -187,3 +187,6 @@
 "accomplishment_detail_delete_confirmation_message" = "This action cannot be undone. The achievement will be permanently deleted.";
 "accomplishment_detail_delete_cancel" = "Cancel";
 "accomplishment_detail_delete_confirm" = "Delete";
+
+// Carousel Filter
+"carousel_filter_all" = "All";

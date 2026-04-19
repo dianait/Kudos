@@ -13,8 +13,8 @@
 // View Titles
 "celebrate_title_short" = "It's time to celebrate!";
 "celebrate_title_long" = "It's time to celebrate your achievements!";
-"view_description_short" = "Tap on the yellow note";
-"view_description_long" = "Tap on the yellow note to start";
+"view_description_short" = "Tap on the note to start";
+"view_description_long" = "Tap on the note below to start";
 "edit_description_short" = "Swipe up";
 "edit_description_long" = "Swipe up to save";
 "edit_title" = "Are you done?";

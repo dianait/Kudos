@@ -4,6 +4,7 @@ import SwiftUI
 struct CarouselView: View {
     let accomplishments: [AccomplishmentItem]
     let onDelete: (AccomplishmentItem) -> Void
+    var onAddNew: (() -> Void)? = nil
 
     @State private var selectedYear: Int? = nil
     @State private var currentIndex: Int = 0
@@ -62,19 +63,21 @@ struct CarouselView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            Picker("", selection: $selectedYear) {
-                Text(Copies.CarouselFilter.all).tag(Int?.none)
-                ForEach(availableYears, id: \.self) { year in
-                    Text("\(year) (\(count(for: year)))").tag(Int?.some(year))
+            if !accomplishments.isEmpty {
+                Picker("", selection: $selectedYear) {
+                    Text(Copies.CarouselFilter.all).tag(Int?.none)
+                    ForEach(availableYears, id: \.self) { year in
+                        Text("\(year) (\(count(for: year)))").tag(Int?.some(year))
+                    }
                 }
+                .pickerStyle(.segmented)
+                .padding(.horizontal)
+                .padding(.top, Space.small)
+                .padding(.bottom, Space.medium)
             }
-            .pickerStyle(.segmented)
-            .padding(.horizontal)
-            .padding(.top, Space.small)
-            .padding(.bottom, Space.medium)
 
             if filteredAccomplishments.isEmpty {
-                EmptyStateView()
+                EmptyStateView(onAddNew: onAddNew)
             } else {
                 ZStack {
                     Color("MainBackground")

@@ -13,8 +13,8 @@
 // View Titles
 "celebrate_title_short" = "¡Es hora de celebrar!";
 "celebrate_title_long" = "¡Es hora de celebrar tus logros!";
-"view_description_short" = "Pulsa en la nota amarilla";
-"view_description_long" = "Pulsa en la nota amarilla para empezar";
+"view_description_short" = "Pulsa en la nota para empezar";
+"view_description_long" = "Pulsa en la nota de abajo para empezar";
 "edit_description_short" = "Desliza hacia arriba";
 "edit_description_long" = "Desliza hacia arriba para guardar";
 "edit_title" = "¿Has terminado?";

@@ -43,7 +43,6 @@
 		509F51F42F93CF6A0075353A /* GetAccomplishmentsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509F51F32F93CF640075353A /* GetAccomplishmentsUseCase.swift */; };
 		509F51F62F93DCDE0075353A /* DeleteAccomplishmentUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509F51F52F93DCDD0075353A /* DeleteAccomplishmentUseCase.swift */; };
 		5ED910E15E2F435AB0DE73B0 /* AddPhotoAccomplishmentUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807DE005AA7E45CFA2294C28 /* AddPhotoAccomplishmentUseCase.swift */; };
-		9FC8577BDE3C43028A2EA440 /* GetCurrentYearAccomplishmentsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9BDEA2A0D4498393980F80 /* GetCurrentYearAccomplishmentsUseCase.swift */; };
 		CAED3C56A41F41F2A4AA834F /* GetCurrentYearAccomplishmentsUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15AAF1FEF4A24D7588E4A9FA /* GetCurrentYearAccomplishmentsUseCaseTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -97,7 +96,6 @@
 		138F89972BB02D1C00EA9F2F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		138F899D2BB02D1C00EA9F2F /* kudosTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = kudosTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		15AAF1FEF4A24D7588E4A9FA /* GetCurrentYearAccomplishmentsUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCurrentYearAccomplishmentsUseCaseTests.swift; sourceTree = "<group>"; };
-		1D9BDEA2A0D4498393980F80 /* GetCurrentYearAccomplishmentsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCurrentYearAccomplishmentsUseCase.swift; sourceTree = "<group>"; };
 		5010720F2F94C6D400033106 /* AppFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFactory.swift; sourceTree = "<group>"; };
 		501072122F94D68000033106 /* AccomplishmentItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccomplishmentItem.swift; sourceTree = "<group>"; };
 		5013DD8A2F938A4E007B9241 /* AddAccomplishmentUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAccomplishmentUseCase.swift; sourceTree = "<group>"; };
@@ -132,7 +130,6 @@
 		504E5A852F951CE4007468F4 /* Localization */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Localization; sourceTree = "<group>"; };
 		504E5A8C2F951CEB007468F4 /* Helpers */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Helpers; sourceTree = "<group>"; };
 		504E5A982F951D04007468F4 /* Constants */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Constants; sourceTree = "<group>"; };
-		C264C4CBC4584566B1B1C8F9 /* Wrapped */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Wrapped; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -191,7 +188,6 @@
 				135D1BBF2D7D9D3000A85599 /* Main */,
 				135D1BBE2D7D9D0200A85599 /* Carousel */,
 				135D1BBD2D7D995F00A85599 /* AboutMe */,
-				C264C4CBC4584566B1B1C8F9 /* Wrapped */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -414,7 +410,6 @@
 				509F51F32F93CF640075353A /* GetAccomplishmentsUseCase.swift */,
 				5013DD8A2F938A4E007B9241 /* AddAccomplishmentUseCase.swift */,
 				807DE005AA7E45CFA2294C28 /* AddPhotoAccomplishmentUseCase.swift */,
-				1D9BDEA2A0D4498393980F80 /* GetCurrentYearAccomplishmentsUseCase.swift */,
 			);
 			path = useCases;
 			sourceTree = "<group>";
@@ -467,7 +462,6 @@
 				504E5A852F951CE4007468F4 /* Localization */,
 				504E5A8C2F951CEB007468F4 /* Helpers */,
 				504E5A982F951D04007468F4 /* Constants */,
-				C264C4CBC4584566B1B1C8F9 /* Wrapped */,
 			);
 			name = kudos;
 			packageProductDependencies = (
@@ -588,7 +582,6 @@
 				501072102F94C6D700033106 /* AppFactory.swift in Sources */,
 				5ED910E15E2F435AB0DE73B0 /* AddPhotoAccomplishmentUseCase.swift in Sources */,
 				509F51F42F93CF6A0075353A /* GetAccomplishmentsUseCase.swift in Sources */,
-				9FC8577BDE3C43028A2EA440 /* GetCurrentYearAccomplishmentsUseCase.swift in Sources */,
 				509F51B82F93C9860075353A /* ValidationError.swift in Sources */,
 				504E5A2D2F951666007468F4 /* Limits.swift in Sources */,
 				504E5A882F951CE4007468F4 /* LocalizationManager.swift in Sources */,

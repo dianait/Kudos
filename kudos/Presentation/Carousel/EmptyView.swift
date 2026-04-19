@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct EmptyStateView: View {
+    var onAddNew: (() -> Void)? = nil
     @Environment(\.dismiss) private var dismiss
     private let iconSize: CGFloat = .init(Size.extraExtraLarge.rawValue)
 
@@ -101,7 +102,7 @@ struct EmptyStateView: View {
     }
 
     private func addButton() -> some View {
-        Button(action: { dismiss() }) {
+        Button(action: { onAddNew?(); dismiss() }) {
             HStack {
                 Image(systemName: Icon.plus.rawValue)
                     .font(.system(size: CGFloat(Size.mediumLarge.rawValue)))

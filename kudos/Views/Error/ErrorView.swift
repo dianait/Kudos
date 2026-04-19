@@ -14,7 +14,7 @@ struct ErrorView: View {
                 .font(.headline)
                 .foregroundStyle(.primary)
             
-            if let error = error {
+            if let error {
                 VStack(spacing: Space.small) {
                     Text(Copies.ErrorView.description)
                         .font(.subheadline)

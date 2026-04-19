@@ -13,7 +13,7 @@ enum A11y {
         static let stickie = "stickies_view_stickie".localized
         static let hint = "stickies_view_hint".localized
         static func label(lastMessage: String) -> String {
-            lastMessage.isEmpty ? "stickies_view_label_empty".localized : lastMessage
+            lastMessage.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? "stickies_view_label_empty".localized : lastMessage
         }
     }
 

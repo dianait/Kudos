@@ -14,5 +14,6 @@ enum Limits {
     // Carousel visibility
     static let carouselWindowSize: Int = 3
     static let carouselVisibilityThreshold: Int = 2
+    static let carouselTranslationActivationThreshold: CGFloat = 10
 }
 

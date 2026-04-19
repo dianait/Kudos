@@ -10,6 +10,7 @@ struct CarouselView: View {
     @State private var dragSessionId: UUID?
     @State private var lastDragEndTime: Date = .distantPast
     @State private var itemToDelete: Accomplishment?
+    @State private var dragResetTask: Task<Void, Never>?
 
     private var isDragging: Bool {
         dragSessionId != nil
@@ -18,11 +19,19 @@ struct CarouselView: View {
     private var canTap: Bool {
         Date().timeIntervalSince(lastDragEndTime) > Timing.carouselTapDelay
     }
+    
+    private var isShowingDeleteAlert: Binding<Bool> {
+        Binding(
+            get: { itemToDelete != nil },
+            set: { if !$0 { itemToDelete = nil } }
+        )
+    }
 
     private var visibleRange: Range<Int> {
         let windowSize = Limits.carouselWindowSize
-        let start = max(0, currentIndex - 1)
-        let end = min(accomplishments.count, currentIndex + windowSize)
+        let halfWindow = windowSize / 2
+        let start = max(0, currentIndex - halfWindow)
+        let end = min(accomplishments.count, start + windowSize)
         return start..<end
     }
 
@@ -48,17 +57,12 @@ struct CarouselView: View {
             }
             .highPriorityGesture(dragGesture)
             .accessibilityElement(children: .contain)
-            .accessibilityLabel(A11y.CarouselView.label)
-            .accessibilityHint(A11y.CarouselView.itemHint)
             .navigationDestination(item: $selectedItem) { item in
                 AccomplishmentDetailView(accomplishment: item)
             }
             .alert(
                 Copies.AccomplishmentDetail.deleteConfirmationTitle,
-                isPresented: Binding(
-                    get: { itemToDelete != nil },
-                    set: { if !$0 { itemToDelete = nil } }
-                ),
+                isPresented: isShowingDeleteAlert,
                 presenting: itemToDelete
             ) { item in
                 Button(Copies.AccomplishmentDetail.deleteConfirm, role: .destructive) {
@@ -71,6 +75,16 @@ struct CarouselView: View {
             } message: { _ in
                 Text(Copies.AccomplishmentDetail.deleteConfirmationMessage)
             }
+            .onChange(of: accomplishments) { _, newItems in
+                if let selectedItem, !newItems.contains(where: { $0.persistentModelID == selectedItem.persistentModelID }) {
+                    self.selectedItem = nil
+                }
+
+            }
+            .onDisappear {
+                dragResetTask?.cancel()
+                dragResetTask = nil
+            }
         }
     }
 
@@ -79,22 +93,61 @@ struct CarouselView: View {
         StickyView(item: item, delete: {
             itemToDelete = item
         })
-        .rotation3DEffect(
-            .degrees(Double(cardRotation(index))),
-            axis: (x: 0, y: 1, z: 0),
-            anchor: .center,
-            perspective: AnimationConstants.carouselPerspective
-        )
-        .offset(x: cardOffset(index))
-        .opacity(cardOpacity(index))
-        .accessibilityElement(children: .combine)
-        .accessibilityLabel(A11y.CarouselView.itemLabel(index: index, total: accomplishments.count))
-        .accessibilityHint(A11y.CarouselView.itemHint)
-        .accessibilityAddTraits(.isButton)
-        .onTapGesture {
-            if !isDragging && canTap {
+        .modifier(CarouselCardModifier(
+            index: index,
+            currentIndex: currentIndex,
+            totalCount: accomplishments.count,
+            translation: translation,
+            isDragging: isDragging,
+            canTap: canTap,
+            onTap: {
                 selectedItem = item
             }
+        ))
+    }
+
+    private struct CarouselCardModifier: ViewModifier {
+        let index: Int
+        let currentIndex: Int
+        let totalCount: Int
+        let translation: CGFloat
+        let isDragging: Bool
+        let canTap: Bool
+        let onTap: () -> Void
+
+        func body(content: Content) -> some View {
+            content
+                .rotation3DEffect(
+                    .degrees(Double(cardRotation)),
+                    axis: (x: 0, y: 1, z: 0),
+                    anchor: .center,
+                    perspective: AnimationConstants.carouselPerspective
+                )
+                .offset(x: cardOffset)
+                .opacity(cardOpacity)
+                .accessibilityElement(children: .combine)
+                .accessibilityLabel(A11y.CarouselView.itemLabel(index: index, total: totalCount))
+                .accessibilityHint(A11y.CarouselView.itemHint)
+                .accessibilityAddTraits(index == currentIndex ? .isButton : [])
+                .onTapGesture {
+                    if index == currentIndex && !isDragging && canTap {
+                        onTap()
+                    }
+                }
+        }
+
+        private var cardRotation: CGFloat {
+            let offset = CGFloat(index - currentIndex)
+            return offset * AnimationConstants.carouselRotationDegrees
+        }
+
+        private var cardOffset: CGFloat {
+            let offset = CGFloat(index - currentIndex)
+            return offset * AnimationConstants.carouselOffsetMultiplier + translation
+        }
+
+        private var cardOpacity: Double {
+            abs(index - currentIndex) > Limits.carouselVisibilityThreshold ? 0 : 1
         }
     }
 
@@ -105,21 +158,22 @@ struct CarouselView: View {
                     dragSessionId = UUID()
                 }
 
-                if abs(gesture.translation.width) > 10 {
+                if abs(gesture.translation.width) > Limits.carouselTranslationActivationThreshold {
                     translation = gesture.translation.width
                 }
             }
             .onEnded { gesture in
-                let currentSessionId = dragSessionId
-
                 handleDragEnd(gesture: gesture)
                 lastDragEndTime = Date()
 
-                Task { @MainActor in
+                dragResetTask?.cancel()
+                let sessionId = dragSessionId
+
+                dragResetTask = Task { @MainActor in
                     try? await Task.sleep(for: .seconds(Timing.carouselTapDelay))
-                    if dragSessionId == currentSessionId {
-                        dragSessionId = nil
-                    }
+                    guard !Task.isCancelled, dragSessionId == sessionId else { return }
+                    dragSessionId = nil
+                    dragResetTask = nil
                 }
             }
     }
@@ -137,19 +191,6 @@ struct CarouselView: View {
         }
     }
     
-    private func cardRotation(_ index: Int) -> CGFloat {
-        let offset = CGFloat(index - currentIndex)
-        return offset * AnimationConstants.carouselRotationDegrees
-    }
-
-    private func cardOffset(_ index: Int) -> CGFloat {
-        let offset = CGFloat(index - currentIndex)
-        return offset * AnimationConstants.carouselOffsetMultiplier + translation
-    }
-
-    private func cardOpacity(_ index: Int) -> Double {
-        abs(index - currentIndex) > Limits.carouselVisibilityThreshold ? 0 : 1
-    }
 }
 
 #Preview {

@@ -31,7 +31,7 @@ enum Copies {
         return "about_title".localized
     }
 
-    static var setingsTitle: String {
+    static var settingsTitle: String {
         return "settings_title".localized
     }
 

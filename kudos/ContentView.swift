@@ -15,7 +15,7 @@ struct ContentView: View {
                     }
 
                     Tab(Copies.Wrapped.button, systemImage: "sparkles") {
-                        WrappedView()
+                        WrappedView(viewModel: AppFactory.makeWrappedViewModel(modelContext: modelContext))
                     }
 
                     Tab(Copies.settingsTitle, systemImage: "gear") {
@@ -37,7 +37,7 @@ struct ContentView: View {
         }
         .task {
             guard viewModel == nil else { return }
-            let vm = MainViewModelFactory.make(modelContext: modelContext)
+            let vm = AppFactory.makeMainViewModel(modelContext: modelContext)
             vm.loadAccomplishments()
             viewModel = vm
         }
@@ -48,21 +48,4 @@ struct ContentView: View {
     ContentView()
         .modelContainer(for: Accomplishment.self, inMemory: true)
         .environment(LanguageManager.shared)
-}
-
-enum MainViewModelFactory {
-    static func make(modelContext: ModelContext) -> MainViewModel {
-        let repository = SwiftDataAccomplishmentRepository(modelContext: modelContext)
-        let addAccomplishmentUseCase = AddAccomplishmentUseCase(repository: repository)
-        let addPhotoAccomplishmentUseCase = AddPhotoAccomplishmentUseCase(repository: repository)
-        let getAccomplishmentsUseCase = GetAccomplishmentsUseCase(repository: repository)
-        let deleteAccomplishmentUseCase = DeleteAccomplishmentUseCase(repository: repository)
-
-        return MainViewModel(
-            addAccomplishmentUseCase: addAccomplishmentUseCase,
-            addPhotoAccomplishmentUseCase: addPhotoAccomplishmentUseCase,
-            getAccomplishmentsUseCase: getAccomplishmentsUseCase,
-            deleteAccomplishmentUseCase: deleteAccomplishmentUseCase
-        )
-    }
 }

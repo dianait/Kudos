@@ -29,30 +29,18 @@ struct CarouselView: View {
         )
     }
 
-    private var sourceAccomplishments: [AccomplishmentItem] {
-        #if DEBUG
-        let calendar = Calendar.current
-        let now = Date()
-        let debugItems: [AccomplishmentItem] = [
-            AccomplishmentItem(id: "dbg-1", date: calendar.date(byAdding: .day,  value: -3,  to: now)!, text: "🧪 Hace 3 días",   colorHex: "yellow", photoData: nil),
-            AccomplishmentItem(id: "dbg-2", date: calendar.date(byAdding: .day,  value: -15, to: now)!, text: "🧪 Hace 15 días",  colorHex: "green",  photoData: nil),
-            AccomplishmentItem(id: "dbg-3", date: calendar.date(byAdding: .year, value: -1,  to: now)!, text: "🧪 Año pasado",    colorHex: "blue",   photoData: nil),
-            AccomplishmentItem(id: "dbg-4", date: calendar.date(byAdding: .year, value: -2,  to: now)!, text: "🧪 Hace 2 años",   colorHex: "orange", photoData: nil),
-        ]
-        return accomplishments + debugItems
-        #else
-        return accomplishments
-        #endif
-    }
-
     private var availableYears: [Int] {
-        let years = Set(sourceAccomplishments.map { Calendar.current.component(.year, from: $0.date) })
+        let years = Set(accomplishments.map { Calendar.current.component(.year, from: $0.date) })
         return years.sorted()
     }
 
+    private func count(for year: Int) -> Int {
+        accomplishments.filter { Calendar.current.component(.year, from: $0.date) == year }.count
+    }
+
     private var filteredAccomplishments: [AccomplishmentItem] {
-        guard let year = selectedYear else { return sourceAccomplishments }
-        return sourceAccomplishments.filter {
+        guard let year = selectedYear else { return accomplishments }
+        return accomplishments.filter {
             Calendar.current.component(.year, from: $0.date) == year
         }
     }
@@ -77,7 +65,7 @@ struct CarouselView: View {
             Picker("", selection: $selectedYear) {
                 Text(Copies.CarouselFilter.all).tag(Int?.none)
                 ForEach(availableYears, id: \.self) { year in
-                    Text(String(year)).tag(Int?.some(year))
+                    Text("\(year) (\(count(for: year)))").tag(Int?.some(year))
                 }
             }
             .pickerStyle(.segmented)
@@ -126,6 +114,10 @@ struct CarouselView: View {
             if let selectedItem, !newItems.contains(where: { $0.id == selectedItem.id }) {
                 self.selectedItem = nil
             }
+            let newFiltered = selectedYear.map { year in
+                newItems.filter { Calendar.current.component(.year, from: $0.date) == year }
+            } ?? newItems
+            currentIndex = min(currentIndex, max(0, newFiltered.count - 1))
         }
         .onDisappear {
             dragResetTask?.cancel()
@@ -235,24 +227,4 @@ struct CarouselView: View {
             translation = 0
         }
     }
-    
-}
-
-#Preview {
-    let calendar = Calendar.current
-    let now = Date()
-    let accomplishments: [AccomplishmentItem] = [
-        AccomplishmentItem(id: "1", date: now, text: "Hoy: terminé el proyecto 🎉", colorHex: "orange", photoData: nil),
-        AccomplishmentItem(id: "2", date: calendar.date(byAdding: .day, value: -3, to: now)!, text: "Hace 3 días: hice ejercicio", colorHex: "yellow", photoData: nil),
-        AccomplishmentItem(id: "3", date: calendar.date(byAdding: .day, value: -6, to: now)!, text: "Hace 6 días: aprendí algo nuevo", colorHex: "green", photoData: nil),
-        AccomplishmentItem(id: "4", date: calendar.date(byAdding: .day, value: -15, to: now)!, text: "Hace 15 días: superé un miedo", colorHex: "blue", photoData: nil),
-        AccomplishmentItem(id: "5", date: calendar.date(byAdding: .day, value: -20, to: now)!, text: "Hace 20 días: ayudé a alguien", colorHex: "orange", photoData: nil),
-        AccomplishmentItem(id: "6", date: calendar.date(byAdding: .month, value: -2, to: now)!, text: "Hace 2 meses: ascenso en el trabajo", colorHex: "yellow", photoData: nil),
-        AccomplishmentItem(id: "7", date: calendar.date(byAdding: .month, value: -5, to: now)!, text: "Hace 5 meses: corrí 10km", colorHex: "green", photoData: nil),
-        AccomplishmentItem(id: "8", date: calendar.date(byAdding: .month, value: -8, to: now)!, text: "Hace 8 meses: aprendí SwiftUI", colorHex: "blue", photoData: nil),
-        AccomplishmentItem(id: "9", date: calendar.date(byAdding: .year, value: -2, to: now)!, text: "Hace 2 años: viajé sola por primera vez", colorHex: "orange", photoData: nil),
-    ]
-    CarouselView(accomplishments: accomplishments, onDelete: { _ in })
-        .environment(LanguageManager.shared)
-        .preferredColorScheme(.dark)
 }

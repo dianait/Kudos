@@ -2,19 +2,17 @@ import SwiftUI
 
 struct DateLabelView: View {
     var date: Date
+    @Environment(LanguageManager.self) private var languageManager
 
-    // Static formatter to avoid recreating on every render
-    private static let formatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.locale = Locale(identifier: "es_ES")
-        formatter.dateFormat = "d MMM yyyy"
-        return formatter
-    }()
+    private var formattedDate: String {
+        let locale = Locale(identifier: languageManager.currentLanguage == "es" ? "es_ES" : "en_US")
+        return date.formatted(.dateTime.day().month(.abbreviated).year().locale(locale))
+    }
 
     var body: some View {
         HStack {
             Spacer()
-            Text(Self.formatter.string(from: date))
+            Text(formattedDate)
                 .font(.caption)
                 .padding(.vertical, Space.small)
                 .padding(.horizontal, Space.medium)
@@ -32,5 +30,6 @@ struct DateLabelView: View {
         DateLabelView(date: Date())
             .padding()
             .border(.red)
+            .environment(LanguageManager.shared)
     }
 #endif

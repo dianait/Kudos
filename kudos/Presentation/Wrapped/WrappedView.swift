@@ -3,7 +3,6 @@ import SwiftUI
 
 struct WrappedView: View {
     @Bindable var viewModel: WrappedViewModel
-    var onDismiss: (() -> Void)?
     @State private var currentSlideIndex: Int = 0
     private var totalSlides: Int {
         viewModel.currentYearItems.count + 2

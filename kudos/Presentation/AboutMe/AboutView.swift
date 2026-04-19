@@ -2,7 +2,6 @@ import Foundation
 import SwiftUI
 
 struct AboutView: View {
-    @State private var scrollID = UUID()
     var body: some View {
         ZStack {
             Color("MainBackground")

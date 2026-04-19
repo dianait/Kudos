@@ -56,7 +56,6 @@ public struct ConfettiCannon: View {
     @State var animate: [Bool] = []
     @State var finishedAnimationCounter = 0
     @State var firstAppear = false
-    @State var error = ""
 
     /// renders configurable confetti animaiton
     /// - Parameters:
@@ -271,7 +270,7 @@ struct ConfettiAnimationView: View {
             .onAppear {
                 if firstAppear {
                     move = true
-                    firstAppear = true
+
                 }
             }
     }
@@ -325,13 +324,5 @@ class ConfettiConfig: ObservableObject {
 
     var animationDuration: Double {
         return explosionAnimationDuration + rainAnimationDuration
-    }
-
-    var openingAngleRad: CGFloat {
-        return CGFloat(openingAngle.degrees) * 180 / .pi
-    }
-
-    var closingAngleRad: CGFloat {
-        return CGFloat(closingAngle.degrees) * 180 / .pi
     }
 }

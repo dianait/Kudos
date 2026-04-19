@@ -53,22 +53,20 @@ struct CarouselView: View {
             .navigationDestination(item: $selectedItem) { item in
                 AccomplishmentDetailView(accomplishment: item)
             }
-            .alert("Delete", isPresented: Binding(
-                get: { itemToDelete != nil },
-                set: { if !$0 { itemToDelete = nil } }
-            )) {
-                Button("Delete", role: .destructive) {
-                    if let item = itemToDelete {
-                        onDelete(item)
-                    }
-                    itemToDelete = nil
+            .alert(
+                Copies.AccomplishmentDetail.deleteConfirmationTitle,
+                isPresented: Binding(
+                    get: { itemToDelete != nil },
+                    set: { if !$0 { itemToDelete = nil } }
+                ),
+                presenting: selectedItem
+            ) { item in
+                Button(Copies.AccomplishmentDetail.deleteConfirm, role: .destructive) {
+                    onDelete(item)
                 }
-                Button("Cancel", role: .cancel) {
-                    itemToDelete = nil
-                }
-            } message: {
-                Text(Copies.TipJar.errorTitle)
-
+                Button(Copies.AccomplishmentDetail.deleteCancel, role: .cancel) { }
+            } message: { _ in
+                Text(Copies.AccomplishmentDetail.deleteConfirmationMessage)
             }
         }
     }

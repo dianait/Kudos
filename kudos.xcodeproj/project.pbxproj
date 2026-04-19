@@ -24,6 +24,7 @@
 		138F89982BB02D1C00EA9F2F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 138F89972BB02D1C00EA9F2F /* Preview Assets.xcassets */; };
 		13B947132BBEF93C0076724B /* Inject in Frameworks */ = {isa = PBXBuildFile; productRef = 13B947122BBEF93C0076724B /* Inject */; };
 		501072102F94C6D700033106 /* AppFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5010720F2F94C6D400033106 /* AppFactory.swift */; };
+		501072132F94D68600033106 /* AccomplishmentItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501072122F94D68000033106 /* AccomplishmentItem.swift */; };
 		5013DD8B2F938A55007B9241 /* AddAccomplishmentUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5013DD8A2F938A4E007B9241 /* AddAccomplishmentUseCase.swift */; };
 		5013DD8D2F938A96007B9241 /* AccomplishmentRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5013DD8C2F938A92007B9241 /* AccomplishmentRepository.swift */; };
 		5013DD8F2F938BB0007B9241 /* NewAccomplishment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5013DD8E2F938BAA007B9241 /* NewAccomplishment.swift */; };
@@ -87,6 +88,7 @@
 		138F89972BB02D1C00EA9F2F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		138F899D2BB02D1C00EA9F2F /* kudosTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = kudosTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5010720F2F94C6D400033106 /* AppFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFactory.swift; sourceTree = "<group>"; };
+		501072122F94D68000033106 /* AccomplishmentItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccomplishmentItem.swift; sourceTree = "<group>"; };
 		5013DD8A2F938A4E007B9241 /* AddAccomplishmentUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAccomplishmentUseCase.swift; sourceTree = "<group>"; };
 		5013DD8C2F938A92007B9241 /* AccomplishmentRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccomplishmentRepository.swift; sourceTree = "<group>"; };
 		5013DD8E2F938BAA007B9241 /* NewAccomplishment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAccomplishment.swift; sourceTree = "<group>"; };
@@ -260,14 +262,63 @@
 			path = Dependencies;
 			sourceTree = "<group>";
 		};
-		5013DD882F938A43007B9241 /* Domain */ = {
+		501072112F94D67800033106 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				501072122F94D68000033106 /* AccomplishmentItem.swift */,
+				5013DD8E2F938BAA007B9241 /* NewAccomplishment.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		501072142F94D6A000033106 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				502ED54B2F943B200076B94F /* AccomplishmentRepositoryProtocol.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		501072152F94D6BA00033106 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				501072162F94D6C700033106 /* Validators */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		501072162F94D6C700033106 /* Validators */ = {
 			isa = PBXGroup;
 			children = (
 				509F51A32F93C9860075353A /* ValidationError.swift */,
 				5013DD902F938D09007B9241 /* AccomplishmentValidator.swift */,
-				502ED54B2F943B200076B94F /* AccomplishmentRepositoryProtocol.swift */,
+			);
+			path = Validators;
+			sourceTree = "<group>";
+		};
+		501072172F94D76000033106 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				138F89922BB02D1A00EA9F2F /* AccomplishmentEntity.swift */,
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
+		501072182F94D76E00033106 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				5013DD8C2F938A92007B9241 /* AccomplishmentRepository.swift */,
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
+		5013DD882F938A43007B9241 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				501072152F94D6BA00033106 /* Utilities */,
+				501072142F94D6A000033106 /* Protocols */,
+				501072112F94D67800033106 /* Models */,
 				509F51F02F93CCCE0075353A /* useCases */,
-				5013DD8E2F938BAA007B9241 /* NewAccomplishment.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -283,8 +334,8 @@
 		509F51EF2F93CACB0075353A /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				5013DD8C2F938A92007B9241 /* AccomplishmentRepository.swift */,
-				138F89922BB02D1A00EA9F2F /* AccomplishmentEntity.swift */,
+				501072182F94D76E00033106 /* Repositories */,
+				501072172F94D76000033106 /* Entities */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -466,6 +517,7 @@
 				138F89912BB02D1A00EA9F2F /* ContentView.swift in Sources */,
 				5013DD912F938D09007B9241 /* AccomplishmentValidator.swift in Sources */,
 				509F51F62F93DCDE0075353A /* DeleteAccomplishmentUseCase.swift in Sources */,
+				501072132F94D68600033106 /* AccomplishmentItem.swift in Sources */,
 				501072102F94C6D700033106 /* AppFactory.swift in Sources */,
 				5ED910E15E2F435AB0DE73B0 /* AddPhotoAccomplishmentUseCase.swift in Sources */,
 				509F51F42F93CF6A0075353A /* GetAccomplishmentsUseCase.swift in Sources */,

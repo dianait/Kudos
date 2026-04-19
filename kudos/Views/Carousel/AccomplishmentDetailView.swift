@@ -3,7 +3,7 @@ import SwiftUI
 
 struct AccomplishmentDetailView: View {
     let accomplishment: AccomplishmentItem
-    @Environment(\.modelContext) private var modelContext
+    let onDelete: (AccomplishmentItem) -> Void
     @Environment(\.dismiss) private var dismiss
     @Environment(LanguageManager.self) private var languageManager
     @State private var showDeleteConfirmation = false
@@ -169,7 +169,7 @@ struct AccomplishmentDetailView: View {
     
     private func deleteAccomplishment() {
         withAnimation {
-            modelContext.delete(accomplishment)
+            onDelete(accomplishment)
             dismiss()
         }
     }

@@ -1,15 +1,15 @@
 import SwiftUI
 
 struct CarouselView: View {
-    let accomplishments: [AccomplishmentEntity]
-    let onDelete: (AccomplishmentEntity) -> Void
+    let accomplishments: [AccomplishmentItem]
+    let onDelete: (AccomplishmentItem) -> Void
 
     @State private var currentIndex: Int = 0
     @State private var translation: CGFloat = 0
     @State private var selectedItem: AccomplishmentItem? = nil
     @State private var dragSessionId: UUID?
     @State private var lastDragEndTime: Date = .distantPast
-    @State private var itemToDelete: AccomplishmentEntity?
+    @State private var itemToDelete: AccomplishmentItem?
     @State private var dragResetTask: Task<Void, Never>?
 
     private var isDragging: Bool {
@@ -35,12 +35,11 @@ struct CarouselView: View {
         return start..<end
     }
 
-    private var visibleItems: [(index: Int, item: AccomplishmentEntity)] {
-        Array(visibleRange)
-            .compactMap { index -> (Int, AccomplishmentEntity)? in
-                guard index < accomplishments.count else { return nil }
-                return (index, accomplishments[index])
-            }
+    private var visibleItems: [(index: Int, item: AccomplishmentItem)] {
+        visibleRange.compactMap { index -> (Int, AccomplishmentItem)? in
+            guard index < accomplishments.count else { return nil }
+            return (index, accomplishments[index])
+        }
     }
 
     var body: some View {
@@ -51,14 +50,14 @@ struct CarouselView: View {
                 Color("MainBackground")
                     .ignoresSafeArea()
 
-                ForEach(visibleItems, id: \.item.persistentModelID) { index, item in
+                ForEach(visibleItems, id: \.item.id) { index, item in
                     cardView(for: item, at: index)
                 }
             }
             .highPriorityGesture(dragGesture)
             .accessibilityElement(children: .contain)
             .navigationDestination(item: $selectedItem) { item in
-                AccomplishmentDetailView(accomplishment: item)
+                AccomplishmentDetailView(accomplishment: item, onDelete: onDelete)
             }
             .alert(
                 Copies.AccomplishmentDetail.deleteConfirmationTitle,
@@ -76,10 +75,9 @@ struct CarouselView: View {
                 Text(Copies.AccomplishmentDetail.deleteConfirmationMessage)
             }
             .onChange(of: accomplishments) { _, newItems in
-                if let selectedItem, !newItems.contains(where: { $0.persistentModelID == selectedItem.persistentModelID }) {
+                if let selectedItem, !newItems.contains(where: { $0.id == selectedItem.id }) {
                     self.selectedItem = nil
                 }
-
             }
             .onDisappear {
                 dragResetTask?.cancel()
@@ -89,7 +87,7 @@ struct CarouselView: View {
     }
 
     @ViewBuilder
-    private func cardView(for item: AccomplishmentEntity, at index: Int) -> some View {
+    private func cardView(for item: AccomplishmentItem, at index: Int) -> some View {
         StickyView(item: item, delete: {
             itemToDelete = item
         })

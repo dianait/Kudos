@@ -3,40 +3,39 @@ import SwiftUI
 
 struct WrappedView: View {
     @Bindable var viewModel: WrappedViewModel
-    @State private var currentSlideIndex: Int = 0
     var onDismiss: (() -> Void)?
-    
+    @State private var currentSlideIndex: Int = 0
     private var totalSlides: Int {
         viewModel.currentYearItems.count + 2
     }
 
-
     var body: some View {
-        ZStack(alignment: .topTrailing) {
+        ZStack {
             ScrollView(.vertical) {
                 LazyVStack(spacing: 0) {
                     introSlide
-                    ForEach(Array(viewModel.currentYearItems.enumerated()), id: \.element.id) { index, item in
-                        achievementSlide(for: item, index: index)
+                    ForEach(Array(viewModel.currentYearItems.enumerated()), id: \.element.id) { slideIndex, item in
+                        achievementSlide(for: item, slideIndex: slideIndex)
                     }
                     outroSlide
                 }
-                scrollTargetLayout()
+                .scrollTargetLayout()
             }
             .scrollTargetBehavior(.paging)
             .scrollIndicators(.hidden)
         }
+
         .safeAreaInset(edge: .top) {
             if totalSlides > 1 {
-                   progressIndicator
+                progressIndicator
                     .padding(.top, 8)
-               }
             }
+        }
         .task {
             viewModel.load()
         }
     }
-    
+
     private var progressIndicator: some View {
         Text("\(currentSlideIndex + 1)/\(totalSlides)")
             .font(.footnote)
@@ -46,12 +45,11 @@ struct WrappedView: View {
             .background(.ultraThinMaterial)
             .clipShape(Capsule())
     }
-    
+
     private var introSlide: some View {
         VStack(spacing: 16) {
             Spacer()
-
-            Text(Copies.Wrapped.introTitle(year:  viewModel.currentYear))
+            Text(Copies.Wrapped.introTitle(year: viewModel.currentYear))
                 .font(.title)
                 .fontWeight(.semibold)
                 .multilineTextAlignment(.center)
@@ -67,8 +65,8 @@ struct WrappedView: View {
             currentSlideIndex = 0
         }
     }
-    
-    private func achievementSlide(for item: AccomplishmentItem, index: Int) -> some View {
+
+    private func achievementSlide(for item: AccomplishmentItem, slideIndex: Int) -> some View {
         VStack(spacing: 16) {
             Spacer()
             if let photoData = item.photoData,
@@ -95,14 +93,13 @@ struct WrappedView: View {
         .frame(maxWidth: .infinity)
         .containerRelativeFrame(.vertical)
         .onAppear {
-            currentSlideIndex = index + 1
+            currentSlideIndex = slideIndex + 1
         }
     }
-    
+
     private var outroSlide: some View {
         VStack(spacing: 16) {
             Spacer()
-
             Text(Copies.Wrapped.outroTitle)
                 .font(.title)
                 .fontWeight(.semibold)
@@ -112,8 +109,8 @@ struct WrappedView: View {
                 .font(.headline)
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
-
             Spacer()
+
         }
         .padding()
         .frame(maxWidth: .infinity)

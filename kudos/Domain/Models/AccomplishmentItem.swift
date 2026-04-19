@@ -1,13 +1,6 @@
-import SwiftUI
+import Foundation
 
-struct NewAccomplishment {
-    let text: String?
-    let photoData: Data?
-    let color: String
-}
-
-
-struct AccomplishmentItem: Identifiable, Equatable {
+struct AccomplishmentItem: Identifiable, Equatable, Hashable {
     let id: String
     let date: Date
     let text: String
@@ -20,5 +13,13 @@ struct AccomplishmentItem: Identifiable, Equatable {
 
     var hasText: Bool {
         !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+    }
+    
+    static func == (lhs: AccomplishmentItem, rhs: AccomplishmentItem) -> Bool {
+        lhs.id == rhs.id
+    }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
     }
 }

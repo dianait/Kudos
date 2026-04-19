@@ -41,9 +41,7 @@ public struct MainView: View {
             }
             .onChange(of: selectedImage) { _, newImage in
                 if let image = newImage {
-                    if let compressedData = CameraHelpers.compressImage(image) {
-                        viewModel.selectedPhotoData = compressedData
-                    }
+                    viewModel.imageSelected(image)
                     selectedImage = nil
                 }
             }

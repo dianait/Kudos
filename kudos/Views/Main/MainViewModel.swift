@@ -81,4 +81,10 @@ public final class MainViewModel {
         showSavedMessage = false
     }
 
+    func imageSelected(_ image: UIImage) {
+        if let compressedData = CameraHelpers.compressImage(image) {
+            selectedPhotoData = compressedData
+        }
+    }
+
 }

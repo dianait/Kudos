@@ -7,6 +7,7 @@ struct ContentView: View {
     @State private var viewModel: MainViewModel?
 
     var body: some View {
+        let language = languageManager.currentLanguage
         Group {
             if let viewModel {
                 TabView {
@@ -32,11 +33,11 @@ struct ContentView: View {
                         }
                     }
                 }
-                .localized()
             } else {
                 ProgressView()
             }
         }
+        .id(language)
         .task {
             guard viewModel == nil else { return }
             let vm = AppFactory.makeMainViewModel(modelContext: modelContext)

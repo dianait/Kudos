@@ -59,12 +59,15 @@ struct CarouselView: View {
                     get: { itemToDelete != nil },
                     set: { if !$0 { itemToDelete = nil } }
                 ),
-                presenting: selectedItem
+                presenting: itemToDelete
             ) { item in
                 Button(Copies.AccomplishmentDetail.deleteConfirm, role: .destructive) {
                     onDelete(item)
+                    itemToDelete = nil
                 }
-                Button(Copies.AccomplishmentDetail.deleteCancel, role: .cancel) { }
+                Button(Copies.AccomplishmentDetail.deleteCancel, role: .cancel) {
+                    itemToDelete = nil
+                }
             } message: { _ in
                 Text(Copies.AccomplishmentDetail.deleteConfirmationMessage)
             }

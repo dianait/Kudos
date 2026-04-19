@@ -78,7 +78,7 @@ struct SettingsView: View {
         }
         .scrollContentBackground(.hidden)
         .background(Color("MainBackground"))
-        .navigationTitle(Copies.setingsTitle)
+        .navigationTitle(Copies.settingsTitle)
         .sheet(isPresented: $showTipJar) {
             TipJarView()
                 .environment(tipJarStore)

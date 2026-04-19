@@ -16,7 +16,7 @@ struct HeaderView: View {
     }
 
     var description: String {
-        shouldShowEditHeader ? Copies.editDescription(screenWidth: screenSize.width) : Copies.viewDecription(screenWidth: screenSize.width)
+        shouldShowEditHeader ? Copies.editDescription(screenWidth: screenSize.width) : Copies.viewDescription(screenWidth: screenSize.width)
     }
 
     var body: some View {

@@ -15,7 +15,7 @@ enum Copies {
         screenWidth < minScreenWidth ? "celebrate_title_short".localized : "celebrate_title_long".localized
     }
 
-    static func viewDecription(screenWidth: CGFloat) -> String {
+    static func viewDescription(screenWidth: CGFloat) -> String {
         screenWidth < minScreenWidth ? "view_description_short".localized : "view_description_long".localized
     }
 
@@ -61,7 +61,7 @@ enum Copies {
         }
     }
 
-    enum StickisView {
+    enum StickiesView {
         static var accomplishmentExample1: String {
             return "accomplishment_example1".localized
         }
@@ -92,7 +92,7 @@ enum Copies {
         case blue
     }
 
-    enum Carrusel {
+    enum Carousel {
         enum EmptyState {
             static var title: String {
                 return "carousel_empty_title".localized

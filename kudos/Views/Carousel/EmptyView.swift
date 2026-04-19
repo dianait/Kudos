@@ -65,12 +65,12 @@ struct EmptyStateView: View {
                 .foregroundStyle(.white.opacity(0.8))
                 .padding(.bottom, CGFloat(Size.extraSmall.rawValue))
 
-            Text(Copies.Carrusel.EmptyState.title)
+            Text(Copies.Carousel.EmptyState.title)
                 .font(.system(size: CGFloat(Size.large.rawValue), weight: .bold))
                 .foregroundStyle(.white)
                 .multilineTextAlignment(.center)
 
-            Text(Copies.Carrusel.EmptyState.description)
+            Text(Copies.Carousel.EmptyState.description)
                 .font(.system(size: CGFloat(Size.medium.rawValue)))
                 .multilineTextAlignment(.center)
                 .foregroundStyle(.white.opacity(0.9))
@@ -81,9 +81,9 @@ struct EmptyStateView: View {
 
     private func benefitsContent() -> some View {
         VStack(alignment: .leading, spacing: CGFloat(Size.extraSmall.rawValue)) {
-            benefitRow(icon: Icon.check.rawValue, text: Copies.Carrusel.EmptyState.benefit1)
-            benefitRow(icon: Icon.chartGrowth.rawValue, text: Copies.Carrusel.EmptyState.benefit2)
-            benefitRow(icon: Icon.trophy.rawValue, text: Copies.Carrusel.EmptyState.benefit3)
+            benefitRow(icon: Icon.check.rawValue, text: Copies.Carousel.EmptyState.benefit1)
+            benefitRow(icon: Icon.chartGrowth.rawValue, text: Copies.Carousel.EmptyState.benefit2)
+            benefitRow(icon: Icon.trophy.rawValue, text: Copies.Carousel.EmptyState.benefit3)
         }
         .padding(.vertical, CGFloat(Size.extraSmall.rawValue))
     }
@@ -106,7 +106,7 @@ struct EmptyStateView: View {
                 Image(systemName: Icon.plus.rawValue)
                     .font(.system(size: CGFloat(Size.mediumLarge.rawValue)))
 
-                Text(Copies.Carrusel.EmptyState.addNewButton)
+                Text(Copies.Carousel.EmptyState.addNewButton)
                     .fontWeight(.bold)
             }
             .padding(.horizontal, CGFloat(Size.extraExtraLarge.rawValue))

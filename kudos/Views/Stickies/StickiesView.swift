@@ -9,9 +9,9 @@ struct StickiesView: View {
     }
 
     @State private var placeholderItem = Accomplishment(validatedText: " ", validatedColor: Copies.Colors.yellow.rawValue)
-    @State private var backgroundItem1 = Accomplishment(validatedText: Copies.StickisView.accomplishmentExample3, validatedColor: Copies.Colors.green.rawValue)
-    @State private var backgroundItem2 = Accomplishment(validatedText: Copies.StickisView.accomplishmentExample2, validatedColor: Copies.Colors.blue.rawValue)
-    @State private var backgroundItem3 = Accomplishment(validatedText: Copies.StickisView.accomplishmentExample1, validatedColor: Copies.Colors.orange.rawValue)
+    @State private var backgroundItem1 = Accomplishment(validatedText: Copies.StickiesView.accomplishmentExample3, validatedColor: Copies.Colors.green.rawValue)
+    @State private var backgroundItem2 = Accomplishment(validatedText: Copies.StickiesView.accomplishmentExample2, validatedColor: Copies.Colors.blue.rawValue)
+    @State private var backgroundItem3 = Accomplishment(validatedText: Copies.StickiesView.accomplishmentExample1, validatedColor: Copies.Colors.orange.rawValue)
 
     var body: some View {
         HStack {

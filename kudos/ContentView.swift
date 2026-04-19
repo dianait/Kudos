@@ -18,7 +18,7 @@ struct ContentView: View {
                         WrappedView()
                     }
 
-                    Tab(Copies.setingsTitle, systemImage: "gear") {
+                    Tab(Copies.settingsTitle, systemImage: "gear") {
                         NavigationStack {
                             SettingsView()
                         }

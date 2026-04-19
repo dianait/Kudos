@@ -46,14 +46,16 @@ public final class MainViewModel {
 
     func save() {
         do {
+            let color = AccomplishmentColor.randomColorString()
             if let photoData = selectedPhotoData {
                 let caption = text.trimmingCharacters(in: .whitespacesAndNewlines)
                 try addPhotoAccomplishmentUseCase.execute(
                     photoData: photoData,
-                    caption: caption.isEmpty ? nil : caption
+                    caption: caption.isEmpty ? nil : caption,
+                    color: color
                 )
             } else {
-                try addAccomplishmentUseCase.execute(text: text)
+                try addAccomplishmentUseCase.execute(text: text, color: color)
             }
             errorMessage = nil
             showSavedMessage = true

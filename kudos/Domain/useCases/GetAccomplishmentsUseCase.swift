@@ -1,7 +1,3 @@
-protocol GetAccomplishmentsUseCaseProtocol {
-    func execute() throws -> [AccomplishmentItem]
-}
-
 final class GetAccomplishmentsUseCase: GetAccomplishmentsUseCaseProtocol {
     private let repository: AccomplishmentRepositoryProtocol
 

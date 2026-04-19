@@ -39,6 +39,10 @@
 		504E5A882F951CE4007468F4 /* LocalizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504E5A832F951CE4007468F4 /* LocalizationManager.swift */; };
 		504E5AB02F9521AD007468F4 /* MainViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504E5AAF2F9521AD007468F4 /* MainViewModelTests.swift */; };
 		504E5AB22F9521B1007468F4 /* WrappedViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504E5AB12F9521B1007468F4 /* WrappedViewModelTests.swift */; };
+		504E5AB62F953B0A007468F4 /* DeleteAccomplishmentUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504E5AB52F953B09007468F4 /* DeleteAccomplishmentUseCaseProtocol.swift */; };
+		504E5AB82F953B17007468F4 /* GetAccomplishmentsUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504E5AB72F953B16007468F4 /* GetAccomplishmentsUseCaseProtocol.swift */; };
+		504E5ABA2F953B25007468F4 /* AddAccomplishmentUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504E5AB92F953B24007468F4 /* AddAccomplishmentUseCaseProtocol.swift */; };
+		504E5ABC2F953B32007468F4 /* AddPhotoAccomplishmentUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504E5ABB2F953B31007468F4 /* AddPhotoAccomplishmentUseCaseProtocol.swift */; };
 		509F51B82F93C9860075353A /* ValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509F51A32F93C9860075353A /* ValidationError.swift */; };
 		509F51F42F93CF6A0075353A /* GetAccomplishmentsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509F51F32F93CF640075353A /* GetAccomplishmentsUseCase.swift */; };
 		509F51F62F93DCDE0075353A /* DeleteAccomplishmentUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509F51F52F93DCDD0075353A /* DeleteAccomplishmentUseCase.swift */; };
@@ -113,6 +117,10 @@
 		504E5A832F951CE4007468F4 /* LocalizationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizationManager.swift; sourceTree = "<group>"; };
 		504E5AAF2F9521AD007468F4 /* MainViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModelTests.swift; sourceTree = "<group>"; };
 		504E5AB12F9521B1007468F4 /* WrappedViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrappedViewModelTests.swift; sourceTree = "<group>"; };
+		504E5AB52F953B09007468F4 /* DeleteAccomplishmentUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccomplishmentUseCaseProtocol.swift; sourceTree = "<group>"; };
+		504E5AB72F953B16007468F4 /* GetAccomplishmentsUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAccomplishmentsUseCaseProtocol.swift; sourceTree = "<group>"; };
+		504E5AB92F953B24007468F4 /* AddAccomplishmentUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAccomplishmentUseCaseProtocol.swift; sourceTree = "<group>"; };
+		504E5ABB2F953B31007468F4 /* AddPhotoAccomplishmentUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoAccomplishmentUseCaseProtocol.swift; sourceTree = "<group>"; };
 		509B77D72F4DC57D00BBD13C /* kudos.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = kudos.xctestplan; sourceTree = "<group>"; };
 		509F51A32F93C9860075353A /* ValidationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationError.swift; sourceTree = "<group>"; };
 		509F51F32F93CF640075353A /* GetAccomplishmentsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAccomplishmentsUseCase.swift; sourceTree = "<group>"; };
@@ -284,6 +292,10 @@
 		501072142F94D6A000033106 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				504E5ABB2F953B31007468F4 /* AddPhotoAccomplishmentUseCaseProtocol.swift */,
+				504E5AB92F953B24007468F4 /* AddAccomplishmentUseCaseProtocol.swift */,
+				504E5AB72F953B16007468F4 /* GetAccomplishmentsUseCaseProtocol.swift */,
+				504E5AB52F953B09007468F4 /* DeleteAccomplishmentUseCaseProtocol.swift */,
 				502ED54B2F943B200076B94F /* AccomplishmentRepositoryProtocol.swift */,
 			);
 			path = Protocols;
@@ -574,7 +586,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				504E5AB62F953B0A007468F4 /* DeleteAccomplishmentUseCaseProtocol.swift in Sources */,
 				1338C6DD2BB0A2BF0061FBEB /* View+ConfettiCannon.swift in Sources */,
+				504E5ABC2F953B32007468F4 /* AddPhotoAccomplishmentUseCaseProtocol.swift in Sources */,
 				138F89912BB02D1A00EA9F2F /* ContentView.swift in Sources */,
 				5013DD912F938D09007B9241 /* AccomplishmentValidator.swift in Sources */,
 				509F51F62F93DCDE0075353A /* DeleteAccomplishmentUseCase.swift in Sources */,
@@ -596,6 +610,8 @@
 				502ED54C2F943B240076B94F /* AccomplishmentRepositoryProtocol.swift in Sources */,
 				1338C6E02BB0A2BF0061FBEB /* SlimRectangle.swift in Sources */,
 				138F898F2BB02D1A00EA9F2F /* kudosApp.swift in Sources */,
+				504E5ABA2F953B25007468F4 /* AddAccomplishmentUseCaseProtocol.swift in Sources */,
+				504E5AB82F953B17007468F4 /* GetAccomplishmentsUseCaseProtocol.swift in Sources */,
 				1338C6DE2BB0A2BF0061FBEB /* RoundedCross.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -1,7 +1,3 @@
-protocol DeleteAccomplishmentUseCaseProtocol {
-    func execute(_ accomplishment: AccomplishmentItem) throws
-}
-
 final class DeleteAccomplishmentUseCase: DeleteAccomplishmentUseCaseProtocol {
     private let repository: AccomplishmentRepositoryProtocol
 

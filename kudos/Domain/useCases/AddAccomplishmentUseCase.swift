@@ -1,6 +1,3 @@
-protocol AddAccomplishmentUseCaseProtocol {
-    func execute(text: String, color: String) throws
-}
 final class AddAccomplishmentUseCase: AddAccomplishmentUseCaseProtocol {
     let repository: AccomplishmentRepositoryProtocol
 

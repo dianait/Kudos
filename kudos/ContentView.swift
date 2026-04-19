@@ -15,10 +15,15 @@ struct ContentView: View {
                         MainView(viewModel: viewModel)
                     }
 
-                    Tab(Copies.Wrapped.button, systemImage: "sparkles") {
-                        WrappedView(
-                            viewModel: AppFactory.makeWrappedViewModel(modelContext: modelContext)
-                        )
+                    Tab(Copies.carouselTab, systemImage: "rectangle.stack.fill") {
+                        NavigationStack {
+                            CarouselView(
+                                accomplishments: viewModel.accomplishments,
+                                onDelete: { item in viewModel.delete(item) }
+                            )
+                            .navigationTitle(Copies.carouselTab)
+                            .navigationBarTitleDisplayMode(.inline)
+                        }
                     }
 
                     Tab(Copies.settingsTitle, systemImage: "gear") {

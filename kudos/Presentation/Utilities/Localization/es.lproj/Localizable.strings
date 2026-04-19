@@ -1,5 +1,6 @@
 // Tab Bar
 "home_tab" = "Inicio";
+"carousel_tab" = "Mis Kudos";
 
 // Settings View
 "settings_general_section" = "General";
@@ -154,16 +155,6 @@
 "validation_alert_ok" = "OK";
 "validation_alert_default_message" = "Por favor, revisa tu texto e inténtalo de nuevo";
 
-// Wrapped Feature
-"wrapped_button" = "Mi Wrapped";
-"wrapped_intro_title" = "Tu {year} en logros";
-"wrapped_intro_subtitle" = "Guardaste {count} logros";
-"wrapped_achievement_label" = "Logro";
-"wrapped_outro_title" = "¡Qué año tan increíble!";
-"wrapped_outro_subtitle" = "Sigue celebrando cada logro";
-"wrapped_close" = "Cerrar";
-"wrapped_button_hint" = "Ve tu año en logros";
-"wrapped_button_identifier" = "Wrapped Button";
 
 // Tip Jar
 "tipjar_section_title" = "Apoyar Kudos";

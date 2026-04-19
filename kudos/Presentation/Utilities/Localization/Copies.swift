@@ -9,6 +9,7 @@ extension String {
 
 enum Copies {
     static var homeTab: String { "home_tab".localized }
+    static var carouselTab: String { "carousel_tab".localized }
 
     private static let minScreenWidth = CGFloat(380)
     static func viewTitle(screenWidth: CGFloat) -> String {
@@ -269,16 +270,6 @@ enum Copies {
         }
     }
 
-    enum Wrapped {
-        static var button: String { "wrapped_button".localized }
-        static func introTitle(year: Int) -> String {
-            "wrapped_intro_title".localized.replacingOccurrences(of: "{year}", with: "\(year)")
-        }
-        static var outroTitle: String { "wrapped_outro_title".localized }
-        static var outroSubtitle: String { "wrapped_outro_subtitle".localized }
-        static var close: String { "wrapped_close".localized }
-    }
-    
     enum CarouselFilter {
         static var all: String { "carousel_filter_all".localized }
     }

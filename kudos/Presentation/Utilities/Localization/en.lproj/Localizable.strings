@@ -1,5 +1,6 @@
 // Tab Bar
 "home_tab" = "Home";
+"carousel_tab" = "My Kudos";
 
 // Settings View
 "settings_general_section" = "General";
@@ -154,16 +155,6 @@
 "validation_alert_ok" = "OK";
 "validation_alert_default_message" = "Please check your text and try again";
 
-// Wrapped Feature
-"wrapped_button" = "My Wrapped";
-"wrapped_intro_title" = "Your {year} in achievements";
-"wrapped_intro_subtitle" = "You saved {count} achievements";
-"wrapped_achievement_label" = "Achievement";
-"wrapped_outro_title" = "What an incredible year!";
-"wrapped_outro_subtitle" = "Keep celebrating every achievement";
-"wrapped_close" = "Close";
-"wrapped_button_hint" = "See your year in achievements";
-"wrapped_button_identifier" = "Wrapped Button";
 
 // Tip Jar
 "tipjar_section_title" = "Support Kudos";

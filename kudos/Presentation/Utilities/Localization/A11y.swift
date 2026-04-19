@@ -61,11 +61,6 @@ enum A11y {
         static let deleteHint = "carousel_view_delete_hint".localized
     }
     
-    enum Wrapped {
-        static let buttonHint = "wrapped_button_hint".localized
-        static let buttonIdentifier = "wrapped_button_identifier".localized
-    }
-
     enum StickyView {
         static let label = "sticky_view_label".localized
         static let photoOnly = "sticky_view_photo_only".localized

@@ -7,7 +7,6 @@ struct AccomplishmentDetailView: View {
     @Environment(LanguageManager.self) private var languageManager
     @State private var showDeleteConfirmation = false
 
-    // Determine if text is long enough to show only text view
     private var isLongText: Bool {
         accomplishment.text.count > 80
     }
@@ -46,11 +45,7 @@ struct AccomplishmentDetailView: View {
                                 .padding(.top, Space.extraLarge)
                         }
                     }
-
-                    // Date information
                     dateCardView
-
-                    // Delete button
                     deleteButtonView
                 }
             }

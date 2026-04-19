@@ -4,8 +4,22 @@ struct StickiesViewOverview: View {
     @Bindable var viewModel: MainViewModel
     @Environment(LanguageManager.self) var languageManager
     @FocusState private var responseIsFocussed: Bool
-    @State private var characterCount: Int = 0
     private let maxCharacters: Int = Limits.maxCharacters
+    private var characterCount: Int { viewModel.text.count }
+
+    private var textBinding: Binding<String> {
+        Binding(
+            get: { viewModel.text },
+            set: { newValue in
+                if newValue.last == "\n" {
+                    responseIsFocussed = false
+                    viewModel.text = String(newValue.dropLast().prefix(maxCharacters))
+                } else {
+                    viewModel.text = String(newValue.prefix(maxCharacters))
+                }
+            }
+        )
+    }
     private var lastItem: AccomplishmentItem? {
         viewModel.accomplishments.first
     }
@@ -110,28 +124,13 @@ struct StickiesViewOverview: View {
                         .accessibilityHidden(true)
                 }
 
-                TextEditor(text: $viewModel.text)
+                TextEditor(text: textBinding)
                     .focused($responseIsFocussed)
                     .scrollContentBackground(.hidden)
                     .background(Color.clear)
                     .foregroundStyle(.black)
                     .font(.body)
-                    .onChange(of: viewModel.text) { _, newValue in
-                        if newValue.last == "\n" {
-                            responseIsFocussed = false
-                            viewModel.text.removeLast()
-                            characterCount = viewModel.text.count
-                            return
-                        }
-                        if newValue.count > maxCharacters {
-                            viewModel.text = String(newValue.prefix(maxCharacters))
-                            characterCount = maxCharacters
-                        } else {
-                            characterCount = newValue.count
-                        }
-                    }
                     .task {
-                        characterCount = viewModel.text.count
                         try? await Task.sleep(for: .seconds(Timing.focusDelay))
                         responseIsFocussed = true
                         try? await Task.sleep(for: .seconds(Timing.accessibilityNotificationDelay))

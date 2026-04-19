@@ -1,13 +1,13 @@
 import SwiftUI
 import UIKit
 
-public struct MainView: View {
+struct MainView: View {
     @Bindable var viewModel: MainViewModel
     @Environment(LanguageManager.self) var languageManager
     @State private var selectedImage: UIImage?
     @State private var confettiCounter: Int = 0
 
-    public init(viewModel: MainViewModel) {
+    init(viewModel: MainViewModel) {
         self.viewModel = viewModel
     }
 

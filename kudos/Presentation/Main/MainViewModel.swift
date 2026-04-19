@@ -1,13 +1,13 @@
 import SwiftUI
 
-public enum Mode {
+enum Mode {
     case edit
     case view
 }
 
 @Observable
 @MainActor
-public final class MainViewModel {
+final class MainViewModel {
     var mode: Mode = .view
     var text: String = ""
     var showSaveIndicator: Bool = false

@@ -3,28 +3,24 @@ import Foundation
 @Observable
 @MainActor
 final class WrappedViewModel {
-    private let getAccomplishmentsUseCase: GetAccomplishmentsUseCaseProtocol
-    var allItems: [AccomplishmentItem] = []
+    private let getCurrentYearAccomplishmentsUseCase: GetCurrentYearAccomplishmentsUseCaseProtocol
+    var currentYearItems: [AccomplishmentItem] = []
     var errorMessage: String?
-    init(getAccomplishmentsUseCase: GetAccomplishmentsUseCaseProtocol) {
-        self.getAccomplishmentsUseCase = getAccomplishmentsUseCase
+
+    var currentYear: Int {
+        Calendar.current.component(.year, from: Date())
+    }
+
+    init(getCurrentYearAccomplishmentsUseCase: GetCurrentYearAccomplishmentsUseCaseProtocol) {
+        self.getCurrentYearAccomplishmentsUseCase = getCurrentYearAccomplishmentsUseCase
     }
 
     func load() {
         do {
-            allItems = try getAccomplishmentsUseCase.execute()
+            currentYearItems = try getCurrentYearAccomplishmentsUseCase.execute()
             errorMessage = nil
         } catch {
             errorMessage = error.localizedDescription
         }
-    }
-
-    var currentYearItems: [AccomplishmentItem] {
-        let year = Calendar.current.component(.year, from: Date())
-        return allItems.filter { Calendar.current.component(.year, from: $0.date) == year }
-    }
-
-    var currentYear: Int {
-        Calendar.current.component(.year, from: Date())
     }
 }

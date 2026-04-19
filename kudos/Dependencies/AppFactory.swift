@@ -17,7 +17,7 @@ enum AppFactory {
         let repository = SwiftDataAccomplishmentRepository(modelContext: modelContext)
 
         return WrappedViewModel(
-            getAccomplishmentsUseCase: GetAccomplishmentsUseCase(repository: repository)
+            getCurrentYearAccomplishmentsUseCase: GetCurrentYearAccomplishmentsUseCase(repository: repository)
         )
     }
 }

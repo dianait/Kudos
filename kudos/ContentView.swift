@@ -15,7 +15,9 @@ struct ContentView: View {
                     }
 
                     Tab(Copies.Wrapped.button, systemImage: "sparkles") {
-                        WrappedView(viewModel: AppFactory.makeWrappedViewModel(modelContext: modelContext))
+                        WrappedView(
+                            viewModel: AppFactory.makeWrappedViewModel(modelContext: modelContext)
+                        )
                     }
 
                     Tab(Copies.settingsTitle, systemImage: "gear") {

@@ -35,6 +35,8 @@
 		509F51F42F93CF6A0075353A /* GetAccomplishmentsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509F51F32F93CF640075353A /* GetAccomplishmentsUseCase.swift */; };
 		509F51F62F93DCDE0075353A /* DeleteAccomplishmentUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509F51F52F93DCDD0075353A /* DeleteAccomplishmentUseCase.swift */; };
 		5ED910E15E2F435AB0DE73B0 /* AddPhotoAccomplishmentUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807DE005AA7E45CFA2294C28 /* AddPhotoAccomplishmentUseCase.swift */; };
+		9FC8577BDE3C43028A2EA440 /* GetCurrentYearAccomplishmentsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9BDEA2A0D4498393980F80 /* GetCurrentYearAccomplishmentsUseCase.swift */; };
+		CAED3C56A41F41F2A4AA834F /* GetCurrentYearAccomplishmentsUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15AAF1FEF4A24D7588E4A9FA /* GetCurrentYearAccomplishmentsUseCaseTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -100,6 +102,8 @@
 		509F51F32F93CF640075353A /* GetAccomplishmentsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAccomplishmentsUseCase.swift; sourceTree = "<group>"; };
 		509F51F52F93DCDD0075353A /* DeleteAccomplishmentUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccomplishmentUseCase.swift; sourceTree = "<group>"; };
 		807DE005AA7E45CFA2294C28 /* AddPhotoAccomplishmentUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoAccomplishmentUseCase.swift; sourceTree = "<group>"; };
+		1D9BDEA2A0D4498393980F80 /* GetCurrentYearAccomplishmentsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCurrentYearAccomplishmentsUseCase.swift; sourceTree = "<group>"; };
+		15AAF1FEF4A24D7588E4A9FA /* GetCurrentYearAccomplishmentsUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCurrentYearAccomplishmentsUseCaseTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -250,6 +254,7 @@
 				1366E97B2D7DAC58008FE4BE /* AccessibilityTextTests.swift */,
 				1366E9792D7DAC28008FE4BE /* ColorUtilityTests.swift */,
 				1366E9772D7DAC0B008FE4BE /* AccomplishmentTests.swift */,
+				15AAF1FEF4A24D7588E4A9FA /* GetCurrentYearAccomplishmentsUseCaseTests.swift */,
 			);
 			path = kudosTests;
 			sourceTree = "<group>";
@@ -347,6 +352,7 @@
 				509F51F32F93CF640075353A /* GetAccomplishmentsUseCase.swift */,
 				5013DD8A2F938A4E007B9241 /* AddAccomplishmentUseCase.swift */,
 				807DE005AA7E45CFA2294C28 /* AddPhotoAccomplishmentUseCase.swift */,
+				1D9BDEA2A0D4498393980F80 /* GetCurrentYearAccomplishmentsUseCase.swift */,
 			);
 			path = useCases;
 			sourceTree = "<group>";
@@ -521,6 +527,7 @@
 				501072102F94C6D700033106 /* AppFactory.swift in Sources */,
 				5ED910E15E2F435AB0DE73B0 /* AddPhotoAccomplishmentUseCase.swift in Sources */,
 				509F51F42F93CF6A0075353A /* GetAccomplishmentsUseCase.swift in Sources */,
+				9FC8577BDE3C43028A2EA440 /* GetCurrentYearAccomplishmentsUseCase.swift in Sources */,
 				509F51B82F93C9860075353A /* ValidationError.swift in Sources */,
 				138BF4E32EE58DB100C37AF3 /* ErrorView.swift in Sources */,
 				5013DD8D2F938A96007B9241 /* AccomplishmentRepository.swift in Sources */,
@@ -545,6 +552,7 @@
 				1366E97E2D7DAC7C008FE4BE /* SwiftDataIntegrationTests.swift in Sources */,
 				1366E9782D7DAC0C008FE4BE /* AccomplishmentTests.swift in Sources */,
 				1366E97C2D7DAC5A008FE4BE /* AccessibilityTextTests.swift in Sources */,
+				CAED3C56A41F41F2A4AA834F /* GetCurrentYearAccomplishmentsUseCaseTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

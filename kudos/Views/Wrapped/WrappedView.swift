@@ -14,8 +14,10 @@ struct WrappedView: View {
             ScrollView(.vertical) {
                 LazyVStack(spacing: 0) {
                     introSlide
-                    ForEach(Array(viewModel.currentYearItems.enumerated()), id: \.element.id) { slideIndex, item in
-                        achievementSlide(for: item, slideIndex: slideIndex)
+                    ForEach(viewModel.currentYearItems.indices, id: \.self) { index in
+                        let item = viewModel.currentYearItems[index]
+                        achievementSlide(for: item, slideIndex: index)
+
                     }
                     outroSlide
                 }

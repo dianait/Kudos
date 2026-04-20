@@ -7,6 +7,7 @@ import UIKit
 enum CameraHelpers {
     /// Checks if the camera is available on this device
     /// - Returns: True if camera is available, false otherwise
+    @MainActor
     static func isCameraAvailable() -> Bool {
         UIImagePickerController.isSourceTypeAvailable(.camera)
     }

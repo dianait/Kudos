@@ -1,5 +1,6 @@
 import Foundation
 
+@MainActor
 final class AddPhotoAccomplishmentUseCase: AddPhotoAccomplishmentUseCaseProtocol {
     private let repository: AccomplishmentRepositoryProtocol
 

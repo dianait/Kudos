@@ -1,5 +1,6 @@
 import Foundation
 
+@MainActor
 final class AddAccomplishmentUseCase: AddAccomplishmentUseCaseProtocol {
     private let repository: AccomplishmentRepositoryProtocol
 

@@ -149,6 +149,7 @@ private func makeItem() -> AccomplishmentItem {
     AccomplishmentItem(id: UUID().uuidString, date: Date(), text: "Logro", colorHex: "blue", photoData: nil)
 }
 
+@MainActor
 private final class MockAddAccomplishmentUseCase: AddAccomplishmentUseCaseProtocol {
     var executeCallCount = 0
     private let shouldThrow: Bool
@@ -159,6 +160,7 @@ private final class MockAddAccomplishmentUseCase: AddAccomplishmentUseCaseProtoc
     }
 }
 
+@MainActor
 private final class MockAddPhotoAccomplishmentUseCase: AddPhotoAccomplishmentUseCaseProtocol {
     var executeCallCount = 0
     private let shouldThrow: Bool
@@ -169,6 +171,7 @@ private final class MockAddPhotoAccomplishmentUseCase: AddPhotoAccomplishmentUse
     }
 }
 
+@MainActor
 private final class MockAccomplishmentRepository: AccomplishmentRepositoryProtocol {
     private let items: [AccomplishmentItem]
     private let fetchThrows: Bool

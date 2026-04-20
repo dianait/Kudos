@@ -265,7 +265,7 @@
 		138F89A02BB02D1C00EA9F2F /* kudosTests */ = {
 			isa = PBXGroup;
 			children = (
-				504E5A7A2F951AD8007468F4 /* Datra */,
+				504E5A7A2F951AD8007468F4 /* Data */,
 				504E5A782F951AC3007468F4 /* Domain */,
 				504E5A7B2F951BBB007468F4 /* Presentation */,
 			);
@@ -366,13 +366,13 @@
 			path = UseCases;
 			sourceTree = "<group>";
 		};
-		504E5A7A2F951AD8007468F4 /* Datra */ = {
+		504E5A7A2F951AD8007468F4 /* Data */ = {
 			isa = PBXGroup;
 			children = (
 				1366E97D2D7DAC7B008FE4BE /* SwiftDataIntegrationTests.swift */,
 				504E5A762F951A50007468F4 /* AccomplishmentTests.swift */,
 			);
-			path = Datra;
+			path = Data;
 			sourceTree = "<group>";
 		};
 		504E5A7B2F951BBB007468F4 /* Presentation */ = {
@@ -822,7 +822,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"kudos/Preview Content\"";
 				DEVELOPMENT_TEAM = 7G4S2SGHRL;
 				ENABLE_PREVIEWS = YES;
@@ -865,7 +864,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"kudos/Preview Content\"";
 				DEVELOPMENT_TEAM = 7G4S2SGHRL;
 				ENABLE_PREVIEWS = YES;

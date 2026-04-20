@@ -2,7 +2,6 @@ import Foundation
 import SwiftData
 
 @Model
-
 final class AccomplishmentEntity {
     @Attribute(.unique) var id: String
     var date: Date

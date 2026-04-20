@@ -1,5 +1,5 @@
 final class AddAccomplishmentUseCase: AddAccomplishmentUseCaseProtocol {
-    let repository: AccomplishmentRepositoryProtocol
+    private let repository: AccomplishmentRepositoryProtocol
 
     init(repository: AccomplishmentRepositoryProtocol) {
         self.repository = repository

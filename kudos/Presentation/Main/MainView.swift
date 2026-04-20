@@ -11,7 +11,7 @@ struct MainView: View {
         self.viewModel = viewModel
     }
 
-    public var body: some View {
+    var body: some View {
         NavigationStack {
             VStack(spacing: Space.extraLarge + Space.medium) {
                 KudosJarView(accomplishments: viewModel.accomplishments) { item in

@@ -22,9 +22,12 @@ final class SwiftDataAccomplishmentRepository: AccomplishmentRepositoryProtocol 
     }
     
     func delete(_ accomplishment: AccomplishmentItem) throws {
-        let descriptor = FetchDescriptor<AccomplishmentEntity>()
-        let entities = try modelContext.fetch(descriptor)
-        guard let entity = entities.first(where: { $0.id == accomplishment.id }) else { return }
+        let id = accomplishment.id
+        var descriptor = FetchDescriptor<AccomplishmentEntity>(
+            predicate: #Predicate { $0.id == id }
+        )
+        descriptor.fetchLimit = 1
+        guard let entity = try modelContext.fetch(descriptor).first else { return }
         modelContext.delete(entity)
         try modelContext.save()
     }

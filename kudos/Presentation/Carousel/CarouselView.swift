@@ -1,6 +1,5 @@
 import SwiftUI
 
-
 struct CarouselView: View {
     let accomplishments: [AccomplishmentItem]
     let onDelete: (AccomplishmentItem) -> Void

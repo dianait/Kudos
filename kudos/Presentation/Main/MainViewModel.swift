@@ -19,24 +19,21 @@ final class MainViewModel {
 
     private let addAccomplishmentUseCase: AddAccomplishmentUseCaseProtocol
     private let addPhotoAccomplishmentUseCase: AddPhotoAccomplishmentUseCaseProtocol
-    private let getAccomplishmentsUseCase: GetAccomplishmentsUseCaseProtocol
-    private let deleteAccomplishmentUseCase: DeleteAccomplishmentUseCaseProtocol
+    private let repository: AccomplishmentRepositoryProtocol
 
     init(
         addAccomplishmentUseCase: AddAccomplishmentUseCaseProtocol,
         addPhotoAccomplishmentUseCase: AddPhotoAccomplishmentUseCaseProtocol,
-        getAccomplishmentsUseCase: GetAccomplishmentsUseCaseProtocol,
-        deleteAccomplishmentUseCase: DeleteAccomplishmentUseCaseProtocol
+        repository: AccomplishmentRepositoryProtocol
     ) {
         self.addAccomplishmentUseCase = addAccomplishmentUseCase
         self.addPhotoAccomplishmentUseCase = addPhotoAccomplishmentUseCase
-        self.getAccomplishmentsUseCase = getAccomplishmentsUseCase
-        self.deleteAccomplishmentUseCase = deleteAccomplishmentUseCase
+        self.repository = repository
     }
     
     func loadAccomplishments() {
           do {
-              accomplishments = try getAccomplishmentsUseCase.execute()
+              accomplishments = try repository.fetchAllSortedByDateDescending()
           } catch {
               errorMessage = error.localizedDescription
           }
@@ -72,7 +69,7 @@ final class MainViewModel {
     
     func delete(_ accomplishment: AccomplishmentItem) {
         do {
-            try deleteAccomplishmentUseCase.execute(accomplishment)
+            try repository.delete(accomplishment)
             loadAccomplishments()
         } catch {
             errorMessage = error.localizedDescription

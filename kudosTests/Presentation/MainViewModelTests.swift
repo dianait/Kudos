@@ -9,23 +9,21 @@ struct MainViewModelTests {
     private func makeSUT(
         addAccomplishment: MockAddAccomplishmentUseCase = .init(),
         addPhotoAccomplishment: MockAddPhotoAccomplishmentUseCase = .init(),
-        getAccomplishments: MockGetAccomplishmentsUseCase = .init(),
-        deleteAccomplishment: MockDeleteAccomplishmentUseCase = .init()
+        repository: MockAccomplishmentRepository = .init()
     ) -> MainViewModel {
         MainViewModel(
             addAccomplishmentUseCase: addAccomplishment,
             addPhotoAccomplishmentUseCase: addPhotoAccomplishment,
-            getAccomplishmentsUseCase: getAccomplishments,
-            deleteAccomplishmentUseCase: deleteAccomplishment
+            repository: repository
         )
     }
 
     // MARK: - loadAccomplishments
 
-    @Test("loadAccomplishments sets accomplishments from use case")
+    @Test("loadAccomplishments sets accomplishments from repository")
     func loadSetsAccomplishments() {
         let items = [makeItem(), makeItem()]
-        let sut = makeSUT(getAccomplishments: .init(items: items))
+        let sut = makeSUT(repository: .init(items: items))
 
         sut.loadAccomplishments()
 
@@ -34,7 +32,7 @@ struct MainViewModelTests {
 
     @Test("loadAccomplishments sets errorMessage on failure")
     func loadSetsErrorOnFailure() {
-        let sut = makeSUT(getAccomplishments: .init(shouldThrow: true))
+        let sut = makeSUT(repository: .init(fetchThrows: true))
 
         sut.loadAccomplishments()
 
@@ -94,8 +92,7 @@ struct MainViewModelTests {
     @Test("save reloads accomplishments on success")
     func saveReloadsAccomplishments() {
         let items = [makeItem()]
-        let getUseCase = MockGetAccomplishmentsUseCase(items: items)
-        let sut = makeSUT(getAccomplishments: getUseCase)
+        let sut = makeSUT(repository: .init(items: items))
         sut.text = "Mi logro"
 
         sut.save()
@@ -105,24 +102,20 @@ struct MainViewModelTests {
 
     // MARK: - delete
 
-    @Test("delete calls use case and reloads accomplishments")
+    @Test("delete calls repository and reloads accomplishments")
     func deleteDelegatesAndReloads() {
-        let deleteUseCase = MockDeleteAccomplishmentUseCase()
-        let items = [makeItem()]
-        let sut = makeSUT(
-            getAccomplishments: .init(items: items),
-            deleteAccomplishment: deleteUseCase
-        )
+        let repository = MockAccomplishmentRepository(items: [makeItem()])
+        let sut = makeSUT(repository: repository)
 
         sut.delete(makeItem())
 
-        #expect(deleteUseCase.executeCallCount == 1)
+        #expect(repository.deleteCallCount == 1)
         #expect(sut.accomplishments.count == 1)
     }
 
     @Test("delete sets errorMessage on failure")
     func deleteSetsErrorOnFailure() {
-        let sut = makeSUT(deleteAccomplishment: .init(shouldThrow: true))
+        let sut = makeSUT(repository: .init(deleteThrows: true))
 
         sut.delete(makeItem())
 
@@ -145,7 +138,7 @@ struct MainViewModelTests {
 
     @Test("accomplishmentsCount reflects accomplishments array")
     func accomplishmentsCountMatchesArray() {
-        let sut = makeSUT(getAccomplishments: .init(items: [makeItem(), makeItem(), makeItem()]))
+        let sut = makeSUT(repository: .init(items: [makeItem(), makeItem(), makeItem()]))
         sut.loadAccomplishments()
 
         #expect(sut.accomplishmentsCount == 3)
@@ -176,26 +169,28 @@ private final class MockAddPhotoAccomplishmentUseCase: AddPhotoAccomplishmentUse
     }
 }
 
-private final class MockGetAccomplishmentsUseCase: GetAccomplishmentsUseCaseProtocol {
+private final class MockAccomplishmentRepository: AccomplishmentRepositoryProtocol {
     private let items: [AccomplishmentItem]
-    private let shouldThrow: Bool
-    init(items: [AccomplishmentItem] = [], shouldThrow: Bool = false) {
+    private let fetchThrows: Bool
+    private let deleteThrows: Bool
+    var deleteCallCount = 0
+
+    init(items: [AccomplishmentItem] = [], fetchThrows: Bool = false, deleteThrows: Bool = false) {
         self.items = items
-        self.shouldThrow = shouldThrow
+        self.fetchThrows = fetchThrows
+        self.deleteThrows = deleteThrows
     }
-    func execute() throws -> [AccomplishmentItem] {
-        if shouldThrow { throw TestError.generic }
+
+    func save(_ accomplishment: NewAccomplishment) throws {}
+
+    func fetchAllSortedByDateDescending() throws -> [AccomplishmentItem] {
+        if fetchThrows { throw TestError.generic }
         return items
     }
-}
 
-private final class MockDeleteAccomplishmentUseCase: DeleteAccomplishmentUseCaseProtocol {
-    var executeCallCount = 0
-    private let shouldThrow: Bool
-    init(shouldThrow: Bool = false) { self.shouldThrow = shouldThrow }
-    func execute(_ accomplishment: AccomplishmentItem) throws {
-        if shouldThrow { throw TestError.generic }
-        executeCallCount += 1
+    func delete(_ accomplishment: AccomplishmentItem) throws {
+        if deleteThrows { throw TestError.generic }
+        deleteCallCount += 1
     }
 }
 

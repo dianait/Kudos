@@ -8,8 +8,7 @@ enum AppFactory {
         return MainViewModel(
             addAccomplishmentUseCase: AddAccomplishmentUseCase(repository: repository),
             addPhotoAccomplishmentUseCase: AddPhotoAccomplishmentUseCase(repository: repository),
-            getAccomplishmentsUseCase: GetAccomplishmentsUseCase(repository: repository),
-            deleteAccomplishmentUseCase: DeleteAccomplishmentUseCase(repository: repository)
+            repository: repository
         )
     }
 

@@ -81,8 +81,11 @@ final class MainViewModel {
     }
 
     func imageSelected(_ image: UIImage) {
-        if let compressedData = CameraHelpers.compressImage(image) {
-            selectedPhotoData = compressedData
+        Task {
+            let compressed = await Task.detached(priority: .userInitiated) {
+                CameraHelpers.compressImage(image)
+            }.value
+            selectedPhotoData = compressed
         }
     }
 

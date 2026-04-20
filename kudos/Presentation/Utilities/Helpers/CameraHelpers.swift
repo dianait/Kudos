@@ -11,14 +11,9 @@ enum CameraHelpers {
         UIImagePickerController.isSourceTypeAvailable(.camera)
     }
 
-    /// Compresses an image to reduce storage size
-    /// - Parameters:
-    ///   - image: The UIImage to compress
-    ///   - maxSizeKB: Maximum size in kilobytes (default 500KB)
-    /// - Returns: Compressed image data, or nil if compression fails
-    /// - Note: Must run on main actor because it uses UIGraphicsBeginImageContext which is not thread-safe
-    @MainActor
-    static func compressImage(_ image: UIImage, maxSizeKB: Int = 500) -> Data? {
+    /// Compresses an image to reduce storage size.
+    /// UIGraphicsBeginImageContextWithOptions is thread-safe since iOS 4.
+    static nonisolated func compressImage(_ image: UIImage, maxSizeKB: Int = 500) -> Data? {
         let maxBytes = maxSizeKB * 1024
         var compression: CGFloat = 1.0
         let step: CGFloat = 0.1

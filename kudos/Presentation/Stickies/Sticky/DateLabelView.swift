@@ -5,8 +5,7 @@ struct DateLabelView: View {
     @Environment(LanguageManager.self) private var languageManager
 
     private var formattedDate: String {
-        let locale = Locale(identifier: languageManager.currentLanguage == "es" ? "es_ES" : "en_US")
-        return date.formatted(.dateTime.day().month(.abbreviated).year().locale(locale))
+        return date.formatted(.dateTime.day().month(.abbreviated).year().locale(languageManager.locale))
     }
 
     var body: some View {

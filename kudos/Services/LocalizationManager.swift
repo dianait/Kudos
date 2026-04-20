@@ -25,6 +25,10 @@ final class LanguageManager {
         self.currentLanguage = initialLanguage
     }
 
+    var locale: Locale {
+        Locale(identifier: currentLanguage == "es" ? "es_ES" : "en_US")
+    }
+
     func setLanguage(_ language: String) {
         guard Self.supportedLanguages.contains(language) else { return }
         currentLanguage = language

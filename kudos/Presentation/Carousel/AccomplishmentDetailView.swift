@@ -12,9 +12,8 @@ struct AccomplishmentDetailView: View {
     }
 
     private var formattedDate: String {
-        let locale = Locale(identifier: languageManager.currentLanguage == "es" ? "es_ES" : "en_US")
         return accomplishment.date.formatted(
-            .dateTime.day().month(.wide).year().locale(locale)
+            .dateTime.day().month(.wide).year().locale(languageManager.locale)
         )
     }
     

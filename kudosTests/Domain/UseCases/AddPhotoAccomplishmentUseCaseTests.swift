@@ -7,17 +7,17 @@ struct AddPhotoAccomplishmentUseCaseTests {
 
     private let samplePhoto = Data([0x89, 0x50, 0x4E, 0x47])
 
-    @Test("Saves photo data and color with nil text when no caption provided")
+    @Test("Saves photo data with nil text when no caption provided")
     func savesPhotoWithNilCaption() throws {
         let repository = SpyAccomplishmentRepository()
         let sut = AddPhotoAccomplishmentUseCase(repository: repository)
 
-        try sut.execute(photoData: samplePhoto, caption: nil, color: "blue")
+        try sut.execute(photoData: samplePhoto, caption: nil)
 
         let saved = try #require(repository.savedAccomplishment)
         #expect(saved.photoData == samplePhoto)
         #expect(saved.text == nil)
-        #expect(saved.color == "blue")
+        #expect(AccomplishmentColor.availableColorStrings.contains(saved.color))
     }
 
     @Test("Saves photo with trimmed caption as text")
@@ -25,7 +25,7 @@ struct AddPhotoAccomplishmentUseCaseTests {
         let repository = SpyAccomplishmentRepository()
         let sut = AddPhotoAccomplishmentUseCase(repository: repository)
 
-        try sut.execute(photoData: samplePhoto, caption: "  Mi foto  ", color: "yellow")
+        try sut.execute(photoData: samplePhoto, caption: "  Mi foto  ")
 
         #expect(repository.savedAccomplishment?.text == "Mi foto")
     }
@@ -35,7 +35,7 @@ struct AddPhotoAccomplishmentUseCaseTests {
         let repository = SpyAccomplishmentRepository()
         let sut = AddPhotoAccomplishmentUseCase(repository: repository)
 
-        try sut.execute(photoData: samplePhoto, caption: "   ", color: "blue")
+        try sut.execute(photoData: samplePhoto, caption: "   ")
 
         #expect(repository.savedAccomplishment?.text == nil)
     }
@@ -45,7 +45,7 @@ struct AddPhotoAccomplishmentUseCaseTests {
         let repository = SpyAccomplishmentRepository()
         let sut = AddPhotoAccomplishmentUseCase(repository: repository)
 
-        try sut.execute(photoData: samplePhoto, caption: "", color: "blue")
+        try sut.execute(photoData: samplePhoto, caption: "")
 
         #expect(repository.savedAccomplishment?.text == nil)
     }
@@ -56,7 +56,7 @@ struct AddPhotoAccomplishmentUseCaseTests {
         let longCaption = String(repeating: "a", count: Limits.maxCharacters + 1)
 
         #expect(throws: ValidationError.textTooLong(maxLength: Limits.maxCharacters)) {
-            try sut.execute(photoData: samplePhoto, caption: longCaption, color: "blue")
+            try sut.execute(photoData: samplePhoto, caption: longCaption)
         }
     }
 
@@ -66,7 +66,7 @@ struct AddPhotoAccomplishmentUseCaseTests {
         let sut = AddPhotoAccomplishmentUseCase(repository: repository)
         let longCaption = String(repeating: "a", count: Limits.maxCharacters + 1)
 
-        try? sut.execute(photoData: samplePhoto, caption: longCaption, color: "blue")
+        try? sut.execute(photoData: samplePhoto, caption: longCaption)
 
         #expect(repository.savedAccomplishment == nil)
     }

@@ -160,7 +160,7 @@ private final class MockAddAccomplishmentUseCase: AddAccomplishmentUseCaseProtoc
     var executeCallCount = 0
     private let shouldThrow: Bool
     init(shouldThrow: Bool = false) { self.shouldThrow = shouldThrow }
-    func execute(text: String, color: String) throws {
+    func execute(text: String) throws {
         if shouldThrow { throw TestError.generic }
         executeCallCount += 1
     }
@@ -170,7 +170,7 @@ private final class MockAddPhotoAccomplishmentUseCase: AddPhotoAccomplishmentUse
     var executeCallCount = 0
     private let shouldThrow: Bool
     init(shouldThrow: Bool = false) { self.shouldThrow = shouldThrow }
-    func execute(photoData: Data, caption: String?, color: String) throws {
+    func execute(photoData: Data, caption: String?) throws {
         if shouldThrow { throw TestError.generic }
         executeCallCount += 1
     }

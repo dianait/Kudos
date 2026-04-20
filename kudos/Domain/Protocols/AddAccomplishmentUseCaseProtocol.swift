@@ -1,3 +1,3 @@
 protocol AddAccomplishmentUseCaseProtocol {
-    func execute(text: String, color: String) throws
+    func execute(text: String) throws
 }

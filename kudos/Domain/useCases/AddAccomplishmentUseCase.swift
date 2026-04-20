@@ -5,12 +5,12 @@ final class AddAccomplishmentUseCase: AddAccomplishmentUseCaseProtocol {
         self.repository = repository
     }
 
-    func execute(text: String, color: String) throws {
+    func execute(text: String) throws {
         let validatedText = try AccomplishmentValidator.validateText(text)
         let accomplishment = NewAccomplishment(
             text: validatedText,
             photoData: nil,
-            color: color
+            color: AccomplishmentColor.randomColorString()
         )
         try repository.save(accomplishment)
     }

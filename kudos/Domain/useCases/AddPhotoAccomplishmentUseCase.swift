@@ -7,7 +7,7 @@ final class AddPhotoAccomplishmentUseCase: AddPhotoAccomplishmentUseCaseProtocol
         self.repository = repository
     }
 
-    func execute(photoData: Data, caption: String?, color: String) throws {
+    func execute(photoData: Data, caption: String?) throws {
         let validatedCaption: String? = try caption.flatMap { raw in
             let trimmed = raw.trimmingCharacters(in: .whitespacesAndNewlines)
             guard !trimmed.isEmpty else { return nil }
@@ -16,7 +16,7 @@ final class AddPhotoAccomplishmentUseCase: AddPhotoAccomplishmentUseCaseProtocol
         let new = NewAccomplishment(
             text: validatedCaption,
             photoData: photoData,
-            color: color
+            color: AccomplishmentColor.randomColorString()
         )
         try repository.save(new)
     }

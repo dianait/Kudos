@@ -5,16 +5,16 @@ import Foundation
 @Suite("AddAccomplishmentUseCase Tests")
 struct AddAccomplishmentUseCaseTests {
 
-    @Test("Saves accomplishment with validated text and given color")
-    func savesWithValidTextAndColor() throws {
+    @Test("Saves accomplishment with validated text and a valid color")
+    func savesWithValidText() throws {
         let repository = SpyAccomplishmentRepository()
         let sut = AddAccomplishmentUseCase(repository: repository)
 
-        try sut.execute(text: "Terminé el proyecto", color: "blue")
+        try sut.execute(text: "Terminé el proyecto")
 
         let saved = try #require(repository.savedAccomplishment)
         #expect(saved.text == "Terminé el proyecto")
-        #expect(saved.color == "blue")
+        #expect(AccomplishmentColor.availableColorStrings.contains(saved.color))
         #expect(saved.photoData == nil)
     }
 
@@ -23,7 +23,7 @@ struct AddAccomplishmentUseCaseTests {
         let repository = SpyAccomplishmentRepository()
         let sut = AddAccomplishmentUseCase(repository: repository)
 
-        try sut.execute(text: "  Mi logro  ", color: "yellow")
+        try sut.execute(text: "  Mi logro  ")
 
         #expect(repository.savedAccomplishment?.text == "Mi logro")
     }
@@ -33,7 +33,7 @@ struct AddAccomplishmentUseCaseTests {
         let sut = AddAccomplishmentUseCase(repository: SpyAccomplishmentRepository())
 
         #expect(throws: ValidationError.emptyText) {
-            try sut.execute(text: "", color: "blue")
+            try sut.execute(text: "")
         }
     }
 
@@ -42,7 +42,7 @@ struct AddAccomplishmentUseCaseTests {
         let sut = AddAccomplishmentUseCase(repository: SpyAccomplishmentRepository())
 
         #expect(throws: ValidationError.emptyText) {
-            try sut.execute(text: "   ", color: "blue")
+            try sut.execute(text: "   ")
         }
     }
 
@@ -52,7 +52,7 @@ struct AddAccomplishmentUseCaseTests {
         let longText = String(repeating: "a", count: Limits.maxCharacters + 1)
 
         #expect(throws: ValidationError.textTooLong(maxLength: Limits.maxCharacters)) {
-            try sut.execute(text: longText, color: "blue")
+            try sut.execute(text: longText)
         }
     }
 
@@ -61,7 +61,7 @@ struct AddAccomplishmentUseCaseTests {
         let repository = SpyAccomplishmentRepository()
         let sut = AddAccomplishmentUseCase(repository: repository)
 
-        try? sut.execute(text: "", color: "blue")
+        try? sut.execute(text: "")
 
         #expect(repository.savedAccomplishment == nil)
     }

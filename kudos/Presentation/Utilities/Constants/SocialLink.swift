@@ -1,7 +1,7 @@
 import Foundation
 
 enum Links {
-    static let landing = URL(string: "https://dianait.dev/kudos")!
+    static let landing = URL(string: "https://dianait.blog/kudos")!
 }
 
 struct SocialLink {

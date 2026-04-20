@@ -50,6 +50,14 @@ struct MainView: View {
                     confettiCounter += 1
                 }
             }
+            .alert(Copies.ErrorAlert.title, isPresented: Binding(
+                get: { viewModel.errorMessage != nil },
+                set: { if !$0 { viewModel.errorMessage = nil } }
+            )) {
+                Button(Copies.ErrorAlert.dismiss) { viewModel.errorMessage = nil }
+            } message: {
+                Text(viewModel.errorMessage ?? "")
+            }
             .background(Color("MainBackground"))
         }
     }

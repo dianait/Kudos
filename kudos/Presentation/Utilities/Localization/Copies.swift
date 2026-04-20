@@ -151,6 +151,11 @@ enum Copies {
         }
     }
 
+    enum ErrorAlert {
+        static var title: String { "error_alert_title".localized }
+        static var dismiss: String { "error_alert_dismiss".localized }
+    }
+
     enum ErrorView {
         static var title: String {
             return "error_view_title".localized

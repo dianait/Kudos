@@ -97,6 +97,10 @@
 "stickies_overview_ready_to_save" = "Listo para guardar. Suelta para confirmar.";
 "stickies_overview_save_action" = "Guardar logro";
 
+// Error Alert
+"error_alert_title" = "Algo ha ido mal";
+"error_alert_dismiss" = "Aceptar";
+
 // Error View
 "error_view_title" = "Error al cargar la aplicación";
 "error_view_message" = "Por favor, reinicia la aplicación";

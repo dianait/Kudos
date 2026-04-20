@@ -97,6 +97,10 @@
 "stickies_overview_ready_to_save" = "Ready to save. Release to confirm.";
 "stickies_overview_save_action" = "Save achievement";
 
+// Error Alert
+"error_alert_title" = "Something went wrong";
+"error_alert_dismiss" = "OK";
+
 // Error View
 "error_view_title" = "Error loading application";
 "error_view_message" = "Please restart the application";

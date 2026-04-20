@@ -61,11 +61,12 @@ kudos/
 
 | | |
 |---|---|
-| Lenguaje | Swift |
+| Lenguaje | Swift 6 |
 | UI | SwiftUI |
 | Persistencia | SwiftData |
 | iOS mínimo | 17.0 |
 | Xcode | 15.0+ |
+| Concurrencia | Swift 6, strict concurrency complete |
 
 ### Patrones clave
 
@@ -74,6 +75,7 @@ kudos/
 - **DI basada en protocolos**: Casos de uso y repositorio inyectados via protocolos; el ViewModel llama al repositorio directamente para fetch/delete simples (sin caso de uso cuando no hay lógica de negocio)
 - **Capa de validación**: `AccomplishmentValidator` en Domain, no en las vistas
 - **Localización**: Enums `Copies` y `A11y` con extensión `.localized`, cambio de idioma en tiempo real
+- **Concurrencia Swift 6**: todos los tipos con aislamiento explícito (`@MainActor` en ViewModels, casos de uso y repositorio); compresión de imagen ejecutada en background
 
 ## 🔒 Privacidad
 

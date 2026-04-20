@@ -61,11 +61,12 @@ kudos/
 
 | | |
 |---|---|
-| Language | Swift |
+| Language | Swift 6 |
 | UI | SwiftUI |
 | Persistence | SwiftData |
 | Min iOS | 17.0 |
 | Xcode | 15.0+ |
+| Concurrency | Swift 6, strict concurrency complete |
 
 ### Key Patterns
 
@@ -74,6 +75,7 @@ kudos/
 - **Protocol-based DI**: Use cases and repository injected via protocols; ViewModel calls repository directly for simple fetch/delete (no use case when there's no business logic)
 - **Validation layer**: `AccomplishmentValidator` in Domain, not in views
 - **Localization**: `Copies` and `A11y` enums with `.localized` extension, real-time language switching
+- **Swift 6 concurrency**: all types fully isolated (`@MainActor` on ViewModels, use cases, and repository); image compression offloaded to background thread
 
 ## 🔒 Privacy
 

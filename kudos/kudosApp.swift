@@ -15,7 +15,8 @@ struct KudosApp: App {
         let schema = Schema([
             AccomplishmentEntity.self,
         ])
-        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
+        let isUITesting = CommandLine.arguments.contains("-UITesting")
+        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: isUITesting)
 
         do {
             _modelContainer = State(initialValue: try ModelContainer(for: schema, configurations: [modelConfiguration]))

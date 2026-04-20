@@ -206,7 +206,7 @@ struct StickiesViewOverview: View {
             .background(Capsule().fill(Color.gray.opacity(0.7)))
         }
         .padding(.top, Space.extraSmall)
-        .accessibilityLabel(Copies.StickiesViewOverView.cancelButton)
+        .accessibilityIdentifier(A11y.StickiesViewOverview.cancelButtonIdentifier)
     }
 
     @ViewBuilder

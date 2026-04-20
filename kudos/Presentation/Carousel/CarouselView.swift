@@ -11,7 +11,6 @@ struct CarouselView: View {
     @State private var selectedItem: AccomplishmentItem? = nil
     @State private var dragSessionId: UUID?
     @State private var lastDragEndTime: Date = .distantPast
-    @State private var itemToDelete: AccomplishmentItem?
     @State private var dragResetTask: Task<Void, Never>?
 
     private var isDragging: Bool {
@@ -20,13 +19,6 @@ struct CarouselView: View {
 
     private var canTap: Bool {
         Date().timeIntervalSince(lastDragEndTime) > Timing.carouselTapDelay
-    }
-
-    private var isShowingDeleteAlert: Binding<Bool> {
-        Binding(
-            get: { itemToDelete != nil },
-            set: { if !$0 { itemToDelete = nil } }
-        )
     }
 
     private var availableYears: [Int] {
@@ -94,21 +86,6 @@ struct CarouselView: View {
         .navigationDestination(item: $selectedItem) { item in
             AccomplishmentDetailView(accomplishment: item, onDelete: onDelete)
         }
-        .alert(
-            Copies.AccomplishmentDetail.deleteConfirmationTitle,
-            isPresented: isShowingDeleteAlert,
-            presenting: itemToDelete
-        ) { item in
-            Button(Copies.AccomplishmentDetail.deleteConfirm, role: .destructive) {
-                onDelete(item)
-                itemToDelete = nil
-            }
-            Button(Copies.AccomplishmentDetail.deleteCancel, role: .cancel) {
-                itemToDelete = nil
-            }
-        } message: { _ in
-            Text(Copies.AccomplishmentDetail.deleteConfirmationMessage)
-        }
         .onChange(of: selectedYear) { _, _ in
             currentIndex = 0
         }
@@ -129,9 +106,7 @@ struct CarouselView: View {
 
     @ViewBuilder
     private func cardView(for item: AccomplishmentItem, at index: Int) -> some View {
-        StickyView(item: item, delete: {
-            itemToDelete = item
-        })
+        StickyView(item: item)
         .modifier(CarouselCardModifier(
             index: index,
             currentIndex: currentIndex,
@@ -166,7 +141,7 @@ struct CarouselView: View {
                 .opacity(cardOpacity)
                 .accessibilityElement(children: .combine)
                 .accessibilityLabel(A11y.CarouselView.itemLabel(index: index, total: totalCount))
-                .accessibilityHint(A11y.CarouselView.itemHint)
+                .accessibilityIdentifier(A11y.CarouselView.itemIdentifier(index: index + 1))
                 .accessibilityAddTraits(index == currentIndex ? .isButton : [])
                 .onTapGesture {
                     if index == currentIndex && !isDragging && canTap {

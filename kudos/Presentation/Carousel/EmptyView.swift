@@ -11,9 +11,9 @@ struct EmptyStateView: View {
                 Spacer()
 
                 cardView(width: min(geometry.size.width * Dimensions.emptyStateCardWidthRatio, Dimensions.emptyStateCardMaxWidth))
-
                 Spacer()
             }
+           
             .frame(maxWidth: .infinity)
             .background(Color("MainBackground"))
         }
@@ -117,6 +117,7 @@ struct EmptyStateView: View {
             .shadow(color: Color.black.opacity(0.15), radius: 8, x: 0, y: 4)
         }
         .padding(.top, CGFloat(Size.mediumSmall.rawValue))
+        .accessibilityIdentifier(A11y.EmptyStateView.addButtonIdentifier)
     }
 
     private func topCircleWithStar() -> some View {

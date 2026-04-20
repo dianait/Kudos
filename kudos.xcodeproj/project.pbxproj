@@ -38,7 +38,6 @@
 		504E5A7F2F951BF9007468F4 /* GetAccomplishmentsUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504E5A7E2F951BF9007468F4 /* GetAccomplishmentsUseCaseTests.swift */; };
 		504E5A882F951CE4007468F4 /* LocalizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504E5A832F951CE4007468F4 /* LocalizationManager.swift */; };
 		504E5AB02F9521AD007468F4 /* MainViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504E5AAF2F9521AD007468F4 /* MainViewModelTests.swift */; };
-		504E5AB22F9521B1007468F4 /* WrappedViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504E5AB12F9521B1007468F4 /* WrappedViewModelTests.swift */; };
 		504E5AB62F953B0A007468F4 /* DeleteAccomplishmentUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504E5AB52F953B09007468F4 /* DeleteAccomplishmentUseCaseProtocol.swift */; };
 		504E5AB82F953B17007468F4 /* GetAccomplishmentsUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504E5AB72F953B16007468F4 /* GetAccomplishmentsUseCaseProtocol.swift */; };
 		504E5ABA2F953B25007468F4 /* AddAccomplishmentUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504E5AB92F953B24007468F4 /* AddAccomplishmentUseCaseProtocol.swift */; };
@@ -47,7 +46,6 @@
 		509F51F42F93CF6A0075353A /* GetAccomplishmentsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509F51F32F93CF640075353A /* GetAccomplishmentsUseCase.swift */; };
 		509F51F62F93DCDE0075353A /* DeleteAccomplishmentUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509F51F52F93DCDD0075353A /* DeleteAccomplishmentUseCase.swift */; };
 		5ED910E15E2F435AB0DE73B0 /* AddPhotoAccomplishmentUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807DE005AA7E45CFA2294C28 /* AddPhotoAccomplishmentUseCase.swift */; };
-		CAED3C56A41F41F2A4AA834F /* GetCurrentYearAccomplishmentsUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15AAF1FEF4A24D7588E4A9FA /* GetCurrentYearAccomplishmentsUseCaseTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -99,7 +97,6 @@
 		138F89942BB02D1C00EA9F2F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		138F89972BB02D1C00EA9F2F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		138F899D2BB02D1C00EA9F2F /* kudosTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = kudosTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		15AAF1FEF4A24D7588E4A9FA /* GetCurrentYearAccomplishmentsUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCurrentYearAccomplishmentsUseCaseTests.swift; sourceTree = "<group>"; };
 		5010720F2F94C6D400033106 /* AppFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFactory.swift; sourceTree = "<group>"; };
 		501072122F94D68000033106 /* AccomplishmentItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccomplishmentItem.swift; sourceTree = "<group>"; };
 		5013DD8A2F938A4E007B9241 /* AddAccomplishmentUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAccomplishmentUseCase.swift; sourceTree = "<group>"; };
@@ -116,7 +113,6 @@
 		504E5A7E2F951BF9007468F4 /* GetAccomplishmentsUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAccomplishmentsUseCaseTests.swift; sourceTree = "<group>"; };
 		504E5A832F951CE4007468F4 /* LocalizationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizationManager.swift; sourceTree = "<group>"; };
 		504E5AAF2F9521AD007468F4 /* MainViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModelTests.swift; sourceTree = "<group>"; };
-		504E5AB12F9521B1007468F4 /* WrappedViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrappedViewModelTests.swift; sourceTree = "<group>"; };
 		504E5AB52F953B09007468F4 /* DeleteAccomplishmentUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccomplishmentUseCaseProtocol.swift; sourceTree = "<group>"; };
 		504E5AB72F953B16007468F4 /* GetAccomplishmentsUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAccomplishmentsUseCaseProtocol.swift; sourceTree = "<group>"; };
 		504E5AB92F953B24007468F4 /* AddAccomplishmentUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAccomplishmentUseCaseProtocol.swift; sourceTree = "<group>"; };
@@ -360,7 +356,6 @@
 				504E5A742F951A46007468F4 /* AddAccomplishmentUseCaseTests.swift */,
 				504E5A7C2F951BF4007468F4 /* DeleteAccomplishmentUseCaseTests.swift */,
 				504E5A7E2F951BF9007468F4 /* GetAccomplishmentsUseCaseTests.swift */,
-				15AAF1FEF4A24D7588E4A9FA /* GetCurrentYearAccomplishmentsUseCaseTests.swift */,
 				504E5A722F951A41007468F4 /* AddPhotoAccomplishmentUseCaseTests.swift */,
 			);
 			path = UseCases;
@@ -380,7 +375,6 @@
 			children = (
 				1366E97B2D7DAC58008FE4BE /* AccessibilityTextTests.swift */,
 				504E5AAF2F9521AD007468F4 /* MainViewModelTests.swift */,
-				504E5AB12F9521B1007468F4 /* WrappedViewModelTests.swift */,
 				1366E9792D7DAC28008FE4BE /* ColorUtilityTests.swift */,
 			);
 			path = Presentation;
@@ -620,14 +614,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				504E5AB22F9521B1007468F4 /* WrappedViewModelTests.swift in Sources */,
 				1366E97A2D7DAC29008FE4BE /* ColorUtilityTests.swift in Sources */,
 				1366E97E2D7DAC7C008FE4BE /* SwiftDataIntegrationTests.swift in Sources */,
 				504E5A732F951A41007468F4 /* AddPhotoAccomplishmentUseCaseTests.swift in Sources */,
 				504E5A752F951A46007468F4 /* AddAccomplishmentUseCaseTests.swift in Sources */,
 				1366E97C2D7DAC5A008FE4BE /* AccessibilityTextTests.swift in Sources */,
 				504E5A772F951A50007468F4 /* AccomplishmentTests.swift in Sources */,
-				CAED3C56A41F41F2A4AA834F /* GetCurrentYearAccomplishmentsUseCaseTests.swift in Sources */,
 				504E5A7F2F951BF9007468F4 /* GetAccomplishmentsUseCaseTests.swift in Sources */,
 				504E5A7D2F951BF4007468F4 /* DeleteAccomplishmentUseCaseTests.swift in Sources */,
 				504E5AB02F9521AD007468F4 /* MainViewModelTests.swift in Sources */,
@@ -822,6 +814,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"kudos/Preview Content\"";
 				DEVELOPMENT_TEAM = 7G4S2SGHRL;
 				ENABLE_PREVIEWS = YES;
@@ -840,7 +833,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.7;
+				MARKETING_VERSION = 1.8;
 				"OTHER_LDFLAGS[sdk=iphoneos*]" = (
 					"-Xlinker",
 					"-interposable",
@@ -864,6 +857,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"kudos/Preview Content\"";
 				DEVELOPMENT_TEAM = 7G4S2SGHRL;
 				ENABLE_PREVIEWS = YES;
@@ -882,7 +876,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.7;
+				MARKETING_VERSION = 1.8;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.dianait.kudosapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

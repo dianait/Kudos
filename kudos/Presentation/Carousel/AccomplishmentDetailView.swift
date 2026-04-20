@@ -54,8 +54,9 @@ struct AccomplishmentDetailView: View {
         .alert(Copies.AccomplishmentDetail.deleteConfirmationTitle, isPresented: $showDeleteConfirmation) {
             Button(Copies.AccomplishmentDetail.deleteCancel, role: .cancel) { }
             Button(Copies.AccomplishmentDetail.deleteConfirm, role: .destructive) {
-                deleteAccomplishment()
+                withAnimation { onDelete(accomplishment); dismiss() }
             }
+            .accessibilityIdentifier(A11y.AccomplishmentDetail.deleteAlertConfirmIdentifier)
         } message: {
             Text(Copies.AccomplishmentDetail.deleteConfirmationMessage)
         }
@@ -157,14 +158,7 @@ struct AccomplishmentDetailView: View {
         }
         .padding(.horizontal)
         .padding(.bottom, Space.extraLarge)
-        .accessibilityLabel(Copies.AccomplishmentDetail.deleteButton)
-        .accessibilityHint(Copies.AccomplishmentDetail.deleteHint)
+        .accessibilityIdentifier(A11y.AccomplishmentDetail.deleteButtonIdentifier)
     }
     
-    private func deleteAccomplishment() {
-        withAnimation {
-            onDelete(accomplishment)
-            dismiss()
-        }
-    }
 }

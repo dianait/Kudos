@@ -39,6 +39,7 @@ enum A11y {
         static let textEditorLabel = "stickies_overview_text_editor_label".localized
         static let textEditorHint = "stickies_overview_text_editor_hint".localized
         static let textEditorIdentifer = "stickies_overview_text_editor_identifier".localized
+        static let cancelButtonIdentifier = "Cancel button"
         static func charCounterLabel(count: Int, max: Int) -> String {
             "stickies_overview_char_counter".localized.replacingOccurrences(of: "{count}", with: "\(count)").replacingOccurrences(of: "{max}", with: "\(max)")
         }
@@ -57,8 +58,18 @@ enum A11y {
                 .replacingOccurrences(of: "{index}", with: "\(index + 1)")
                 .replacingOccurrences(of: "{total}", with: "\(total)")
         }
+        static func itemIdentifier(index: Int) -> String { "Achievement \(index) Button" }
         static let itemHint = "carousel_view_item_hint".localized
         static let deleteHint = "carousel_view_delete_hint".localized
+    }
+
+    enum AccomplishmentDetail {
+        static let deleteAlertConfirmIdentifier = "Delete Alert Button"
+        static let deleteButtonIdentifier = "Delete achievement"
+    }
+
+    enum EmptyStateView {
+        static let addButtonIdentifier = "Add Achievement Carousel Empty State Button"
     }
     
     enum StickyView {

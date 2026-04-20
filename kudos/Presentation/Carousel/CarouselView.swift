@@ -205,7 +205,7 @@ struct CarouselView: View {
                 dragResetTask?.cancel()
                 let sessionId = dragSessionId
 
-                dragResetTask = Task { @MainActor in
+                dragResetTask = Task {
                     try? await Task.sleep(for: .seconds(Timing.carouselTapDelay))
                     guard !Task.isCancelled, dragSessionId == sessionId else { return }
                     dragSessionId = nil

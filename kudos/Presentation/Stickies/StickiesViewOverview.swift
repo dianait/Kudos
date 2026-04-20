@@ -76,7 +76,7 @@ struct StickiesViewOverview: View {
                             if gesture.translation.height < Limits.saveDragThreshold, hasContent {
                                 let generator = UINotificationFeedbackGenerator()
                                 generator.notificationOccurred(.success)
-                                Task { @MainActor in
+                                Task {
                                     try? await Task.sleep(for: .seconds(Timing.saveActionDelay))
                                     viewModel.save()
                                     withAnimation(.spring(response: AnimationConstants.springResponse, dampingFraction: AnimationConstants.springDampingFraction)) {
@@ -105,7 +105,7 @@ struct StickiesViewOverview: View {
         }
         .onChange(of: viewModel.mode) { oldValue, newValue in
             if newValue == .edit && oldValue == .view {
-                Task { @MainActor in
+                Task {
                     try? await Task.sleep(for: .seconds(Timing.accessibilityNotificationDelay))
                     responseIsFocussed = true
                 }
@@ -217,7 +217,7 @@ struct StickiesViewOverview: View {
             if hasContent {
                 let generator = UINotificationFeedbackGenerator()
                 generator.notificationOccurred(.success)
-                Task { @MainActor in
+                Task {
                     try? await Task.sleep(for: .seconds(Timing.saveActionDelay))
                     viewModel.save()
                     withAnimation {

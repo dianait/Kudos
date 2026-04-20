@@ -24,7 +24,7 @@ struct MainView: View {
                 Spacer()
             }
             .savedConfirmation(isPresented: $viewModel.showSavedMessage, onDismiss: {
-                Task { @MainActor in
+                Task {
                     try? await Task.sleep(for: .seconds(Timing.savedMessageDismissDelay))
                     viewModel.hideSavedMessage()
                 }

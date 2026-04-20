@@ -115,6 +115,7 @@
 // Carousel View A11y
 "carousel_view_label" = "Achievements carousel";
 "carousel_view_hint" = "Swipe horizontally to navigate through your achievements";
+"carousel_view_year_filter_label" = "Filter by year";
 "carousel_view_item_label" = "Achievement {index} of {total}";
 "carousel_view_item_hint" = "Swipe to see more achievements";
 "carousel_view_delete_label" = "Delete achievement";

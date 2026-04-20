@@ -53,6 +53,7 @@ enum A11y {
     enum CarouselView {
         static let label = "carousel_view_label".localized
         static let hint = "carousel_view_hint".localized
+        static let yearFilterLabel = "carousel_view_year_filter_label".localized
         static func itemLabel(index: Int, total: Int) -> String {
             "carousel_view_item_label".localized
                 .replacingOccurrences(of: "{index}", with: "\(index + 1)")

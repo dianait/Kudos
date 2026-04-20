@@ -115,6 +115,7 @@
 // Carousel View A11y
 "carousel_view_label" = "Carrusel de logros";
 "carousel_view_hint" = "Desliza horizontalmente para navegar entre tus logros";
+"carousel_view_year_filter_label" = "Filtrar por año";
 "carousel_view_item_label" = "Logro {index} de {total}";
 "carousel_view_item_hint" = "Desliza para ver más logros";
 "carousel_view_delete_label" = "Eliminar logro";

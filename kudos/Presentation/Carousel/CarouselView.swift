@@ -63,7 +63,7 @@ struct CarouselView: View {
     var body: some View {
         VStack(spacing: 0) {
             if !accomplishments.isEmpty {
-                Picker("", selection: $selectedYear) {
+                Picker(A11y.CarouselView.yearFilterLabel, selection: $selectedYear) {
                     Text(Copies.CarouselFilter.all).tag(Int?.none)
                     ForEach(availableYears, id: \.self) { year in
                         Text("\(year) (\(count(for: year)))").tag(Int?.some(year))

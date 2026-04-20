@@ -9,6 +9,7 @@ struct CarouselView: View {
     @State private var currentIndex: Int = 0
     @State private var translation: CGFloat = 0
     @State private var selectedItem: AccomplishmentItem? = nil
+    @State private var itemToDelete: AccomplishmentItem? = nil
     @State private var dragSessionId: UUID?
     @State private var lastDragEndTime: Date = .distantPast
     @State private var dragResetTask: Task<Void, Never>?
@@ -19,6 +20,13 @@ struct CarouselView: View {
 
     private var canTap: Bool {
         Date().timeIntervalSince(lastDragEndTime) > Timing.carouselTapDelay
+    }
+
+    private var isShowingDeleteAlert: Binding<Bool> {
+        Binding(
+            get: { itemToDelete != nil },
+            set: { if !$0 { itemToDelete = nil } }
+        )
     }
 
     private var availableYears: [Int] {
@@ -102,11 +110,25 @@ struct CarouselView: View {
             dragResetTask?.cancel()
             dragResetTask = nil
         }
+        .alert(
+            Copies.AccomplishmentDetail.deleteConfirmationTitle,
+            isPresented: isShowingDeleteAlert,
+            presenting: itemToDelete
+        ) { item in
+            Button(Copies.AccomplishmentDetail.deleteConfirm, role: .destructive) {
+                onDelete(item)
+            }
+            Button(Copies.AccomplishmentDetail.deleteCancel, role: .cancel) {
+                itemToDelete = nil
+            }
+        } message: { _ in
+            Text(Copies.AccomplishmentDetail.deleteConfirmationMessage)
+        }
     }
 
     @ViewBuilder
     private func cardView(for item: AccomplishmentItem, at index: Int) -> some View {
-        StickyView(item: item)
+        StickyView(item: item, delete: index == currentIndex ? { itemToDelete = item } : nil)
         .modifier(CarouselCardModifier(
             index: index,
             currentIndex: currentIndex,

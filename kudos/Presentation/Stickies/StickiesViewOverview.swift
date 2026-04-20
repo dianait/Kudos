@@ -47,7 +47,10 @@ struct StickiesViewOverview: View {
                         }
                     }
                     cameraButton
-                    saveButton
+                    HStack(spacing: Space.medium) {
+                        cancelButton
+                        saveButton
+                    }
                 }
                 .offset(viewModel.dragOffset)
                 .simultaneousGesture(
@@ -183,6 +186,27 @@ struct StickiesViewOverview: View {
             .padding(8)
             .accessibilityLabel(Copies.Camera.removePhoto)
         }
+    }
+
+    @ViewBuilder
+    private var cancelButton: some View {
+        Button {
+            responseIsFocussed = false
+            viewModel.cancelEdit()
+        } label: {
+            HStack(spacing: Space.small) {
+                Image(systemName: Icon.xmark.rawValue)
+                Text(Copies.StickiesViewOverView.cancelButton)
+            }
+            .font(.subheadline)
+            .fontWeight(.medium)
+            .foregroundStyle(.white)
+            .padding(.horizontal, Space.medium)
+            .padding(.vertical, Space.small)
+            .background(Capsule().fill(Color.gray.opacity(0.7)))
+        }
+        .padding(.top, Space.extraSmall)
+        .accessibilityLabel(Copies.StickiesViewOverView.cancelButton)
     }
 
     @ViewBuilder

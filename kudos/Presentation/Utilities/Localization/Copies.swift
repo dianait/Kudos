@@ -11,18 +11,9 @@ enum Copies {
     static var homeTab: String { "home_tab".localized }
     static var carouselTab: String { "carousel_tab".localized }
 
-    private static let minScreenWidth = CGFloat(380)
-    static func viewTitle(screenWidth: CGFloat) -> String {
-        screenWidth < minScreenWidth ? "celebrate_title_short".localized : "celebrate_title_long".localized
-    }
-
-    static func viewDescription(screenWidth: CGFloat) -> String {
-        screenWidth < minScreenWidth ? "view_description_short".localized : "view_description_long".localized
-    }
-
-    static func editDescription(screenWidth: CGFloat) -> String {
-        screenWidth < minScreenWidth ? "edit_description_short".localized : "edit_description_long".localized
-    }
+    static var viewTitle: String { "celebrate_title_long".localized }
+    static var viewDescription: String { "view_description_long".localized }
+    static var editDescription: String { "edit_description_long".localized }
 
     static var editTitle: String {
         return "edit_title".localized
@@ -79,6 +70,10 @@ enum Copies {
     enum StickiesViewOverView {
         static var textEditorPlaceHolder: String {
             return "text_editor_placeholder".localized
+        }
+
+        static var cancelButton: String {
+            return "stickies_overview_cancel_button".localized
         }
 
         static var saveButton: String {

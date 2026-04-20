@@ -44,6 +44,12 @@ final class MainViewModel {
           }
       }
 
+    func cancelEdit() {
+        text = ""
+        selectedPhotoData = nil
+        mode = .view
+    }
+
     func save() {
         do {
             let color = AccomplishmentColor.randomColorString()

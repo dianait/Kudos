@@ -36,6 +36,7 @@
 
 // Stickies View Over View
 "text_editor_placeholder" = "Write here...";
+"stickies_overview_cancel_button" = "Cancel";
 "stickies_overview_save_button" = "Save achievement";
 "stickies_overview_save_button_hint" = "Save your achievement";
 "stickies_overview_save_button_identifier" = "Save Button";

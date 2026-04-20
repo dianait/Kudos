@@ -3,7 +3,6 @@ import SwiftUI
 struct HeaderView: View {
     @Binding var mode: Mode
     @Binding var text: String
-    @Environment(\.screenSize) private var screenSize
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @Environment(LanguageManager.self) var languageManager
 
@@ -12,11 +11,11 @@ struct HeaderView: View {
     }
 
     var title: String {
-        shouldShowEditHeader ? Copies.editTitle : Copies.viewTitle(screenWidth: screenSize.width)
+        shouldShowEditHeader ? Copies.editTitle : Copies.viewTitle
     }
 
     var description: String {
-        shouldShowEditHeader ? Copies.editDescription(screenWidth: screenSize.width) : Copies.viewDescription(screenWidth: screenSize.width)
+        shouldShowEditHeader ? Copies.editDescription : Copies.viewDescription
     }
 
     var body: some View {

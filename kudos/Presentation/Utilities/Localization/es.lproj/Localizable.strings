@@ -36,6 +36,7 @@
 
 // Stickies View Over View
 "text_editor_placeholder" = "Escribe aquí...";
+"stickies_overview_cancel_button" = "Cancelar";
 "stickies_overview_save_button" = "Guardar logro";
 "stickies_overview_save_button_hint" = "Guarda tu logro";
 "stickies_overview_save_button_identifier" = "Save Button";

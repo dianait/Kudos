@@ -35,7 +35,7 @@ final class LanguageManager {
         UserDefaults.standard.set(language, forKey: Self.languageKey)
     }
 
-    nonisolated func localizedString(for key: String) -> String {
+    nonisolated static func localizedString(for key: String) -> String {
         let lang = UserDefaults.standard.string(forKey: Self.languageKey) ?? "en"
         guard let path = Bundle.main.path(forResource: lang, ofType: "lproj"),
               let bundle = Bundle(path: path) else {

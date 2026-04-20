@@ -3,7 +3,7 @@ import SwiftUI
 
 extension String {
     var localized: String {
-        return LanguageManager.shared.localizedString(for: self)
+        return LanguageManager.localizedString(for: self)
     }
 }
 

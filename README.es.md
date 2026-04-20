@@ -34,7 +34,7 @@ kudos/
 ├── Domain/
 │   ├── Models/              # AccomplishmentItem, NewAccomplishment
 │   ├── Protocols/           # Contratos de casos de uso y repositorio
-│   ├── UseCases/            # Add, delete, get accomplishments
+│   ├── UseCases/            # AddAccomplishment, AddPhotoAccomplishment (solo lógica de negocio — delegaciones puras eliminadas)
 │   └── Utilities/Validators # AccomplishmentValidator, ValidationError
 ├── Data/
 │   ├── Entities/            # AccomplishmentEntity (@Model, SwiftData)
@@ -71,7 +71,7 @@ kudos/
 
 - **Clean Architecture**: Domain → Data → Presentation, regla de dependencias aplicada
 - **MVVM**: `MainViewModel` gestiona el estado de presentación
-- **DI basada en protocolos**: Casos de uso y repositorios inyectados via protocolos
+- **DI basada en protocolos**: Casos de uso y repositorio inyectados via protocolos; el ViewModel llama al repositorio directamente para fetch/delete simples (sin caso de uso cuando no hay lógica de negocio)
 - **Capa de validación**: `AccomplishmentValidator` en Domain, no en las vistas
 - **Localización**: Enums `Copies` y `A11y` con extensión `.localized`, cambio de idioma en tiempo real
 

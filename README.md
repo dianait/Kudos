@@ -34,7 +34,7 @@ kudos/
 ├── Domain/
 │   ├── Models/              # AccomplishmentItem, NewAccomplishment
 │   ├── Protocols/           # Use case + repository contracts
-│   ├── UseCases/            # Add, delete, get accomplishments
+│   ├── UseCases/            # AddAccomplishment, AddPhotoAccomplishment (business logic only — pure pass-throughs removed)
 │   └── Utilities/Validators # AccomplishmentValidator, ValidationError
 ├── Data/
 │   ├── Entities/            # AccomplishmentEntity (@Model, SwiftData)
@@ -71,7 +71,7 @@ kudos/
 
 - **Clean Architecture**: Domain → Data → Presentation, dependency rule enforced
 - **MVVM**: `MainViewModel` manages presentation state
-- **Protocol-based DI**: Use cases and repositories injected via protocols
+- **Protocol-based DI**: Use cases and repository injected via protocols; ViewModel calls repository directly for simple fetch/delete (no use case when there's no business logic)
 - **Validation layer**: `AccomplishmentValidator` in Domain, not in views
 - **Localization**: `Copies` and `A11y` enums with `.localized` extension, real-time language switching
 

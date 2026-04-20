@@ -41,7 +41,7 @@ struct StickyView: View {
                             Spacer()
                         }
                         .padding(Space.small)
-                        .offset(x: .zero, y: -30)
+                        .offset(x: .zero, y: Dimensions.photoStickyDeleteButtonOffsetY)
                     }
 
                     // Caption at bottom if has text
@@ -53,7 +53,7 @@ struct StickyView: View {
                     if isEditMode {
                         DateLabelView(date: item.date)
                             .accessibilityLabel(A11y.StickyView.dateLabel(date: item.date))
-                            .offset(x: -175, y: -145)
+                            .offset(x: Dimensions.photoStickyDateLabelOffsetX, y: Dimensions.photoStickyDateLabelOffsetY)
                     }
                 }
                 .frame(width: photoStickySize, height: photoStickySize)
@@ -116,7 +116,7 @@ struct StickyView: View {
             .frame(width: photoStickySize, height: photoStickySize)
             .clipShape(RoundedRectangle(cornerRadius: CGFloat(Size.small.rawValue)))
             .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 3)
-            .offset(x: .zero, y: -25)
+            .offset(x: .zero, y: Dimensions.photoStickyImageOffsetY)
     }
 
     @ViewBuilder

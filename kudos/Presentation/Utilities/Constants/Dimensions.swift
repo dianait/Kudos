@@ -15,6 +15,12 @@ enum Dimensions {
     static let dateLabelXOffset: CGFloat = -180
     static let dateLabelYOffset: CGFloat = -250
 
+    // Photo sticky offsets
+    static let photoStickyImageOffsetY: CGFloat = -25
+    static let photoStickyDeleteButtonOffsetY: CGFloat = -30
+    static let photoStickyDateLabelOffsetX: CGFloat = -175
+    static let photoStickyDateLabelOffsetY: CGFloat = -145
+
     // KudosJar dimensions
     static let kudosJarWidth: CGFloat = 120
     static let kudosJarHeight: CGFloat = 75

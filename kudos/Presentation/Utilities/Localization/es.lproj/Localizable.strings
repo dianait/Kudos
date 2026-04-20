@@ -117,6 +117,7 @@
 "carousel_view_hint" = "Desliza horizontalmente para navegar entre tus logros";
 "carousel_view_item_label" = "Logro {index} de {total}";
 "carousel_view_item_hint" = "Desliza para ver más logros";
+"carousel_view_delete_label" = "Eliminar logro";
 "carousel_view_delete_hint" = "Eliminar este logro";
 
 // Sticky View A11y

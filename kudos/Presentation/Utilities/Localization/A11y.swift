@@ -60,6 +60,7 @@ enum A11y {
         }
         static func itemIdentifier(index: Int) -> String { "Achievement \(index) Button" }
         static let itemHint = "carousel_view_item_hint".localized
+        static let deleteLabel = "carousel_view_delete_label".localized
         static let deleteHint = "carousel_view_delete_hint".localized
     }
 

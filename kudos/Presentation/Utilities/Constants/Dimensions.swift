@@ -9,6 +9,7 @@ enum Dimensions {
     // Sticky note dimensions
     static let stickyWidth: CGFloat = 200
     static let stickyHeight: CGFloat = 200
+    static let stickyBackgroundSize: CGFloat = 300
 
     // Date label offsets
     static let dateLabelXOffset: CGFloat = -180

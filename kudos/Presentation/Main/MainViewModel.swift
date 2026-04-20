@@ -10,9 +10,7 @@ enum Mode {
 final class MainViewModel {
     var mode: Mode = .view
     var text: String = ""
-    var showSaveIndicator: Bool = false
     var showSavedMessage: Bool = false
-    var dragOffset: CGSize = .zero
     var selectedPhotoData: Data?
     var showCamera: Bool = false
     var errorMessage: String?
@@ -69,8 +67,6 @@ final class MainViewModel {
             text = ""
             selectedPhotoData = nil
             mode = .view
-            dragOffset = .zero
-            showSaveIndicator = false
         } catch {
             errorMessage = error.localizedDescription
         }

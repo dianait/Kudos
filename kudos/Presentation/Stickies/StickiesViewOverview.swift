@@ -4,6 +4,8 @@ struct StickiesViewOverview: View {
     @Bindable var viewModel: MainViewModel
     @Environment(LanguageManager.self) var languageManager
     @FocusState private var responseIsFocussed: Bool
+    @State private var dragOffset: CGSize = .zero
+    @State private var showSaveIndicator: Bool = false
     private let maxCharacters: Int = Limits.maxCharacters
     private var characterCount: Int { viewModel.text.count }
 
@@ -52,22 +54,22 @@ struct StickiesViewOverview: View {
                         saveButton
                     }
                 }
-                .offset(viewModel.dragOffset)
+                .offset(dragOffset)
                 .simultaneousGesture(
                     DragGesture(minimumDistance: CGFloat(Size.extraSmall.rawValue))
                         .onChanged { gesture in
                             if hasContent {
                                 let dragAmount = gesture.translation.height
                                 let dampedAmount = min(0, dragAmount * Limits.dragDampingFactor)
-                                viewModel.dragOffset = CGSize(width: 0, height: dampedAmount)
-                                viewModel.showSaveIndicator = dragAmount < Limits.saveIndicatorThreshold
-
-                                if dragAmount < Limits.saveIndicatorThreshold, !viewModel.showSaveIndicator {
+                                dragOffset = CGSize(width: 0, height: dampedAmount)
+                                let isInSaveZone = dragAmount < Limits.saveIndicatorThreshold
+                                if isInSaveZone && !showSaveIndicator {
                                     UIAccessibility.post(
                                         notification: .announcement,
                                         argument: A11y.StickiesViewOverview.readyToSaveNotification
                                     )
                                 }
+                                showSaveIndicator = isInSaveZone
                             }
                         }
                         .onEnded { gesture in
@@ -78,14 +80,14 @@ struct StickiesViewOverview: View {
                                     try? await Task.sleep(for: .seconds(Timing.saveActionDelay))
                                     viewModel.save()
                                     withAnimation(.spring(response: AnimationConstants.springResponse, dampingFraction: AnimationConstants.springDampingFraction)) {
-                                        viewModel.dragOffset = .zero
-                                        viewModel.showSaveIndicator = false
+                                        dragOffset = .zero
+                                        showSaveIndicator = false
                                     }
                                 }
                             } else {
                                 withAnimation(.spring(response: AnimationConstants.springResponse, dampingFraction: AnimationConstants.springDampingFraction)) {
-                                    viewModel.dragOffset = .zero
-                                    viewModel.showSaveIndicator = false
+                                    dragOffset = .zero
+                                    showSaveIndicator = false
                                 }
                             }
                         }
@@ -219,8 +221,8 @@ struct StickiesViewOverview: View {
                     try? await Task.sleep(for: .seconds(Timing.saveActionDelay))
                     viewModel.save()
                     withAnimation {
-                        viewModel.dragOffset = .zero
-                        viewModel.showSaveIndicator = false
+                        dragOffset = .zero
+                        showSaveIndicator = false
                     }
                 }
             }

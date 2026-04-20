@@ -1,6 +1,7 @@
 import SwiftData
 import Foundation
 
+@MainActor
 final class SwiftDataAccomplishmentRepository: AccomplishmentRepositoryProtocol {
     private let modelContext: ModelContext
     

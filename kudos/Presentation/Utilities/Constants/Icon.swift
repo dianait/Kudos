@@ -20,4 +20,5 @@ enum Icon: String {
     case photo = "photo.fill"
     case xmark = "xmark.circle.fill"
     case heart = "heart.fill"
+    case globe = "globe"
 }

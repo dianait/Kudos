@@ -1,6 +1,6 @@
 enum CustomImage: String {
     case postit
     case github
-    case bluesky
+    case twitter
     case linkedin
 }

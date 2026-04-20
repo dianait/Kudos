@@ -17,8 +17,8 @@ struct AboutView: View {
                             Text(Copies.AboutMe.Privacy.description)
                         }
                     )
+                    LandingLinkCard()
                     SocialLinks()
-                    TimelineView()
                 }
                 .padding()
                 .background(Color("MainBackground"))
@@ -56,6 +56,25 @@ struct Headline: View {
     }
 }
 
+struct LandingLinkCard: View {
+    var body: some View {
+        Button {
+            UIApplication.shared.open(Links.landing)
+        } label: {
+            SectionCard(title: Copies.AboutMe.Landing.title, icon: Icon.globe.rawValue) {
+                VStack(alignment: .leading, spacing: Space.extraSmall) {
+                    Text(Copies.AboutMe.Landing.description)
+                    Text(Links.landing.absoluteString)
+                        .fontWeight(.semibold)
+                        .foregroundStyle(.orange)
+                }
+            }
+        }
+        .buttonStyle(.plain)
+        .frame(maxWidth: .infinity)
+    }
+}
+
 struct SectionCard<Content: View>: View {
     let title: String
     let icon: String
@@ -84,6 +103,7 @@ struct SectionCard<Content: View>: View {
                 .font(.body)
                 .foregroundStyle(.secondary)
         }
+        .frame(maxWidth: .infinity, alignment: .leading)
         .padding()
         .background(
             RoundedRectangle(cornerRadius: Space.medium)

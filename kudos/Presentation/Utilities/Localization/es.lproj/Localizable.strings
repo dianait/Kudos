@@ -57,24 +57,9 @@
 "privacy_title" = "Tu privacidad lo primero";
 "privacy_description" = "Cada logro que guardes permanecerá exclusivamente en tu dispositivo. Tus datos nunca abandonan tu teléfono.";
 
-// Timeline
-"timeline_title" = "Un poco de historia...";
-
-// Step 1
-"step1_title" = "Todo empezó en la LicorcaConf";
-"step1_description" = "En una charla sobre el síndrome del Impostor, Silvia comentó que tenía una carpeta donde guardaba las cosas buenas que le pasaban en el trabajo.";
-
-// Step 2
-"step2_title" = "Me compré un tarrito físico";
-"step2_description" = "Y empecé a llenarlo de notas con cosas que me hacían sentirme bien en el trabajo.";
-
-// Step 3
-"step3_title" = "Lo compartí en twitter";
-"step3_description" = "Y el resto es historia... Se hablo de él en el AntiEvent, TechFest, y Software Crafters de Barcelona. Gracias Silvia, Ari y Jordi 🫶";
-
-// Step 4
-"step4_title" = "Y esta es la versión digital";
-"step4_description" = "Quería publicar una app desde hace mucho tiempo, y que mejor oportunidad que esta.";
+// Landing
+"landing_title" = "La historia de Kudos";
+"landing_description" = "Descubre cómo nació esta app.";
 
 // Footer
 "footer_title" = "Desarrollado con ❤️ por @Dianait";

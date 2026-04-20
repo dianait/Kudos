@@ -1,5 +1,9 @@
 import Foundation
 
+enum Links {
+    static let landing = URL(string: "https://dianait.dev/kudos")!
+}
+
 struct SocialLink {
     let name: String
     let iconName: String
@@ -13,9 +17,9 @@ let socialLinks: [SocialLink] = [
         url: URL(string: "https://github.com/dianait")!
     ),
     SocialLink(
-        name: "bluesky",
-        iconName: CustomImage.bluesky.rawValue,
-        url: URL(string: "https://bsky.app/profile/dianait.dev")!
+        name: "twitter",
+        iconName: CustomImage.twitter.rawValue,
+        url: URL(string: "https://twitter.com/dianait_")!
     ),
     SocialLink(
         name: "linkedin",

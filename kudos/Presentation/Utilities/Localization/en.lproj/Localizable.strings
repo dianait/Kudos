@@ -57,24 +57,9 @@
 "privacy_title" = "Your privacy comes first";
 "privacy_description" = "Every achievement you save will remain exclusively on your device. Your data never leaves your phone.";
 
-// Timeline
-"timeline_title" = "A bit of history...";
-
-// Step 1
-"step1_title" = "It all started at LicorcaConf";
-"step1_description" = "In a talk about Impostor Syndrome, Silvia mentioned that she had a folder where she kept good things that happened to her at work.";
-
-// Step 2
-"step2_title" = "I bought a physical jar";
-"step2_description" = "And I started filling it with notes about things that made me feel good at work. A practical way to remember my achievements.";
-
-// Step 3
-"step3_title" = "I shared it on Twitter";
-"step3_description" = "And the rest is history... My jar became famous, it was discussed at AntiEvent, TechFest, and Software Crafters in Barcelona. Thanks Silvia, Ari, and Jordi 🫶";
-
-// Step 4
-"step4_title" = "And this is the digital version";
-"step4_description" = "I wanted to publish an app for a long time, and here we are. So that everyone can have their own jar of achievements!";
+// Landing
+"landing_title" = "The story of Kudos";
+"landing_description" = "Find out how this app was born.";
 
 // Footer
 "footer_title" = "Developed with ❤️ by @Dianait";

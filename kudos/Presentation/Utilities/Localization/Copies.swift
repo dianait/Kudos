@@ -135,59 +135,9 @@ enum Copies {
             }
         }
 
-        enum Timeline {
-            static var title: String {
-                return "timeline_title".localized
-            }
-
-            private enum Step1 {
-                static var title: String {
-                    return "step1_title".localized
-                }
-
-                static var description: String {
-                    return "step1_description".localized
-                }
-            }
-
-            private enum Step2 {
-                static var title: String {
-                    return "step2_title".localized
-                }
-
-                static var description: String {
-                    return "step2_description".localized
-                }
-            }
-
-            private enum Step3 {
-                static var title: String {
-                    return "step3_title".localized
-                }
-
-                static var description: String {
-                    return "step3_description".localized
-                }
-            }
-
-            private enum Step4 {
-                static var title: String {
-                    return "step4_title".localized
-                }
-
-                static var description: String {
-                    return "step4_description".localized
-                }
-            }
-
-            static var steps: [(title: String, description: String, icon: String)] {
-                return [
-                    (Step1.title, Step1.description, "lightbulb.fill"),
-                    (Step2.title, Step2.description, "brain.head.profile"),
-                    (Step3.title, Step3.description, "bird.fill"),
-                    (Step4.title, Step4.description, "iphone.gen3"),
-                ]
-            }
+        enum Landing {
+            static var title: String { "landing_title".localized }
+            static var description: String { "landing_description".localized }
         }
 
         enum Footer {

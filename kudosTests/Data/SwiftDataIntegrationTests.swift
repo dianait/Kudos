@@ -19,7 +19,7 @@ struct SwiftDataIntegrationTests {
         let text = "Test logro para SwiftData"
         let color = "yellow"
 
-        let accomplishment = AccomplishmentEntity(from: NewAccomplishment(text: text, photoData: nil, color: color))
+        let accomplishment = AccomplishmentEntity(from: NewAccomplishment(text: text, photoData: nil, color: color, date: Date()))
         context.insert(accomplishment)
 
         let descriptor = FetchDescriptor<AccomplishmentEntity>()
@@ -34,7 +34,7 @@ struct SwiftDataIntegrationTests {
     @Test("Delete accomplishment")
     func deleteAccomplishment() throws {
         let context = try makeTestContext()
-        let accomplishment = AccomplishmentEntity(from: NewAccomplishment(text: "Logro para eliminar", photoData: nil, color: "blue"))
+        let accomplishment = AccomplishmentEntity(from: NewAccomplishment(text: "Logro para eliminar", photoData: nil, color: "blue", date: Date()))
         context.insert(accomplishment)
 
         var descriptor = FetchDescriptor<AccomplishmentEntity>()

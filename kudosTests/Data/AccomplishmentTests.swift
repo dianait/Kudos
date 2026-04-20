@@ -7,7 +7,7 @@ struct AccomplishmentEntityTests {
 
     @Test("Maps NewAccomplishment to entity correctly")
     func mapsFromNewAccomplishment() {
-        let new = NewAccomplishment(text: "Mi logro", photoData: nil, color: "blue")
+        let new = NewAccomplishment(text: "Mi logro", photoData: nil, color: "blue", date: Date())
         let entity = AccomplishmentEntity(from: new)
 
         #expect(entity.text == "Mi logro")
@@ -17,7 +17,7 @@ struct AccomplishmentEntityTests {
 
     @Test("Uses empty string when NewAccomplishment has nil text")
     func usesEmptyStringForNilText() {
-        let new = NewAccomplishment(text: nil, photoData: nil, color: "yellow")
+        let new = NewAccomplishment(text: nil, photoData: nil, color: "yellow", date: Date())
         let entity = AccomplishmentEntity(from: new)
 
         #expect(entity.text == "")

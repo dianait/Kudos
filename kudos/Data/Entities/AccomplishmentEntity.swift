@@ -39,7 +39,7 @@ extension AccomplishmentEntity {
 extension AccomplishmentEntity {
     convenience init(from new: NewAccomplishment) {
         self.init(
-            date: Date(),
+            date: new.date,
             text: new.text ?? "",
             colorHex: new.color,
             photoData: new.photoData

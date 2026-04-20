@@ -16,7 +16,8 @@ final class AddPhotoAccomplishmentUseCase: AddPhotoAccomplishmentUseCaseProtocol
         let new = NewAccomplishment(
             text: validatedCaption,
             photoData: photoData,
-            color: AccomplishmentColor.randomColorString()
+            color: AccomplishmentColor.randomColorString(),
+            date: Date()
         )
         try repository.save(new)
     }

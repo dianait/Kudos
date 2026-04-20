@@ -1,3 +1,5 @@
+import Foundation
+
 final class AddAccomplishmentUseCase: AddAccomplishmentUseCaseProtocol {
     private let repository: AccomplishmentRepositoryProtocol
 
@@ -10,7 +12,8 @@ final class AddAccomplishmentUseCase: AddAccomplishmentUseCaseProtocol {
         let accomplishment = NewAccomplishment(
             text: validatedText,
             photoData: nil,
-            color: AccomplishmentColor.randomColorString()
+            color: AccomplishmentColor.randomColorString(),
+            date: Date()
         )
         try repository.save(accomplishment)
     }

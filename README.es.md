@@ -1,75 +1,93 @@
 # 🎉 Kudos
 
-Una aplicación iOS para guardar y celebrar tus logros personales. Un espacio digital donde puedes registrar tus victorias y ver cómo crece tu colección con cada logro alcanzado.
+**Español** | [English](README.md)
 
-## 📱 Descripción
+Una app iOS para guardar y celebrar tus logros personales como notas adhesivas digitales.
 
-Kudos es una aplicación que te permite guardar tus logros como notas adhesivas digitales. Cada vez que guardas un logro, tu colección crece y puedes celebrarlo con animaciones de confetti. La aplicación está diseñada con un enfoque en la privacidad: todos tus datos permanecen exclusivamente en tu dispositivo.
+🌐 [dianait.blog/kudos](https://dianait.blog/kudos)
 
 ## ✨ Características
 
 - **Guardar logros**: Crea notas adhesivas con tus logros y victorias personales
 - **Contador visual**: Ve cuántos logros has guardado en tu colección
-- **Animaciones de celebración**: Confetti animado cuando guardas un nuevo logro
-- **Carrusel de logros**: Navega por todos tus logros guardados con un gesto de deslizamiento
-- **Multiidioma**: Soporte para español e inglés con cambio de idioma en tiempo real
-- **Privacidad total**: Todos los datos se almacenan localmente en tu dispositivo
-- **Accesibilidad**: Implementación completa de VoiceOver y accesibilidad
-- **Interfaz intuitiva**: Diseño moderno y fácil de usar
+- **Animaciones de celebración**: Confetti animado al guardar un nuevo logro
+- **Carrusel de logros**: Navega por todos tus logros con un gesto de deslizamiento
+- **Borrar desde el carrusel**: Elimina logros directamente sin entrar al detalle
+- **Fotos**: Adjunta una foto a cualquier logro
+- **Multiidioma**: Español e inglés con cambio en tiempo real
+- **Privacidad total**: Todos los datos se almacenan localmente, nada sale de tu teléfono
+- **Accesibilidad**: Soporte completo de VoiceOver con etiquetas y pistas localizadas
 
-## 🚀 Comenzar
+## 📖 Cómo usar
 
-1. Descarga la aplicación desde el App Store (cuando esté disponible)
-2. Abre la aplicación en tu dispositivo iOS
-3. ¡Comienza a guardar tus logros!
+1. **Añadir un logro**: Toca la nota adhesiva en la pantalla principal, escribe tu logro, desliza hacia arriba para guardar
+2. **Ver tus logros**: Toca el contador en la parte superior para abrir el carrusel, desliza para navegar
+3. **Borrar un logro**: Toca el icono de papelera en la nota activa del carrusel
+4. **Cambiar idioma**: Ajustes → selecciona tu idioma preferido
 
-## 📖 Cómo Usar
+## 🏗️ Arquitectura
 
-1. **Agregar un logro**:
+Kudos está construida con **Clean Architecture** y **MVVM**, respetando estrictamente la regla de dependencias: el Domain no tiene dependencias externas.
 
-   - Toca la nota amarilla en la pantalla principal
-   - Escribe tu logro en el editor de texto
-   - Desliza hacia arriba para guardar
+```
+kudos/
+├── Domain/
+│   ├── Models/              # AccomplishmentItem, NewAccomplishment
+│   ├── Protocols/           # Contratos de casos de uso y repositorio
+│   ├── UseCases/            # AddAccomplishment, AddPhotoAccomplishment (solo lógica de negocio — delegaciones puras eliminadas)
+│   └── Utilities/Validators # AccomplishmentValidator, ValidationError
+├── Data/
+│   ├── Entities/            # AccomplishmentEntity (@Model, SwiftData)
+│   └── Repositories/        # AccomplishmentRepository (implementación SwiftData)
+├── Presentation/
+│   ├── Main/                # MainView + MainViewModel
+│   ├── Carousel/            # CarouselView, AccomplishmentDetailView
+│   ├── Stickies/            # StickyView y subcomponentes
+│   ├── Settings/            # SettingsView
+│   ├── AboutMe/             # AboutView
+│   ├── Error/               # ErrorView
+│   └── Utilities/
+│       ├── Constants/       # Dimensions, Space, Timing, Icon, etc.
+│       ├── Localization/    # Copies, A11y, LanguageManager
+│       └── Confetti/        # Componentes de animación de celebración
+├── Dependencies/
+│   └── AppFactory.swift     # Inyección de dependencias
+└── Services/
+    ├── AppSettings.swift
+    └── LocalizationManager.swift
+```
 
-2. **Ver tus logros**:
+### Stack técnico
 
-   - Toca el contador en la parte superior para ver todos tus logros guardados
-   - Desliza horizontalmente para navegar entre ellos
+| | |
+|---|---|
+| Lenguaje | Swift 6 |
+| UI | SwiftUI |
+| Persistencia | SwiftData |
+| iOS mínimo | 17.0 |
+| Xcode | 15.0+ |
+| Concurrencia | Swift 6, strict concurrency complete |
 
-3. **Cambiar idioma**:
+### Patrones clave
 
-   - Toca el botón "Ajustes" en la parte inferior
-   - Selecciona tu idioma preferido
-
-4. **Eliminar logros**:
-   - En la vista de carrusel, toca el botón de eliminar en cualquier nota
-
-## 🎨 Características de Diseño
-
-- **Notas adhesivas**: Cada logro se guarda como una nota con color aleatorio (naranja, amarillo, verde, azul)
-- **Diseño responsivo**: Se adapta a diferentes tamaños de pantalla
-- **Animaciones suaves**: Transiciones fluidas entre vistas
-- **Tema claro**: Interfaz limpia y moderna con fondo blanco
+- **Clean Architecture**: Domain → Data → Presentation, regla de dependencias aplicada
+- **MVVM**: `MainViewModel` gestiona el estado de presentación
+- **DI basada en protocolos**: Casos de uso y repositorio inyectados via protocolos; el ViewModel llama al repositorio directamente para fetch/delete simples (sin caso de uso cuando no hay lógica de negocio)
+- **Capa de validación**: `AccomplishmentValidator` en Domain, no en las vistas
+- **Localización**: Enums `Copies` y `A11y` con extensión `.localized`, cambio de idioma en tiempo real
+- **Concurrencia Swift 6**: todos los tipos con aislamiento explícito (`@MainActor` en ViewModels, casos de uso y repositorio); compresión de imagen ejecutada en background
 
 ## 🔒 Privacidad
 
-Kudos está comprometido con tu privacidad:
+Todos los datos viven en tu dispositivo. Sin analíticas, sin servidores externos, sin tracking.
 
-- Todos los datos se almacenan localmente en tu dispositivo
-- No se recopila información personal
-- No hay conexión a servidores externos
-- Tus logros nunca abandonan tu teléfono
+## 🧪 Tests
 
-## 📚 Historia del Proyecto
+```bash
+xcodebuild test -project kudos.xcodeproj -scheme kudosTests -destination 'platform=iOS Simulator,name=iPhone 15'
+xcodebuild test -project kudos.xcodeproj -scheme kudosUITests -destination 'platform=iOS Simulator,name=iPhone 15'
+```
 
-La idea de Kudos nació en la LicorcaConf durante una charla sobre el síndrome del Impostor. Silvia compartió que tenía una carpeta en el pc donde guardaba las cosas buenas que le pasaban en el trabajo. Inspirada por esta idea, y por un mala racha en cuanto a no sentirme valida en el curro, me compre un tarrito físico que fui llenando de cosas buenas que me pasaban en el curro, un agradecimiento de un compi, una commentario bonito de una PR, la primera vez que me atrevi a representar a mi equipo en un Cluster Review... Y el tarrito no dejaba de llenarse, ya no era tanto volver a abrirlo y leer lo que habia conseguido, que tambien ayuda en momentos dificiles, sino el hecho de ir verlo llenarse dia a dia de cosas buenas.
+## 👤 Autora
 
-Lo comparti en Twitter y ganó popularidad, siendo mencionado en eventos como AntiEvent, TechFest y Software Crafters de Barcelona. Esta aplicación es la versión digital de ese tarrito físico, permitiendo que todos puedan tener su propio espacio para celebrar sus logros.
-
-## 👤 Autor
-
-Desarrollado con ❤️ por [@Dianait](https://linkedin/in/dianait)
-
----
-
-¡Celebra tus logros y haz crecer tu colección de kudos! 🎉
+Desarrollado con ❤️ por [@Dianait](https://dianait.blog)

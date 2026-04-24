@@ -4,66 +4,58 @@ import SwiftUI
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(LanguageManager.self) var languageManager
+    @State private var viewModel: MainViewModel?
+    @State private var selectedTab: Int = 0
 
     var body: some View {
-        // Reading currentLanguage here registers the dependency so SwiftUI
-        // re-evaluates the entire body (and Tab labels) when the language changes.
-        let _ = languageManager.currentLanguage
-        TabView {
-            Tab(Copies.homeTab, systemImage: "house.fill") {
-                MainView(
-                    textAction: addTextItem,
-                    photoAction: addPhotoItem
-                )
-            }
+        let language = languageManager.currentLanguage
+        Group {
+            if let viewModel {
+                TabView(selection: $selectedTab) {
+                    Tab(Copies.homeTab, systemImage: "house.fill", value: 0) {
+                        MainView(viewModel: viewModel)
+                    }
 
-            Tab(Copies.Wrapped.button, systemImage: "sparkles") {
-                WrappedView()
-            }
+                    Tab(Copies.carouselTab, systemImage: "rectangle.stack.fill", value: 1) {
+                        NavigationStack {
+                            CarouselView(
+                                accomplishments: viewModel.accomplishments,
+                                onDelete: { item in viewModel.delete(item) },
+                                onAddNew: { selectedTab = 0 }
+                            )
+                            .navigationTitle(Copies.carouselTab)
+                            .navigationBarTitleDisplayMode(.inline)
+                        }
+                    }
 
-            Tab(Copies.setingsTitle, systemImage: "gear") {
-                NavigationStack {
-                    SettingsView()
+                    Tab(Copies.settingsTitle, systemImage: "gear", value: 2) {
+                        NavigationStack {
+                            SettingsView()
+                        }
+                    }
+
+                    Tab(Copies.aboutTitle, systemImage: "info.circle", value: 3) {
+                        NavigationStack {
+                            AboutView()
+                        }
+                    }
                 }
-            }
-
-            Tab(Copies.aboutTitle, systemImage: "info.circle") {
-                NavigationStack {
-                    AboutView()
-                }
+            } else {
+                ProgressView()
             }
         }
-        .localized()
-    }
-
-    private func addTextItem(text: String) {
-        let validationResult = AccomplishmentValidator.validateText(text)
-
-        switch validationResult {
-        case .success(let validatedText):
-            do {
-                let newItem = try Accomplishment(validatedText)
-                modelContext.insert(newItem)
-            } catch {
-                print("Error creating Accomplishment: \(error.localizedDescription)")
-            }
-        case .failure(let error):
-            print("Validation error: \(error.localizedDescription)")
-        }
-    }
-
-    private func addPhotoItem(photoData: Data, caption: String?) {
-        do {
-            let newItem = try Accomplishment(photoData: photoData, text: caption)
-            modelContext.insert(newItem)
-        } catch {
-            print("Error creating photo Accomplishment: \(error.localizedDescription)")
+        .id(language)
+        .task {
+            guard viewModel == nil else { return }
+            let vm = AppFactory.makeMainViewModel(modelContext: modelContext)
+            vm.loadAccomplishments()
+            viewModel = vm
         }
     }
 }
 
 #Preview {
     ContentView()
-        .modelContainer(for: Accomplishment.self, inMemory: true)
+        .modelContainer(for: AccomplishmentEntity.self, inMemory: true)
         .environment(LanguageManager.shared)
 }

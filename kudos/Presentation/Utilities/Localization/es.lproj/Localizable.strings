@@ -1,0 +1,175 @@
+// Tab Bar
+"home_tab" = "Inicio";
+"carousel_tab" = "Mis Kudos";
+
+// Settings View
+"settings_general_section" = "General";
+"settings_appearance_section" = "Apariencia";
+"settings_color_scheme_label" = "Apariencia";
+"settings_color_scheme_system" = "Sistema";
+"settings_color_scheme_light" = "Claro";
+"settings_color_scheme_dark" = "Oscuro";
+
+// View Titles
+"celebrate_title_short" = "¡Es hora de celebrar!";
+"celebrate_title_long" = "¡Es hora de celebrar tus logros!";
+"view_description_short" = "Pulsa en la nota para empezar";
+"view_description_long" = "Pulsa en la nota de abajo para empezar";
+"edit_description_short" = "Desliza hacia arriba";
+"edit_description_long" = "Desliza hacia arriba para guardar";
+"edit_title" = "¿Has terminado?";
+"about_title" = "Sobre Kudos";
+"settings_title" = "Ajustes";
+
+// Language Settings View
+"select_language" = "Selección de idioma";
+
+// Confirmation View
+"confirmation_title" = "¡Logro guardado!";
+"confirmation_description" = "Tu tarrito crece con cada logro 🎉";
+"confirmation_button" = "Continuar";
+
+// Stickis View
+"accomplishment_example1" = "🎉 Tu primer logro aquí";
+"accomplishment_example2" = "Otro más!";
+"accomplishment_example3" = "Otro y otro";
+
+// Stickies View Over View
+"text_editor_placeholder" = "Escribe aquí...";
+"stickies_overview_cancel_button" = "Cancelar";
+"stickies_overview_save_button" = "Guardar logro";
+"stickies_overview_save_button_hint" = "Guarda tu logro";
+"stickies_overview_save_button_identifier" = "Save Button";
+
+// Carrusel - Empty State
+"carousel_empty_title" = "¡Guarda tus logros!";
+"carousel_empty_description" = "Desbloquea todo tu potencial dándole valor a tus objetivos alcanzados";
+"carousel_empty_benefit1" = "Aumenta tu motivación diaria";
+"carousel_empty_benefit2" = "Mejora continua y medible";
+"carousel_empty_benefit3" = "Celebra tus victorias personales";
+"carousel_empty_add_button" = "Añadir nuevo logro";
+
+// About Me
+"about_me_title" = "🎉 Kudos";
+"about_me_description" = "Un espacio para guardar tus logros";
+
+// Privacy
+"privacy_title" = "Tu privacidad lo primero";
+"privacy_description" = "Cada logro que guardes permanecerá exclusivamente en tu dispositivo. Tus datos nunca abandonan tu teléfono.";
+
+// Landing
+"landing_title" = "La historia de Kudos";
+"landing_description" = "Descubre cómo nació esta app.";
+
+// Footer
+"footer_title" = "Desarrollado con ❤️ por @Dianait";
+"footer_social_links" = "Puedes encontrarme en:";
+
+// A11y Copies
+"jar_button_identifier" = "Jar Button";
+"jar_button_label" = "Tarro con {count} {plural}";
+"jar_singular" = "logro guardado";
+"jar_plural" = "logros guardados";
+"jar_button_hint" = "Toca para ver tus logros en detalle";
+
+"stickies_view_stickie" = "Main Stickie";
+"stickies_view_hint" = "Toca para crear tu primer logro";
+"stickies_view_label_empty" = "Escribe aquí...";
+
+"main_view_settings_label" = "Ajuste de idioma";
+"main_view_about_label" = "Información sobre Kudos";
+"main_view_about_hint" = "Muestra una ventana con información adicional sobre la aplicación";
+"main_view_about_identifier" = "About me Button";
+"main_view_settings_identifier" = "Settings Button";
+"main_view_title_identifier" = "About me Title";
+
+"confirmation_view_label" = "Confirmación: Logro guardado";
+"confirmation_view_hint" = "Tu tarrito crece con cada logro";
+"confirmation_view_notification" = "Logro guardado. Tu tarrito crece con cada logro.";
+"confirmation_view_identifier" = "Confimation Pop-Up";
+"confirmation_view_button" = "Continue Button";
+
+"stickies_overview_edit_mode" = "Modo de edición activado. Escribe tu logro.";
+"stickies_overview_text_editor_label" = "Editor de texto para tu logro";
+"stickies_overview_text_editor_hint" = "Editor de texto para tu logro";
+"stickies_overview_text_editor_identifier" = "Text Editor";
+"stickies_overview_char_counter" = "Contador de caracteres: {count} de {max}";
+"stickies_overview_ready_to_save" = "Listo para guardar. Suelta para confirmar.";
+"stickies_overview_save_action" = "Guardar logro";
+
+// Error Alert
+"error_alert_title" = "Algo ha ido mal";
+"error_alert_dismiss" = "Aceptar";
+
+// Error View
+"error_view_title" = "Error al cargar la aplicación";
+"error_view_message" = "Por favor, reinicia la aplicación";
+"error_view_description" = "Se ha producido un error al inicializar los datos de la aplicación.";
+
+// In-Memory Warning
+"in_memory_warning_title" = "Los datos no se guardarán";
+"in_memory_warning_message" = "Hubo un problema al acceder al almacenamiento. Tus logros solo se guardarán temporalmente y se perderán cuando cierres la app.";
+"in_memory_warning_ok" = "Entendido";
+
+// Validation Errors
+"validation_error_empty_text" = "El texto no puede estar vacío";
+"validation_error_text_too_long" = "El texto no puede tener más de {max} caracteres";
+"validation_error_invalid_color" = "El color especificado no es válido";
+
+// Carousel View A11y
+"carousel_view_label" = "Carrusel de logros";
+"carousel_view_hint" = "Desliza horizontalmente para navegar entre tus logros";
+"carousel_view_year_filter_label" = "Filtrar por año";
+"carousel_view_item_label" = "Logro {index} de {total}";
+"carousel_view_item_hint" = "Desliza para ver más logros";
+"carousel_view_delete_label" = "Eliminar logro";
+"carousel_view_delete_hint" = "Eliminar este logro";
+
+// Sticky View A11y
+"sticky_view_label" = "Nota con logro";
+"sticky_view_photo_only" = "Logro con foto";
+"sticky_view_photo_with_caption" = "Logro con foto y texto";
+"sticky_view_date_label" = "Guardado el {date}";
+
+// Camera
+"camera_add_photo" = "Añadir foto";
+"camera_change_photo" = "Cambiar foto";
+"camera_remove_photo" = "Eliminar foto";
+"camera_add_photo_hint" = "Toma una foto de tu logro";
+"camera_not_available" = "Cámara no disponible en este dispositivo";
+
+// Validation Errors - Photo
+"validation_error_empty_photo" = "La foto no puede estar vacía";
+"validation_error_empty_content" = "Por favor, añade texto o una foto";
+
+// Validation Alert
+"validation_alert_title" = "No se puede guardar";
+"validation_alert_ok" = "OK";
+"validation_alert_default_message" = "Por favor, revisa tu texto e inténtalo de nuevo";
+
+
+// Tip Jar
+"tipjar_section_title" = "Apoyar Kudos";
+"tipjar_support_button" = "Apoyar la app";
+"tipjar_supporter_badge" = "❤️ Supporter";
+"tipjar_supporter_thanks" = "¡Gracias por tu apoyo!";
+"tipjar_sheet_title" = "Apoya Kudos";
+"tipjar_sheet_description" = "Si Kudos te ayuda a celebrar tus logros, puedes invitarme a un café. Una sola vez, sin suscripciones.";
+"tipjar_buy_button" = "Invítame a un café";
+"tipjar_restore_button" = "Restaurar compra";
+"tipjar_thank_you_title" = "¡Muchísimas gracias! ❤️";
+"tipjar_thank_you_description" = "Tu apoyo significa mucho y ayuda a que Kudos siga creciendo.";
+"tipjar_error_title" = "Algo ha ido mal";
+
+// Accomplishment Detail View
+"accomplishment_detail_date_label" = "Fecha";
+"accomplishment_detail_delete_button" = "Eliminar logro";
+"accomplishment_detail_delete_hint" = "Elimina este logro permanentemente";
+"accomplishment_detail_close_button" = "Cerrar";
+"accomplishment_detail_delete_confirmation_title" = "¿Eliminar logro?";
+"accomplishment_detail_delete_confirmation_message" = "Esta acción no se puede deshacer. El logro se eliminará permanentemente.";
+"accomplishment_detail_delete_cancel" = "Cancelar";
+"accomplishment_detail_delete_confirm" = "Eliminar";
+
+// Carousel Filter
+"carousel_filter_all" = "Todo";

@@ -2,7 +2,7 @@ import SwiftUI
 
 struct StickiesViewOverview: View {
     @Bindable var viewModel: MainViewModel
-    @Environment(LanguageManager.self) var languageManager
+    @Environment(LocalizationManager.self) var languageManager
     @FocusState private var responseIsFocussed: Bool
     @State private var dragOffset: CGSize = .zero
     @State private var showSaveIndicator: Bool = false

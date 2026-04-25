@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct LocalizationViewModifier: ViewModifier {
-    @Environment(LanguageManager.self) var languageManager
+    @Environment(LocalizationManager.self) var languageManager
 
     func body(content: Content) -> some View {
         content

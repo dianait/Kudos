@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @Environment(LanguageManager.self) var languageManager
+    @Environment(LocalizationManager.self) var languageManager
     @Environment(AppSettings.self) var appSettings
 
     @State private var showTipJar = false
@@ -51,6 +51,6 @@ struct SettingsView: View {
     NavigationStack {
         SettingsView()
     }
-    .environment(LanguageManager.shared)
+    .environment(LocalizationManager.shared)
     .environment(AppSettings.shared)
 }

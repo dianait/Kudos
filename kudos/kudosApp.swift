@@ -3,7 +3,7 @@ import SwiftUI
 
 @main
 struct KudosApp: App {
-    @State private var languageManager = LanguageManager.shared
+    @State private var languageManager = LocalizationManager.shared
     @State private var appSettings = AppSettings.shared
     @State private var modelContainerError: Error?
     @State private var modelContainer: ModelContainer?

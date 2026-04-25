@@ -2,7 +2,7 @@ import SwiftUI
 
 struct ErrorView: View {
     let error: Error?
-    @Environment(LanguageManager.self) var languageManager
+    @Environment(LocalizationManager.self) var languageManager
     
     var body: some View {
         VStack(spacing: Space.large) {
@@ -55,7 +55,7 @@ struct ErrorView: View {
             userInfo: [NSLocalizedDescriptionKey: "Test error message"]
         )
     )
-    .environment(LanguageManager.shared)
+    .environment(LocalizationManager.shared)
 }
 #endif
 

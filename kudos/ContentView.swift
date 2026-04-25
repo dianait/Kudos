@@ -3,7 +3,7 @@ import SwiftUI
 
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
-    @Environment(LanguageManager.self) var languageManager
+    @Environment(LocalizationManager.self) var languageManager
     @State private var viewModel: MainViewModel?
     @State private var selectedTab: Int = 0
 
@@ -57,5 +57,5 @@ struct ContentView: View {
 #Preview {
     ContentView()
         .modelContainer(for: AccomplishmentEntity.self, inMemory: true)
-        .environment(LanguageManager.shared)
+        .environment(LocalizationManager.shared)
 }

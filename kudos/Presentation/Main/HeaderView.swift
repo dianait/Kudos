@@ -4,7 +4,7 @@ struct HeaderView: View {
     @Binding var mode: Mode
     @Binding var text: String
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
-    @Environment(LanguageManager.self) var languageManager
+    @Environment(LocalizationManager.self) var languageManager
 
     var shouldShowEditHeader: Bool {
         mode == .edit && !text.isEmpty
@@ -51,11 +51,11 @@ struct HeaderView: View {
 #if targetEnvironment(simulator)
     #Preview("✏️ Edit Mode") {
         HeaderView(mode: .constant(.edit), text: .constant(""))
-            .environment(LanguageManager.shared)
+            .environment(LocalizationManager.shared)
     }
 
     #Preview("👀 View Mode") {
         HeaderView(mode: .constant(.view), text: .constant(""))
-            .environment(LanguageManager.shared)
+            .environment(LocalizationManager.shared)
     }
 #endif

@@ -3,7 +3,7 @@ import UIKit
 
 struct MainView: View {
     @Bindable var viewModel: MainViewModel
-    @Environment(LanguageManager.self) var languageManager
+    @Environment(LocalizationManager.self) var languageManager
     @State private var selectedImage: UIImage?
     @State private var confettiCounter: Int = 0
 

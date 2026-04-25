@@ -2,7 +2,7 @@ import SwiftUI
 
 struct DateLabelView: View {
     var date: Date
-    @Environment(LanguageManager.self) private var languageManager
+    @Environment(LocalizationManager.self) private var languageManager
 
     private var formattedDate: String {
         return date.formatted(.dateTime.day().month(.abbreviated).year().locale(languageManager.locale))
@@ -29,6 +29,6 @@ struct DateLabelView: View {
         DateLabelView(date: Date())
             .padding()
             .border(.red)
-            .environment(LanguageManager.shared)
+            .environment(LocalizationManager.shared)
     }
 #endif

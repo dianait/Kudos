@@ -4,7 +4,7 @@ struct AccomplishmentDetailView: View {
     let accomplishment: AccomplishmentItem
     let onDelete: (AccomplishmentItem) -> Void
     @Environment(\.dismiss) private var dismiss
-    @Environment(LanguageManager.self) private var languageManager
+    @Environment(LocalizationManager.self) private var languageManager
     @State private var showDeleteConfirmation = false
 
     private var isLongText: Bool {

@@ -3,11 +3,11 @@ import Observation
 
 @Observable
 @MainActor
-final class LanguageManager {
+final class LocalizationManager {
     var currentLanguage: String
 
-    static let shared: LanguageManager = {
-        LanguageManager()
+    static let shared: LocalizationManager = {
+        LocalizationManager()
     }()
 
     static let supportedLanguages = ["es", "en"]

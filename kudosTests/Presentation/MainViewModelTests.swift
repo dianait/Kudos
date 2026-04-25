@@ -7,13 +7,11 @@ import Foundation
 struct MainViewModelTests {
 
     private func makeSUT(
-        addAccomplishment: MockAddAccomplishmentUseCase = .init(),
-        addPhotoAccomplishment: MockAddPhotoAccomplishmentUseCase = .init(),
+        saveUseCase: MockSaveAccomplishmentUseCase = .init(),
         repository: MockAccomplishmentRepository = .init()
     ) -> MainViewModel {
         MainViewModel(
-            addAccomplishmentUseCase: addAccomplishment,
-            addPhotoAccomplishmentUseCase: addPhotoAccomplishment,
+            saveAccomplishmentUseCase: saveUseCase,
             repository: repository
         )
     }
@@ -41,26 +39,30 @@ struct MainViewModelTests {
 
     // MARK: - save
 
-    @Test("save with text calls text use case")
-    func saveWithTextCallsTextUseCase() {
-        let textUseCase = MockAddAccomplishmentUseCase()
-        let sut = makeSUT(addAccomplishment: textUseCase)
+    @Test("save with text calls use case with no photo")
+    func saveWithTextCallsUseCaseWithNoPhoto() {
+        let useCase = MockSaveAccomplishmentUseCase()
+        let sut = makeSUT(saveUseCase: useCase)
         sut.text = "Mi logro"
 
         sut.save()
 
-        #expect(textUseCase.executeCallCount == 1)
+        #expect(useCase.executeCallCount == 1)
+        #expect(useCase.lastPhotoData == nil)
+        #expect(useCase.lastText == "Mi logro")
     }
 
-    @Test("save with photo calls photo use case")
-    func saveWithPhotoCallsPhotoUseCase() {
-        let photoUseCase = MockAddPhotoAccomplishmentUseCase()
-        let sut = makeSUT(addPhotoAccomplishment: photoUseCase)
-        sut.selectedPhotoData = Data([0x89, 0x50])
+    @Test("save with photo calls use case with photo data")
+    func saveWithPhotoCallsUseCaseWithPhotoData() {
+        let useCase = MockSaveAccomplishmentUseCase()
+        let photoData = Data([0x89, 0x50])
+        let sut = makeSUT(saveUseCase: useCase)
+        sut.selectedPhotoData = photoData
 
         sut.save()
 
-        #expect(photoUseCase.executeCallCount == 1)
+        #expect(useCase.executeCallCount == 1)
+        #expect(useCase.lastPhotoData == photoData)
     }
 
     @Test("save resets state and shows saved message on success")
@@ -80,7 +82,7 @@ struct MainViewModelTests {
 
     @Test("save sets errorMessage on failure")
     func saveSetsErrorOnFailure() {
-        let sut = makeSUT(addAccomplishment: .init(shouldThrow: true))
+        let sut = makeSUT(saveUseCase: .init(shouldThrow: true))
         sut.text = "Mi logro"
 
         sut.save()
@@ -150,24 +152,19 @@ private func makeItem() -> AccomplishmentItem {
 }
 
 @MainActor
-private final class MockAddAccomplishmentUseCase: AddAccomplishmentUseCaseProtocol {
+private final class MockSaveAccomplishmentUseCase: SaveAccomplishmentUseCaseProtocol {
     var executeCallCount = 0
+    var lastText: String?
+    var lastPhotoData: Data?
     private let shouldThrow: Bool
-    init(shouldThrow: Bool = false) { self.shouldThrow = shouldThrow }
-    func execute(text: String) throws {
-        if shouldThrow { throw TestError.generic }
-        executeCallCount += 1
-    }
-}
 
-@MainActor
-private final class MockAddPhotoAccomplishmentUseCase: AddPhotoAccomplishmentUseCaseProtocol {
-    var executeCallCount = 0
-    private let shouldThrow: Bool
     init(shouldThrow: Bool = false) { self.shouldThrow = shouldThrow }
-    func execute(photoData: Data, caption: String?) throws {
+
+    func execute(text: String, photoData: Data?) throws {
         if shouldThrow { throw TestError.generic }
         executeCallCount += 1
+        lastText = text
+        lastPhotoData = photoData
     }
 }
 

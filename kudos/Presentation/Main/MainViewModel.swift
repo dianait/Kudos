@@ -17,17 +17,14 @@ final class MainViewModel {
     var accomplishments: [AccomplishmentItem] = []
     var accomplishmentsCount: Int { accomplishments.count }
 
-    private let addAccomplishmentUseCase: AddAccomplishmentUseCaseProtocol
-    private let addPhotoAccomplishmentUseCase: AddPhotoAccomplishmentUseCaseProtocol
+    private let saveAccomplishmentUseCase: SaveAccomplishmentUseCaseProtocol
     private let repository: AccomplishmentRepositoryProtocol
 
     init(
-        addAccomplishmentUseCase: AddAccomplishmentUseCaseProtocol,
-        addPhotoAccomplishmentUseCase: AddPhotoAccomplishmentUseCaseProtocol,
+        saveAccomplishmentUseCase: SaveAccomplishmentUseCaseProtocol,
         repository: AccomplishmentRepositoryProtocol
     ) {
-        self.addAccomplishmentUseCase = addAccomplishmentUseCase
-        self.addPhotoAccomplishmentUseCase = addPhotoAccomplishmentUseCase
+        self.saveAccomplishmentUseCase = saveAccomplishmentUseCase
         self.repository = repository
     }
     
@@ -47,15 +44,7 @@ final class MainViewModel {
 
     func save() {
         do {
-            if let photoData = selectedPhotoData {
-                let caption = text.trimmingCharacters(in: .whitespacesAndNewlines)
-                try addPhotoAccomplishmentUseCase.execute(
-                    photoData: photoData,
-                    caption: caption.isEmpty ? nil : caption
-                )
-            } else {
-                try addAccomplishmentUseCase.execute(text: text)
-            }
+            try saveAccomplishmentUseCase.execute(text: text, photoData: selectedPhotoData)
             errorMessage = nil
             showSavedMessage = true
             loadAccomplishments()

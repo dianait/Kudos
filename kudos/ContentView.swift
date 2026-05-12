@@ -8,7 +8,7 @@ struct ContentView: View {
     @State private var selectedTab: Int = 0
 
     var body: some View {
-        let language = languageManager.currentLanguage
+        let _ = languageManager.currentLanguage
         Group {
             if let viewModel {
                 TabView(selection: $selectedTab) {
@@ -44,7 +44,6 @@ struct ContentView: View {
                 ProgressView()
             }
         }
-        .id(language)
         .task {
             guard viewModel == nil else { return }
             let vm = AppFactory.makeMainViewModel(modelContext: modelContext)

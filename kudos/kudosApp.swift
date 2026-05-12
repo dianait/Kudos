@@ -42,7 +42,7 @@ struct KudosApp: App {
     var body: some Scene {
         WindowGroup {
             if let modelContainer {
-                ContentView()
+                RootView()
                     .background(Color("MainBackground"))
                     .environment(languageManager)
                     .environment(appSettings)

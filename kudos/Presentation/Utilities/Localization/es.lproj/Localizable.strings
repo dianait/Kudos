@@ -173,3 +173,16 @@
 
 // Carousel Filter
 "carousel_filter_all" = "Todo";
+
+// Onboarding
+"onboarding_page1_title" = "Tus logros, en notas adhesivas";
+"onboarding_page1_subtitle" = "Captura cada logro con una nota y celébralo.";
+"onboarding_page2_title" = "Confetti real cada vez";
+"onboarding_page2_subtitle" = "Una pequeña celebración por cada paso que das.";
+"onboarding_page3_title" = "Mira tu tarrito crecer";
+"onboarding_page3_subtitle" = "Cada logro se suma. Mira lo lejos que has llegado.";
+"onboarding_page4_title" = "Solo en tu móvil";
+"onboarding_page4_subtitle" = "Sin cuenta. Sin servidores. Sin rastreo.";
+"onboarding_button_next" = "Siguiente";
+"onboarding_button_start" = "Empezar";
+"onboarding_button_skip" = "Saltar";

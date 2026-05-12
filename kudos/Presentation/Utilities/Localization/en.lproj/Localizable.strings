@@ -173,3 +173,16 @@
 
 // Carousel Filter
 "carousel_filter_all" = "All";
+
+// Onboarding
+"onboarding_page1_title" = "Your achievements, on sticky notes";
+"onboarding_page1_subtitle" = "Capture every win with a note and celebrate it.";
+"onboarding_page2_title" = "Real confetti every time";
+"onboarding_page2_subtitle" = "A little celebration with every step forward.";
+"onboarding_page3_title" = "Watch your jar grow";
+"onboarding_page3_subtitle" = "Every achievement adds up. See how far you've come.";
+"onboarding_page4_title" = "Only on your phone";
+"onboarding_page4_subtitle" = "No account. No servers. No tracking.";
+"onboarding_button_next" = "Next";
+"onboarding_button_start" = "Get started";
+"onboarding_button_skip" = "Skip";

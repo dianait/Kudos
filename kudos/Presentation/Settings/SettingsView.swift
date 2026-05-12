@@ -5,7 +5,7 @@ struct SettingsView: View {
     @Environment(AppSettings.self) var appSettings
 
     @State private var showTipJar = false
-    @State private var showOnboarding = false
+    @State private var onboardingPresentation: OnboardingPresentation?
 
     private let languages: [(code: String, flag: String, name: String)] = [
         ("es", "🇪🇸", "Español"),
@@ -47,18 +47,30 @@ struct SettingsView: View {
 
             Section(Copies.SettingsView.generalSection) {
                 Button {
-                    showOnboarding = true
+                    presentOnboarding()
                 } label: {
                     Label(Copies.SettingsView.showOnboarding, systemImage: "sparkles")
                         .foregroundStyle(.primary)
                 }
             }
         }
-        .fullScreenCover(isPresented: $showOnboarding) {
-            OnboardingView(viewModel: OnboardingViewModel { showOnboarding = false })
+        .scrollContentBackground(.hidden)
+        .background(Color("MainBackground"))
+        .fullScreenCover(item: $onboardingPresentation) { presentation in
+            OnboardingView(viewModel: presentation.viewModel)
                 .environment(languageManager)
         }
     }
+
+    private func presentOnboarding() {
+        let viewModel = OnboardingViewModel { onboardingPresentation = nil }
+        onboardingPresentation = OnboardingPresentation(viewModel: viewModel)
+    }
+}
+
+private struct OnboardingPresentation: Identifiable {
+    let id = UUID()
+    let viewModel: OnboardingViewModel
 }
 
 #Preview {

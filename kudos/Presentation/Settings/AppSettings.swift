@@ -33,7 +33,7 @@ enum AppColorScheme: String, CaseIterable {
 
 @Observable
 @MainActor
-final class AppSettings: OnboardingStateStoreProtocol {
+final class AppSettings {
     var colorSchemePreference: AppColorScheme {
         didSet { UserDefaults.standard.set(colorSchemePreference.rawValue, forKey: Self.colorSchemeKey) }
     }

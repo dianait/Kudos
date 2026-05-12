@@ -60,6 +60,6 @@ struct OnboardingView: View {
 }
 
 #Preview {
-    OnboardingView(viewModel: OnboardingViewModel(stateStore: AppSettings.shared))
+    OnboardingView(viewModel: OnboardingViewModel(onComplete: {}))
         .environment(LocalizationManager.shared)
 }

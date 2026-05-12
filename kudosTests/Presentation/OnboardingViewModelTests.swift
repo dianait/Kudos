@@ -13,12 +13,13 @@ struct OnboardingViewModelTests {
     }
 
     private func makeSUT(
-        pageCount: Int = 4,
-        stateStore: MockOnboardingStateStore? = nil
-    ) -> (OnboardingViewModel, MockOnboardingStateStore) {
-        let store = stateStore ?? MockOnboardingStateStore()
-        let vm = OnboardingViewModel(pages: makePages(pageCount), stateStore: store)
-        return (vm, store)
+        pageCount: Int = 4
+    ) -> (OnboardingViewModel, CompletionRecorder) {
+        let recorder = CompletionRecorder()
+        let vm = OnboardingViewModel(pages: makePages(pageCount)) {
+            recorder.count += 1
+        }
+        return (vm, recorder)
     }
 
     // MARK: - Initial state
@@ -73,33 +74,33 @@ struct OnboardingViewModelTests {
 
     @Test("primaryButtonTapped advances when not on last page and does not complete")
     func primaryButtonAdvancesMidway() {
-        let (sut, store) = makeSUT(pageCount: 3)
+        let (sut, recorder) = makeSUT(pageCount: 3)
 
         sut.primaryButtonTapped()
 
         #expect(sut.currentIndex == 1)
-        #expect(store.hasCompletedOnboarding == false)
+        #expect(recorder.count == 0)
     }
 
-    @Test("primaryButtonTapped completes when on last page")
+    @Test("primaryButtonTapped fires completion when on last page")
     func primaryButtonCompletesOnLast() {
-        let (sut, store) = makeSUT(pageCount: 2)
+        let (sut, recorder) = makeSUT(pageCount: 2)
         sut.currentIndex = 1
 
         sut.primaryButtonTapped()
 
-        #expect(store.hasCompletedOnboarding == true)
+        #expect(recorder.count == 1)
     }
 
     // MARK: - skip
 
-    @Test("skip marks onboarding as completed")
+    @Test("skip fires completion")
     func skipCompletes() {
-        let (sut, store) = makeSUT()
+        let (sut, recorder) = makeSUT()
 
         sut.skip()
 
-        #expect(store.hasCompletedOnboarding == true)
+        #expect(recorder.count == 1)
     }
 
     // MARK: - primaryButtonKey
@@ -132,6 +133,6 @@ struct OnboardingViewModelTests {
 }
 
 @MainActor
-private final class MockOnboardingStateStore: OnboardingStateStoreProtocol {
-    var hasCompletedOnboarding: Bool = false
+private final class CompletionRecorder {
+    var count: Int = 0
 }

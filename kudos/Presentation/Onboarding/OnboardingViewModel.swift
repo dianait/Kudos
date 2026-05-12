@@ -7,14 +7,14 @@ final class OnboardingViewModel {
     let pages: [OnboardingPage]
     var currentIndex: Int = 0
 
-    private let stateStore: OnboardingStateStoreProtocol
+    private let onComplete: @MainActor () -> Void
 
     init(
         pages: [OnboardingPage] = OnboardingPagesProvider.makePages(),
-        stateStore: OnboardingStateStoreProtocol
+        onComplete: @escaping @MainActor () -> Void
     ) {
         self.pages = pages
-        self.stateStore = stateStore
+        self.onComplete = onComplete
     }
 
     var isLastPage: Bool {
@@ -31,18 +31,14 @@ final class OnboardingViewModel {
     }
 
     func skip() {
-        complete()
+        onComplete()
     }
 
     func primaryButtonTapped() {
         if isLastPage {
-            complete()
+            onComplete()
         } else {
             goToNextPage()
         }
-    }
-
-    private func complete() {
-        stateStore.hasCompletedOnboarding = true
     }
 }

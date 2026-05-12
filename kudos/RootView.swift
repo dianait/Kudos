@@ -16,7 +16,9 @@ struct RootView: View {
         .animation(.easeInOut, value: appSettings.hasCompletedOnboarding)
         .task {
             if onboardingViewModel == nil {
-                onboardingViewModel = OnboardingViewModel(stateStore: appSettings)
+                onboardingViewModel = OnboardingViewModel { [appSettings] in
+                    appSettings.hasCompletedOnboarding = true
+                }
             }
         }
     }

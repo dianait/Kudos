@@ -5,6 +5,7 @@ struct SettingsView: View {
     @Environment(AppSettings.self) var appSettings
 
     @State private var showTipJar = false
+    @State private var showOnboarding = false
 
     private let languages: [(code: String, flag: String, name: String)] = [
         ("es", "🇪🇸", "Español"),
@@ -33,7 +34,7 @@ struct SettingsView: View {
                     }
                 }
             }
-            
+
             Section(Copies.SettingsView.appearanceSection) {
                 Picker(Copies.SettingsView.colorSchemeLabel, selection: $appSettings.colorSchemePreference) {
                     ForEach(AppColorScheme.allCases, id: \.self) { scheme in
@@ -43,6 +44,19 @@ struct SettingsView: View {
                 }
                 .pickerStyle(.segmented)
             }
+
+            Section(Copies.SettingsView.generalSection) {
+                Button {
+                    showOnboarding = true
+                } label: {
+                    Label(Copies.SettingsView.showOnboarding, systemImage: "sparkles")
+                        .foregroundStyle(.primary)
+                }
+            }
+        }
+        .fullScreenCover(isPresented: $showOnboarding) {
+            OnboardingView(viewModel: OnboardingViewModel { showOnboarding = false })
+                .environment(languageManager)
         }
     }
 }

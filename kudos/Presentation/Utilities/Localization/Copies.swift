@@ -37,6 +37,7 @@ enum Copies {
         static var generalSection: String { "settings_general_section".localized }
         static var appearanceSection: String { "settings_appearance_section".localized }
         static var colorSchemeLabel: String { "settings_color_scheme_label".localized }
+        static var showOnboarding: String { "settings_show_onboarding".localized }
     }
 
     enum ConfirmationView {

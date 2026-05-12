@@ -1,7 +1,14 @@
 import Foundation
 
 enum Links {
-    static let landing = URL(string: "https://dianait.blog/kudos")!
+    private static let landingBase = "https://dianait.blog/kudos"
+
+    static func landing(for language: String) -> URL {
+        if language == "en" {
+            return URL(string: "\(landingBase)/in")!
+        }
+        return URL(string: landingBase)!
+    }
 }
 
 struct SocialLink {

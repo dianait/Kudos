@@ -57,14 +57,20 @@ struct Headline: View {
 }
 
 struct LandingLinkCard: View {
+    @Environment(LocalizationManager.self) private var languageManager
+
+    private var landingURL: URL {
+        Links.landing(for: languageManager.currentLanguage)
+    }
+
     var body: some View {
         Button {
-            UIApplication.shared.open(Links.landing)
+            UIApplication.shared.open(landingURL)
         } label: {
             SectionCard(title: Copies.AboutMe.Landing.title, icon: Icon.globe.rawValue) {
                 VStack(alignment: .leading, spacing: Space.extraSmall) {
                     Text(Copies.AboutMe.Landing.description)
-                    Text(Links.landing.absoluteString)
+                    Text(landingURL.absoluteString)
                         .fontWeight(.semibold)
                         .foregroundStyle(.orange)
                 }

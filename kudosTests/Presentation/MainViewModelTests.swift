@@ -102,6 +102,40 @@ struct MainViewModelTests {
         #expect(sut.accomplishments.count == 1)
     }
 
+    @Test(
+        "save is a no-op when there is no content to save",
+        arguments: [
+            (text: "", hasPhoto: false),
+            (text: "   ", hasPhoto: false),
+            (text: "\n\t  ", hasPhoto: false)
+        ] as [(text: String, hasPhoto: Bool)]
+    )
+    func saveNoOpWhenEmpty(text: String, hasPhoto: Bool) {
+        let useCase = MockSaveAccomplishmentUseCase()
+        let sut = makeSUT(saveUseCase: useCase)
+        sut.text = text
+        sut.selectedPhotoData = hasPhoto ? Data([0x01]) : nil
+
+        sut.save()
+
+        #expect(useCase.executeCallCount == 0)
+        #expect(sut.errorMessage == nil)
+        #expect(sut.showSavedMessage == false)
+    }
+
+    @Test("save called twice with content then empty does not surface an error")
+    func saveTwiceNoErrorOnSecondEmptyCall() {
+        let useCase = MockSaveAccomplishmentUseCase()
+        let sut = makeSUT(saveUseCase: useCase)
+        sut.text = "Mi logro"
+
+        sut.save()
+        sut.save()
+
+        #expect(useCase.executeCallCount == 1)
+        #expect(sut.errorMessage == nil)
+    }
+
     // MARK: - delete
 
     @Test("delete calls repository and reloads accomplishments")

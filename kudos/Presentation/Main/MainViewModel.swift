@@ -43,6 +43,9 @@ final class MainViewModel {
     }
 
     func save() {
+        let trimmedText = text.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmedText.isEmpty || selectedPhotoData != nil else { return }
+
         do {
             try saveAccomplishmentUseCase.execute(text: text, photoData: selectedPhotoData)
             errorMessage = nil

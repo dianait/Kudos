@@ -18,5 +18,6 @@ struct ItemTextView: View {
             .lineLimit(nil)
             .frame(width: Dimensions.stickyWidth, height: Dimensions.stickyHeight)
             .multilineTextAlignment(.center)
+            .foregroundStyle(.black)
     }
 }

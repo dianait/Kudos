@@ -10,19 +10,17 @@ final class LocalizationManager {
         LocalizationManager()
     }()
 
-    static let supportedLanguages = ["es", "en"]
+    nonisolated static let supportedLanguages = ["es", "en"]
     nonisolated static let languageKey = "selectedLanguage"
+    private nonisolated static let defaultLanguage = "en"
 
     private init() {
-        let systemLanguage = Locale.preferredLanguages.first ?? ""
-        var initialLanguage = systemLanguage.starts(with: "es") ? "es" : "en"
+        let resolvedLanguage = Self.resolveLanguage()
+        self.currentLanguage = resolvedLanguage
 
-        if let savedLanguage = UserDefaults.standard.string(forKey: Self.languageKey),
-           Self.supportedLanguages.contains(savedLanguage) {
-            initialLanguage = savedLanguage
+        if UserDefaults.standard.string(forKey: Self.languageKey) == nil {
+            UserDefaults.standard.set(resolvedLanguage, forKey: Self.languageKey)
         }
-
-        self.currentLanguage = initialLanguage
     }
 
     var locale: Locale {
@@ -36,11 +34,25 @@ final class LocalizationManager {
     }
 
     nonisolated static func localizedString(for key: String) -> String {
-        let lang = UserDefaults.standard.string(forKey: Self.languageKey) ?? "en"
+        let lang = resolveLanguage()
         guard let path = Bundle.main.path(forResource: lang, ofType: "lproj"),
               let bundle = Bundle(path: path) else {
             return NSLocalizedString(key, comment: "")
         }
         return NSLocalizedString(key, bundle: bundle, comment: "")
+    }
+
+    private nonisolated static func resolveLanguage() -> String {
+        resolveLanguage(
+            savedLanguage: UserDefaults.standard.string(forKey: languageKey),
+            systemLanguage: Locale.preferredLanguages.first ?? ""
+        )
+    }
+
+    nonisolated static func resolveLanguage(savedLanguage: String?, systemLanguage: String) -> String {
+        if let saved = savedLanguage, supportedLanguages.contains(saved) {
+            return saved
+        }
+        return systemLanguage.starts(with: "es") ? "es" : defaultLanguage
     }
 }

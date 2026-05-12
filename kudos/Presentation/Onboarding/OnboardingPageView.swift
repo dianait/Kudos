@@ -1,13 +1,20 @@
 import SwiftUI
+import UIKit
 
 struct OnboardingPageView: View {
     let page: OnboardingPage
+    let language: String
+
+    private var resolvedImageName: String {
+        let localized = "\(page.imageName)_\(language)"
+        return UIImage(named: localized) != nil ? localized : page.imageName
+    }
 
     var body: some View {
         VStack(spacing: Space.mediumLarge) {
             Spacer(minLength: Space.large)
 
-            Image(page.imageName)
+            Image(resolvedImageName)
                 .resizable()
                 .scaledToFit()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -42,7 +49,8 @@ struct OnboardingPageView: View {
             imageName: "onboarding_stickies",
             titleKey: "onboarding_page1_title",
             subtitleKey: "onboarding_page1_subtitle"
-        )
+        ),
+        language: "es"
     )
     .environment(LocalizationManager.shared)
     .background(Color("MainBackground"))

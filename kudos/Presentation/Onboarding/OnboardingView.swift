@@ -2,6 +2,7 @@ import SwiftUI
 
 struct OnboardingView: View {
     @Bindable var viewModel: OnboardingViewModel
+    @Environment(LocalizationManager.self) private var languageManager
 
     var body: some View {
         VStack(spacing: 0) {
@@ -9,7 +10,7 @@ struct OnboardingView: View {
 
             TabView(selection: $viewModel.currentIndex) {
                 ForEach(Array(viewModel.pages.enumerated()), id: \.element.id) { index, page in
-                    OnboardingPageView(page: page)
+                    OnboardingPageView(page: page, language: languageManager.currentLanguage)
                         .tag(index)
                 }
             }

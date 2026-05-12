@@ -6,17 +6,20 @@ struct MainView: View {
     @Environment(LocalizationManager.self) var languageManager
     @State private var selectedImage: UIImage?
     @State private var confettiCounter: Int = 0
+    let onShowMyKudos: () -> Void
 
-    init(viewModel: MainViewModel) {
+    init(viewModel: MainViewModel, onShowMyKudos: @escaping () -> Void) {
         self.viewModel = viewModel
+        self.onShowMyKudos = onShowMyKudos
     }
 
     var body: some View {
         NavigationStack {
             VStack(spacing: Space.extraLarge + Space.medium) {
-                KudosJarView(accomplishments: viewModel.accomplishments) { item in
-                    viewModel.delete(item)
-                }
+                KudosJarView(
+                    accomplishments: viewModel.accomplishments,
+                    onTap: onShowMyKudos
+                )
                 HeaderView(mode: $viewModel.mode, text: $viewModel.text)
                     .padding(.top, Space.mediumLarge)
 

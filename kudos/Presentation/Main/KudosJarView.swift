@@ -31,21 +31,19 @@ struct KudosJarImageView: View {
 
 struct KudosJarView: View {
     let accomplishments: [AccomplishmentItem]
-    let onDelete: (AccomplishmentItem) -> Void
+    let onTap: () -> Void
 
     private var count: Int { accomplishments.count }
 
     var body: some View {
-        NavigationLink(
-            destination: CarouselView(accomplishments: accomplishments, onDelete: onDelete)
-        ) {
+        Button(action: onTap) {
             KudosJarImageView(count: count)
         }
         .buttonStyle(.plain)
         .accessibilityElement()
         .accessibilityLabel(A11y.Jar.label(count: count))
         .accessibilityHint(A11y.Jar.hint)
-        .accessibilityAddTraits([.isLink, .updatesFrequently])
+        .accessibilityAddTraits(.updatesFrequently)
         .accessibilityIdentifier(A11y.Jar.identifier)
         .minimumScaleFactor(0.8)
         .frame(minWidth: Space.extraLarge, minHeight: Space.extraLarge)

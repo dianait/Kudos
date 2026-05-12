@@ -13,7 +13,7 @@ struct ContentView: View {
             if let viewModel {
                 TabView(selection: $selectedTab) {
                     Tab(Copies.homeTab, systemImage: "house.fill", value: 0) {
-                        MainView(viewModel: viewModel)
+                        MainView(viewModel: viewModel, onShowMyKudos: { selectedTab = 1 })
                     }
 
                     Tab(Copies.carouselTab, systemImage: "rectangle.stack.fill", value: 1) {

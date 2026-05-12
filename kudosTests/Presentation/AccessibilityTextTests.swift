@@ -10,7 +10,7 @@ struct AccessibilityTextTests {
 
     init() async {
         await MainActor.run {
-            LanguageManager.shared.setLanguage("es")
+            LocalizationManager.shared.setLanguage("es")
         }
     }
 

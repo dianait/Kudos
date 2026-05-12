@@ -7,8 +7,8 @@ import Foundation
 struct SaveAccomplishmentUseCaseTests {
 
     private func makeSUT(
-        addAccomplishment: MockAddAccomplishmentUseCase = .init(),
-        addPhotoAccomplishment: MockAddPhotoAccomplishmentUseCase = .init()
+        addAccomplishment: MockAddAccomplishmentUseCase,
+        addPhotoAccomplishment: MockAddPhotoAccomplishmentUseCase
     ) -> SaveAccomplishmentUseCase {
         SaveAccomplishmentUseCase(
             addAccomplishmentUseCase: addAccomplishment,
@@ -50,7 +50,7 @@ struct SaveAccomplishmentUseCaseTests {
     func withPhotoPassesCaptionToPhotoUseCase() throws {
         let photoUseCase = MockAddPhotoAccomplishmentUseCase()
         let photoData = Data([0x01])
-        let sut = makeSUT(addPhotoAccomplishment: photoUseCase)
+        let sut = makeSUT(addAccomplishment: MockAddAccomplishmentUseCase(), addPhotoAccomplishment: photoUseCase)
 
         try sut.execute(text: "  texto  ", photoData: photoData)
 
@@ -61,7 +61,10 @@ struct SaveAccomplishmentUseCaseTests {
 
     @Test("execute propagates error from text use case")
     func propagatesTextUseCaseError() {
-        let sut = makeSUT(addAccomplishment: .init(shouldThrow: true))
+        let sut = makeSUT(
+            addAccomplishment: MockAddAccomplishmentUseCase(shouldThrow: true),
+            addPhotoAccomplishment: MockAddPhotoAccomplishmentUseCase()
+        )
 
         #expect(throws: (any Error).self) {
             try sut.execute(text: "Mi logro", photoData: nil)
@@ -70,7 +73,10 @@ struct SaveAccomplishmentUseCaseTests {
 
     @Test("execute propagates error from photo use case")
     func propagatesPhotoUseCaseError() {
-        let sut = makeSUT(addPhotoAccomplishment: .init(shouldThrow: true))
+        let sut = makeSUT(
+            addAccomplishment: MockAddAccomplishmentUseCase(),
+            addPhotoAccomplishment: MockAddPhotoAccomplishmentUseCase(shouldThrow: true)
+        )
 
         #expect(throws: (any Error).self) {
             try sut.execute(text: "Caption", photoData: Data([0x01]))

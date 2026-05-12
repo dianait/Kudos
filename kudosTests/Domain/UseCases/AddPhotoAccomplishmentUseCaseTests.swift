@@ -3,6 +3,7 @@ import Foundation
 @testable import kudos
 
 @Suite("AddPhotoAccomplishmentUseCase Tests")
+@MainActor
 struct AddPhotoAccomplishmentUseCaseTests {
 
     private let samplePhoto = Data([0x89, 0x50, 0x4E, 0x47])

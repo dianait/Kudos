@@ -3,6 +3,7 @@ import Foundation
 @testable import kudos
 
 @Suite("AddAccomplishmentUseCase Tests")
+@MainActor
 struct AddAccomplishmentUseCaseTests {
 
     @Test("Saves accomplishment with validated text and a valid color")

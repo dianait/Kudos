@@ -7,12 +7,12 @@ import Foundation
 struct MainViewModelTests {
 
     private func makeSUT(
-        saveUseCase: MockSaveAccomplishmentUseCase = .init(),
-        repository: MockAccomplishmentRepository = .init()
+        saveUseCase: MockSaveAccomplishmentUseCase? = nil,
+        repository: MockAccomplishmentRepository? = nil
     ) -> MainViewModel {
         MainViewModel(
-            saveAccomplishmentUseCase: saveUseCase,
-            repository: repository
+            saveAccomplishmentUseCase: saveUseCase ?? MockSaveAccomplishmentUseCase(),
+            repository: repository ?? MockAccomplishmentRepository()
         )
     }
 

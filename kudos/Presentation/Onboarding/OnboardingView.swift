@@ -27,7 +27,6 @@ struct OnboardingView: View {
                 .padding(.bottom, Space.mediumLarge)
         }
         .background(Color("OnboardingBackground").ignoresSafeArea())
-        .localized()
     }
 
     private var topRow: some View {

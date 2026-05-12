@@ -53,5 +53,5 @@ struct OnboardingPageView: View {
         language: "es"
     )
     .environment(LocalizationManager.shared)
-    .background(Color("MainBackground"))
+    .background(Color("OnboardingBackground"))
 }

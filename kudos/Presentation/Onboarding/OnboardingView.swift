@@ -21,7 +21,7 @@ struct OnboardingView: View {
                 .padding(.horizontal, Space.mediumLarge)
                 .padding(.bottom, Space.mediumLarge)
         }
-        .background(Color("MainBackground").ignoresSafeArea())
+        .background(Color("OnboardingBackground").ignoresSafeArea())
         .localized()
     }
 

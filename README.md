@@ -4,7 +4,7 @@
 
 An iOS app to save and celebrate your personal achievements as digital sticky notes.
 
-🌐 [dianait.blog/kudos](https://dianait.blog/kudos)
+🌐 [dianait.blog/kudos](https://dianait.blog/kudos/in)
 
 ## ✨ Features
 

@@ -2,6 +2,8 @@
 
 **Español** | [English](README.md)
 
+![Kudos Header](public/header.webp)
+
 Una app iOS para guardar y celebrar tus logros personales como notas adhesivas digitales.
 
 🌐 [dianait.blog/kudos](https://dianait.blog/kudos)

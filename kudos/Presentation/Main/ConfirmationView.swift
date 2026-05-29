@@ -2,6 +2,8 @@ import SwiftUI
 
 struct ConfirmationView: View {
     @Binding var isPresented: Bool
+    var title: String? = nil
+    var description: String? = nil
     var onDismiss: (() -> Void)? = nil
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @Environment(\.accessibilityReduceTransparency) private var reduceTransparency
@@ -14,12 +16,12 @@ struct ConfirmationView: View {
                     VStack(alignment: .center, spacing: CGFloat(Size.small.rawValue)) {
                         Spacer().frame(height: CGFloat(Size.large.rawValue))
 
-                        Text(Copies.ConfirmationView.title)
+                        Text(title ?? Copies.ConfirmationView.title)
                             .font(.title3)
                             .fontWeight(.bold)
                             .foregroundStyle(.white)
 
-                        Text(Copies.ConfirmationView.description)
+                        Text(description ?? Copies.ConfirmationView.description)
                             .font(.subheadline)
                             .multilineTextAlignment(.center)
                             .foregroundStyle(.white.opacity(reduceTransparency ? 1.0 : 0.9))
@@ -110,6 +112,26 @@ extension View {
 
             if isPresented.wrappedValue {
                 ConfirmationView(isPresented: isPresented, onDismiss: onDismiss)
+            }
+        }
+    }
+
+    func importedConfirmation(
+        isPresented: Binding<Bool>,
+        title: String,
+        description: String,
+        onDismiss: (() -> Void)? = nil
+    ) -> some View {
+        ZStack {
+            self
+
+            if isPresented.wrappedValue {
+                ConfirmationView(
+                    isPresented: isPresented,
+                    title: title,
+                    description: description,
+                    onDismiss: onDismiss
+                )
             }
         }
     }

@@ -179,6 +179,33 @@ struct MainViewModelTests {
 
         #expect(sut.accomplishmentsCount == 3)
     }
+
+    // MARK: - didImportBackup
+
+    @Test("didImportBackup stores result, shows message and reloads accomplishments")
+    func didImportBackupReloadsAndShowsMessage() {
+        let items = [makeItem(), makeItem()]
+        let sut = makeSUT(repository: .init(items: items))
+        let result = ImportBackupResult(imported: 2, skipped: 1)
+
+        sut.didImportBackup(result)
+
+        #expect(sut.lastImportResult == result)
+        #expect(sut.showImportedMessage == true)
+        #expect(sut.accomplishments.count == 2)
+    }
+
+    @Test("hideImportedMessage clears flag and result")
+    func hideImportedMessageClearsState() {
+        let sut = makeSUT()
+        sut.showImportedMessage = true
+        sut.lastImportResult = ImportBackupResult(imported: 1, skipped: 0)
+
+        sut.hideImportedMessage()
+
+        #expect(sut.showImportedMessage == false)
+        #expect(sut.lastImportResult == nil)
+    }
 }
 
 private func makeItem() -> AccomplishmentItem {
@@ -226,6 +253,8 @@ private final class MockAccomplishmentRepository: AccomplishmentRepositoryProtoc
         if deleteThrows { throw TestError.generic }
         deleteCallCount += 1
     }
+
+    func insert(items: [AccomplishmentItem]) throws {}
 }
 
 private enum TestError: Error { case generic }

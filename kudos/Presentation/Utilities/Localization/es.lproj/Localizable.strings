@@ -187,3 +187,18 @@
 "onboarding_button_start" = "Empezar";
 "onboarding_button_skip" = "Saltar";
 "settings_show_onboarding" = "Ver introducción";
+
+// Backup
+"settings_data_section" = "Tus datos";
+"settings_data_section_footer" = "Guarda una copia de tus kudos en un archivo. Podrás restaurarlos en otro dispositivo o tras reinstalar la app.";
+"settings_export_backup" = "Exportar copia de seguridad";
+"settings_import_backup" = "Importar copia de seguridad";
+"backup_default_filename" = "kudos-backup";
+"backup_import_error_invalid" = "El archivo no tiene un formato válido.";
+"backup_import_error_unsupported" = "La versión del archivo no es compatible con esta app.";
+"backup_import_success_title" = "Importación completada";
+"backup_import_success_message" = "Importados: %d. Omitidos (ya existían): %d.";
+"backup_imported_confirmation_title" = "¡Logros importados!";
+"backup_imported_confirmation_description" = "Se han añadido %d logros a tu tarrito 🎉";
+"backup_imported_confirmation_description_with_skipped" = "Se han añadido %d logros (%d ya existían) 🎉";
+"backup_action_ok" = "OK";

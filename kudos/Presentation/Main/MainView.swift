@@ -32,6 +32,15 @@ struct MainView: View {
                     viewModel.hideSavedMessage()
                 }
             })
+            .importedConfirmation(
+                isPresented: $viewModel.showImportedMessage,
+                title: Copies.Backup.importedConfirmationTitle,
+                description: Copies.Backup.importedConfirmationDescription(
+                    imported: viewModel.lastImportResult?.imported ?? 0,
+                    skipped: viewModel.lastImportResult?.skipped ?? 0
+                ),
+                onDismiss: { viewModel.hideImportedMessage() }
+            )
             .confettiCannon(counter: $confettiCounter)
             .padding(.horizontal)
             .sheet(isPresented: $viewModel.showCamera) {

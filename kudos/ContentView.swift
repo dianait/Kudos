@@ -30,7 +30,10 @@ struct ContentView: View {
 
                     Tab(Copies.settingsTitle, systemImage: "gear", value: 2) {
                         NavigationStack {
-                            SettingsView()
+                            SettingsView(onDataImported: { [weak viewModel] result in
+                                viewModel?.didImportBackup(result)
+                                selectedTab = 0
+                            })
                         }
                     }
 

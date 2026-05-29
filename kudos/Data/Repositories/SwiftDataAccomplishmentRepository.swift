@@ -32,4 +32,19 @@ final class SwiftDataAccomplishmentRepository: AccomplishmentRepositoryProtocol 
         modelContext.delete(entity)
         try modelContext.save()
     }
+
+    func insert(items: [AccomplishmentItem]) throws {
+        guard !items.isEmpty else { return }
+        for item in items {
+            let entity = AccomplishmentEntity(
+                id: item.id,
+                date: item.date,
+                text: item.text,
+                colorHex: item.colorHex,
+                photoData: item.photoData
+            )
+            modelContext.insert(entity)
+        }
+        try modelContext.save()
+    }
 }

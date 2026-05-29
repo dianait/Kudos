@@ -187,3 +187,18 @@
 "onboarding_button_start" = "Get started";
 "onboarding_button_skip" = "Skip";
 "settings_show_onboarding" = "View introduction";
+
+// Backup
+"settings_data_section" = "Your data";
+"settings_data_section_footer" = "Save a copy of your kudos to a file. You can restore them on another device or after reinstalling the app.";
+"settings_export_backup" = "Export backup";
+"settings_import_backup" = "Import backup";
+"backup_default_filename" = "kudos-backup";
+"backup_import_error_invalid" = "The file format is not valid.";
+"backup_import_error_unsupported" = "This file version is not supported by this app.";
+"backup_import_success_title" = "Import complete";
+"backup_import_success_message" = "Imported: %d. Skipped (already existed): %d.";
+"backup_imported_confirmation_title" = "Kudos imported!";
+"backup_imported_confirmation_description" = "Added %d achievements to your jar 🎉";
+"backup_imported_confirmation_description_with_skipped" = "Added %d achievements (%d already existed) 🎉";
+"backup_action_ok" = "OK";

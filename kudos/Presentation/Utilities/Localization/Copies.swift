@@ -38,6 +38,29 @@ enum Copies {
         static var appearanceSection: String { "settings_appearance_section".localized }
         static var colorSchemeLabel: String { "settings_color_scheme_label".localized }
         static var showOnboarding: String { "settings_show_onboarding".localized }
+        static var dataSection: String { "settings_data_section".localized }
+        static var dataSectionFooter: String { "settings_data_section_footer".localized }
+        static var exportBackup: String { "settings_export_backup".localized }
+        static var importBackup: String { "settings_import_backup".localized }
+    }
+
+    enum Backup {
+        static var defaultFilename: String { "backup_default_filename".localized }
+        static var importErrorInvalid: String { "backup_import_error_invalid".localized }
+        static var importErrorUnsupported: String { "backup_import_error_unsupported".localized }
+        static var importSuccessTitle: String { "backup_import_success_title".localized }
+        static func importSuccessMessage(imported: Int, skipped: Int) -> String {
+            String(format: "backup_import_success_message".localized, imported, skipped)
+        }
+        static var importedConfirmationTitle: String { "backup_imported_confirmation_title".localized }
+        static func importedConfirmationDescription(imported: Int, skipped: Int) -> String {
+            if skipped > 0 {
+                return String(format: "backup_imported_confirmation_description_with_skipped".localized, imported, skipped)
+            } else {
+                return String(format: "backup_imported_confirmation_description".localized, imported)
+            }
+        }
+        static var actionOK: String { "backup_action_ok".localized }
     }
 
     enum ConfirmationView {

@@ -1,3 +1,4 @@
+import Foundation
 import SwiftData
 
 @MainActor
@@ -16,4 +17,14 @@ enum AppFactory {
         )
     }
 
+    static func makeBackupViewModel(modelContext: ModelContext) -> BackupViewModel {
+        let repository = SwiftDataAccomplishmentRepository(modelContext: modelContext)
+        let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
+        let exportUseCase = ExportBackupUseCase(repository: repository, appVersion: appVersion)
+        let importUseCase = ImportBackupUseCase(repository: repository)
+        return BackupViewModel(
+            exportUseCase: exportUseCase,
+            importUseCase: importUseCase
+        )
+    }
 }

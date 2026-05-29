@@ -11,6 +11,8 @@ final class MainViewModel {
     var mode: Mode = .view
     var text: String = ""
     var showSavedMessage: Bool = false
+    var showImportedMessage: Bool = false
+    var lastImportResult: ImportBackupResult?
     var selectedPhotoData: Data?
     var showCamera: Bool = false
     var errorMessage: String?
@@ -70,6 +72,17 @@ final class MainViewModel {
 
     func hideSavedMessage() {
         showSavedMessage = false
+    }
+
+    func didImportBackup(_ result: ImportBackupResult) {
+        lastImportResult = result
+        showImportedMessage = true
+        loadAccomplishments()
+    }
+
+    func hideImportedMessage() {
+        showImportedMessage = false
+        lastImportResult = nil
     }
 
     func imageSelected(_ image: UIImage) {

@@ -8,6 +8,10 @@ final class BackupViewModel {
     var importResult: ImportBackupResult?
     var errorMessage: String?
 
+    /// Generous cap (hundreds of photos fit) that still rejects files that
+    /// would exhaust memory: the whole file is decoded in memory.
+    static let maxImportFileBytes = 200 * 1024 * 1024
+
     private let exportUseCase: ExportBackupUseCaseProtocol
     private let importUseCase: ImportBackupUseCaseProtocol
     private let dateProvider: () -> Date
@@ -39,6 +43,10 @@ final class BackupViewModel {
         defer { if needsRelease { url.stopAccessingSecurityScopedResource() } }
 
         do {
+            let fileSize = try url.resourceValues(forKeys: [.fileSizeKey]).fileSize ?? 0
+            guard fileSize <= Self.maxImportFileBytes else {
+                throw ImportBackupError.fileTooLarge
+            }
             let data = try Data(contentsOf: url)
             importResult = try importUseCase.execute(data: data)
         } catch let error as ImportBackupError {
@@ -59,6 +67,7 @@ final class BackupViewModel {
         switch error {
         case .invalidFormat: Copies.Backup.importErrorInvalid
         case .unsupportedSchemaVersion: Copies.Backup.importErrorUnsupported
+        case .fileTooLarge: Copies.Backup.importErrorTooLarge
         }
     }
 }

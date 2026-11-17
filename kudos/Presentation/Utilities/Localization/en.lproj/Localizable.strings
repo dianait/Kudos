@@ -195,6 +195,7 @@
 "settings_import_backup" = "Import backup";
 "backup_default_filename" = "kudos-backup";
 "backup_import_error_invalid" = "The file format is not valid.";
+"backup_import_error_too_large" = "The file is too large to be a Kudos backup.";
 "backup_import_error_unsupported" = "This file version is not supported by this app.";
 "backup_import_success_title" = "Import complete";
 "backup_import_success_message" = "Imported: %d. Skipped (already existed): %d.";

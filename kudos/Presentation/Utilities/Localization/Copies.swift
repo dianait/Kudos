@@ -48,6 +48,7 @@ enum Copies {
         static var defaultFilename: String { "backup_default_filename".localized }
         static var importErrorInvalid: String { "backup_import_error_invalid".localized }
         static var importErrorUnsupported: String { "backup_import_error_unsupported".localized }
+        static var importErrorTooLarge: String { "backup_import_error_too_large".localized }
         static var importSuccessTitle: String { "backup_import_success_title".localized }
         static func importSuccessMessage(imported: Int, skipped: Int) -> String {
             String(format: "backup_import_success_message".localized, imported, skipped)

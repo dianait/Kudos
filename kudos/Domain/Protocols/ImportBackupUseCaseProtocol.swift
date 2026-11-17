@@ -8,6 +8,7 @@ struct ImportBackupResult: Equatable {
 enum ImportBackupError: Error, Equatable {
     case invalidFormat
     case unsupportedSchemaVersion(Int)
+    case fileTooLarge
 }
 
 @MainActor

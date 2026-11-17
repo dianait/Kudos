@@ -23,6 +23,7 @@
 		138F89912BB02D1A00EA9F2F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138F89902BB02D1A00EA9F2F /* ContentView.swift */; };
 		138F89932BB02D1A00EA9F2F /* AccomplishmentEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138F89922BB02D1A00EA9F2F /* AccomplishmentEntity.swift */; };
 		138F89952BB02D1C00EA9F2F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 138F89942BB02D1C00EA9F2F /* Assets.xcassets */; };
+		A0D17C000000000000000002 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = A0D17C000000000000000001 /* PrivacyInfo.xcprivacy */; };
 		138F89982BB02D1C00EA9F2F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 138F89972BB02D1C00EA9F2F /* Preview Assets.xcassets */; };
 		13B947132BBEF93C0076724B /* Inject in Frameworks */ = {isa = PBXBuildFile; productRef = 13B947122BBEF93C0076724B /* Inject */; };
 		501072102F94C6D700033106 /* AppFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5010720F2F94C6D400033106 /* AppFactory.swift */; };
@@ -105,6 +106,7 @@
 		138F89902BB02D1A00EA9F2F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		138F89922BB02D1A00EA9F2F /* AccomplishmentEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccomplishmentEntity.swift; sourceTree = "<group>"; };
 		138F89942BB02D1C00EA9F2F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A0D17C000000000000000001 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		138F89972BB02D1C00EA9F2F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		138F899D2BB02D1C00EA9F2F /* kudosTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = kudosTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5010720F2F94C6D400033106 /* AppFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFactory.swift; sourceTree = "<group>"; };
@@ -257,6 +259,7 @@
 				0BD0AAA0000000000000C001 /* RootView.swift */,
 				138F898E2BB02D1A00EA9F2F /* kudosApp.swift */,
 				138F89942BB02D1C00EA9F2F /* Assets.xcassets */,
+				A0D17C000000000000000001 /* PrivacyInfo.xcprivacy */,
 				138F89962BB02D1C00EA9F2F /* Preview Content */,
 			);
 			path = kudos;
@@ -567,6 +570,7 @@
 			files = (
 				138F89982BB02D1C00EA9F2F /* Preview Assets.xcassets in Resources */,
 				138F89952BB02D1C00EA9F2F /* Assets.xcassets in Resources */,
+				A0D17C000000000000000002 /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

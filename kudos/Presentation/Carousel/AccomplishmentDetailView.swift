@@ -6,6 +6,7 @@ struct AccomplishmentDetailView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(LocalizationManager.self) private var languageManager
     @State private var showDeleteConfirmation = false
+    @State private var photoImage: UIImage?
 
     private var isLongText: Bool {
         accomplishment.text.count > 80
@@ -59,12 +60,16 @@ struct AccomplishmentDetailView: View {
         } message: {
             Text(Copies.AccomplishmentDetail.deleteConfirmationMessage)
         }
+        .task(id: accomplishment.photoData) {
+            guard let data = accomplishment.photoData else { return }
+            photoImage = await ImageDownsampler.image(from: data, maxPixelSize: ImageDownsampler.detailPixelSize)
+        }
         .localized()
     }
     
     @ViewBuilder
     private var photoView: some View {
-        if let photoData = accomplishment.photoData, let uiImage = UIImage(data: photoData) {
+        if let uiImage = photoImage {
             Image(uiImage: uiImage)
                 .resizable()
                 .scaledToFit()

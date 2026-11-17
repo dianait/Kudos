@@ -27,9 +27,8 @@ struct StickiesViewOverview: View {
         viewModel.accomplishments.first
     }
     
-    private var previewImage: UIImage? {
-        viewModel.selectedPhotoData.flatMap { UIImage(data: $0) }
-    }
+    /// Decoded once per selected photo (not on every body pass while dragging).
+    @State private var previewImage: UIImage?
 
     private var hasContent: Bool {
         !viewModel.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || viewModel.selectedPhotoData != nil
@@ -42,7 +41,7 @@ struct StickiesViewOverview: View {
                     ZStack {
                         if let previewImage {
                             photoPreviewView(image: previewImage)
-                        } else {
+                        } else if viewModel.selectedPhotoData == nil {
                             StickiesView(lastItem: lastItem, mode: $viewModel.mode)
                         }
                         if viewModel.selectedPhotoData == nil {
@@ -98,6 +97,13 @@ struct StickiesViewOverview: View {
                     responseIsFocussed = true
                 }
             }
+        }
+        .task(id: viewModel.selectedPhotoData) {
+            guard let data = viewModel.selectedPhotoData else {
+                previewImage = nil
+                return
+            }
+            previewImage = await ImageDownsampler.image(from: data, maxPixelSize: ImageDownsampler.detailPixelSize)
         }
         .localized()
     }

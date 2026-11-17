@@ -4,6 +4,7 @@ import UIKit
 struct MainView: View {
     @Bindable var viewModel: MainViewModel
     @Environment(LocalizationManager.self) var languageManager
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @State private var selectedImage: UIImage?
     @State private var confettiCounter: Int = 0
     let onShowMyKudos: () -> Void
@@ -58,7 +59,7 @@ struct MainView: View {
                 }
             }
             .onChange(of: viewModel.accomplishmentsCount) { oldValue, newValue in
-                if newValue > oldValue {
+                if newValue > oldValue && !reduceMotion {
                     confettiCounter += 1
                 }
             }

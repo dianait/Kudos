@@ -157,6 +157,7 @@ struct CarouselView: View {
         let isDragging: Bool
         let canTap: Bool
         let onTap: () -> Void
+        @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
         func body(content: Content) -> some View {
             content
@@ -182,6 +183,7 @@ struct CarouselView: View {
         }
 
         private var cardRotation: CGFloat {
+            guard !reduceMotion else { return 0 }
             let offset = CGFloat(index - currentIndex)
             return offset * AnimationConstants.carouselRotationDegrees
         }

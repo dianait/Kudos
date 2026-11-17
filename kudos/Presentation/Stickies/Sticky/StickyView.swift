@@ -148,7 +148,7 @@ struct StickyView: View {
         } else if item.hasPhoto {
             return A11y.StickyView.photoOnly
         } else {
-            return A11y.StickyView.label
+            return "\(A11y.StickyView.label): \(item.text)"
         }
     }
 }

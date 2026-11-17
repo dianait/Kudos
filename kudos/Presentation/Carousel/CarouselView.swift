@@ -169,7 +169,9 @@ struct CarouselView: View {
                 .offset(x: cardOffset)
                 .opacity(cardOpacity)
                 .accessibilityElement(children: .combine)
-                .accessibilityLabel(A11y.CarouselView.itemLabel(index: index, total: totalCount))
+                // Label comes from the combined sticky (it includes the kudo text);
+                // the position goes in the value: "<text>, 2 of 5".
+                .accessibilityValue(A11y.CarouselView.itemLabel(index: index, total: totalCount))
                 .accessibilityIdentifier(A11y.CarouselView.itemIdentifier(index: index + 1))
                 .accessibilityAddTraits(index == currentIndex ? .isButton : [])
                 .onTapGesture {

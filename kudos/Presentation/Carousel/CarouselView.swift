@@ -104,6 +104,13 @@ struct CarouselView: View {
             let newFiltered = selectedYear.map { year in
                 newItems.filter { Calendar.current.component(.year, from: $0.date) == year }
             } ?? newItems
+            // Deleting the last kudo of the filtered year would leave the
+            // picker on a year that no longer exists and show the empty state
+            // while other years still have kudos: fall back to "All".
+            if selectedYear != nil, newFiltered.isEmpty, !newItems.isEmpty {
+                selectedYear = nil
+                return
+            }
             currentIndex = min(currentIndex, max(0, newFiltered.count - 1))
         }
         .onDisappear {

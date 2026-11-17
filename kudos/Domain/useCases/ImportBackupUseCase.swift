@@ -22,9 +22,10 @@ final class ImportBackupUseCase: ImportBackupUseCaseProtocol {
         toImport.reserveCapacity(file.accomplishments.count)
 
         for backup in file.accomplishments {
-            guard !existingIDs.contains(backup.id), !seenInBatch.contains(backup.id) else { continue }
+            guard !existingIDs.contains(backup.id), !seenInBatch.contains(backup.id),
+                  let item = Self.validatedItem(from: backup) else { continue }
             seenInBatch.insert(backup.id)
-            toImport.append(backup.toDomain())
+            toImport.append(item)
         }
 
         try repository.insert(items: toImport)
@@ -32,6 +33,31 @@ final class ImportBackupUseCase: ImportBackupUseCaseProtocol {
         return ImportBackupResult(
             imported: toImport.count,
             skipped: file.accomplishments.count - toImport.count
+        )
+    }
+
+    static let maxIDLength = 128
+
+    /// A backup file is untrusted input: apply the same rules as the editor
+    /// and re-encode photos. Entries that can't be made valid are skipped
+    /// (counted in `skipped`). A broken photo is dropped but its text kept.
+    static func validatedItem(from backup: AccomplishmentBackup) -> AccomplishmentItem? {
+        guard !backup.id.isEmpty, backup.id.count <= maxIDLength else { return nil }
+
+        let text = backup.text.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard text.count <= AccomplishmentValidator.maxTextLength else { return nil }
+
+        let photoData = backup.photoBase64
+            .flatMap { Data(base64Encoded: $0) }
+            .flatMap(PhotoSanitizer.sanitize)
+        guard !text.isEmpty || photoData != nil else { return nil }
+
+        return AccomplishmentItem(
+            id: backup.id,
+            date: backup.date,
+            text: text,
+            colorHex: backup.colorHex,
+            photoData: photoData
         )
     }
 

@@ -1,0 +1,67 @@
+name: Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: tests-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: ${{ matrix.scheme }}
+    runs-on: macos-26
+    timeout-minutes: 40
+    strategy:
+      fail-fast: false
+      matrix:
+        scheme: [kudosTests, kudosUITests]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Select latest Xcode
+        run: |
+          XCODE=$(ls -d /Applications/Xcode_*.app | sort -V | tail -1)
+          sudo xcode-select -s "$XCODE"
+          xcodebuild -version
+
+      - name: Pick newest iPhone simulator
+        id: sim
+        run: |
+          UDID=$(xcrun simctl list devices available -j | python3 -c '
+          import json, sys
+          data = json.load(sys.stdin)["devices"]
+          ios = [(k, v) for k, v in data.items() if ".iOS-" in k and v]
+          ios.sort(key=lambda kv: [int(x) for x in kv[0].split(".iOS-")[1].split("-")])
+          phones = [d for d in ios[-1][1] if d["name"].startswith("iPhone")]
+          print(phones[0]["udid"])
+          ')
+          echo "udid=$UDID" >> "$GITHUB_OUTPUT"
+          xcrun simctl list devices available | grep "$UDID"
+
+      - name: Test
+        run: |
+          status=0
+          xcodebuild test \
+            -project kudos.xcodeproj \
+            -scheme "${{ matrix.scheme }}" \
+            -destination "id=${{ steps.sim.outputs.udid }}" \
+            -resultBundlePath "TestResults-${{ matrix.scheme }}.xcresult" \
+            CODE_SIGNING_ALLOWED=NO \
+            > xcodebuild.log 2>&1 || status=$?
+          # Full log is uploaded on failure; show only the useful lines here.
+          grep -E "error:|warning:|failed|passed|\*\* (BUILD|TEST)" xcodebuild.log | grep -v "^note:" | tail -200 || true
+          exit $status
+
+      - name: Upload results
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: TestResults-${{ matrix.scheme }}
+          path: |
+            TestResults-${{ matrix.scheme }}.xcresult
+            xcodebuild.log
+          retention-days: 7

@@ -45,15 +45,18 @@ jobs:
           # used to eat its time allowance.
           xcrun simctl boot "$UDID" || true
 
+      # The kudos scheme points to a test plan that is not in the repo, so use
+      # the two test schemes. They share DerivedData: the app builds once.
       - name: Build for testing
         run: |
+          for SCHEME in kudosTests kudosUITests; do
           xcodebuild build-for-testing \
             -project kudos.xcodeproj \
-            -scheme kudos \
+            -scheme "$SCHEME" \
             -destination "id=${{ steps.sim.outputs.udid }}" \
             -derivedDataPath DerivedData \
             CODE_SIGNING_ALLOWED=NO \
-            > build.log 2>&1 || {
+            >> build.log 2>&1 || {
               grep -E "error:" build.log | sort -u | head -40 | while IFS= read -r line; do
                 f=$(echo "$line" | sed -nE "s#^$GITHUB_WORKSPACE/([^:]+\.swift):([0-9]+):.*#\1#p")
                 l=$(echo "$line" | sed -nE "s#^$GITHUB_WORKSPACE/[^:]+\.swift:([0-9]+):.*#\1#p")
@@ -63,7 +66,8 @@ jobs:
               tail -50 build.log
               exit 1
             }
-          grep -E "\*\* BUILD" build.log || true
+          done
+          grep -E "\*\* (BUILD|TEST BUILD)" build.log || true
 
       - name: Wait for simulator
         run: |

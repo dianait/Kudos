@@ -9,8 +9,7 @@ RESULT="TestResults-$TARGET.xcresult"
 status=0
 xcodebuild test-without-building \
   -project kudos.xcodeproj \
-  -scheme kudos \
-  -only-testing:"$TARGET" \
+  -scheme "$TARGET" \
   -destination "id=$UDID" \
   -derivedDataPath DerivedData \
   -resultBundlePath "$RESULT" \

@@ -171,6 +171,8 @@
 "accomplishment_detail_edit_title" = "Editar logro";
 "accomplishment_detail_edit_save" = "Guardar";
 "accomplishment_detail_edit_cancel" = "Cancelar";
+"accomplishment_detail_share_button" = "Compartir";
+"accomplishment_detail_share_title" = "Mi logro";
 
 // Carousel Filter
 "carousel_filter_all" = "Todo";

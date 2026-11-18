@@ -291,6 +291,8 @@ enum Copies {
         }
 
         static var editButton: String { "accomplishment_detail_edit_button".localized }
+        static var shareButton: String { "accomplishment_detail_share_button".localized }
+        static var shareTitle: String { "accomplishment_detail_share_title".localized }
         static var editTitle: String { "accomplishment_detail_edit_title".localized }
         static var editSave: String { "accomplishment_detail_edit_save".localized }
         static var editCancel: String { "accomplishment_detail_edit_cancel".localized }

@@ -171,6 +171,8 @@
 "accomplishment_detail_edit_title" = "Edit achievement";
 "accomplishment_detail_edit_save" = "Save";
 "accomplishment_detail_edit_cancel" = "Cancel";
+"accomplishment_detail_share_button" = "Share";
+"accomplishment_detail_share_title" = "My achievement";
 
 // Carousel Filter
 "carousel_filter_all" = "All";

@@ -11,6 +11,7 @@ struct AccomplishmentDetailView: View {
     @State private var photoImage: UIImage?
     @State private var editedText: String?
     @State private var isEditing = false
+    @State private var shareImage: Image?
 
     /// The kudo as currently shown, including an edit made from this screen.
     private var item: AccomplishmentItem {
@@ -67,6 +68,16 @@ struct AccomplishmentDetailView: View {
         }
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
+            if let shareImage {
+                ToolbarItem(placement: .topBarTrailing) {
+                    ShareLink(
+                        item: shareImage,
+                        preview: SharePreview(Copies.AccomplishmentDetail.shareTitle, image: shareImage)
+                    ) {
+                        Label(Copies.AccomplishmentDetail.shareButton, systemImage: "square.and.arrow.up")
+                    }
+                }
+            }
             if onEdit != nil {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button(Copies.AccomplishmentDetail.editButton) {
@@ -99,6 +110,16 @@ struct AccomplishmentDetailView: View {
         .task(id: item.photoData) {
             guard let data = item.photoData else { return }
             photoImage = await ImageDownsampler.image(from: data, maxPixelSize: ImageDownsampler.detailPixelSize)
+        }
+        // Re-render the share card when the text changes or the photo arrives.
+        .task(id: "\(item.text)|\(photoImage != nil)|\(formattedDate)") {
+            guard !item.hasPhoto || photoImage != nil else { return }
+            shareImage = ShareCardView.render(
+                text: item.text.trimmingCharacters(in: .whitespacesAndNewlines),
+                date: formattedDate,
+                colorHex: item.colorHex,
+                photo: photoImage
+            ).map { Image(uiImage: $0) }
         }
         .localized()
     }

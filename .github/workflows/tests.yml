@@ -49,6 +49,9 @@ jobs:
             -scheme "${{ matrix.scheme }}" \
             -destination "id=${{ steps.sim.outputs.udid }}" \
             -resultBundlePath "TestResults-${{ matrix.scheme }}.xcresult" \
+            -test-timeouts-enabled YES \
+            -default-test-execution-time-allowance 180 \
+            -maximum-test-execution-time-allowance 300 \
             CODE_SIGNING_ALLOWED=NO \
             > xcodebuild.log 2>&1 || status=$?
           # Full log is uploaded on failure; show only the useful lines here.
@@ -82,7 +85,7 @@ jobs:
           exit $status
 
       - name: Upload results
-        if: failure()
+        if: ${{ !success() }}
         uses: actions/upload-artifact@v5
         with:
           name: TestResults-${{ matrix.scheme }}

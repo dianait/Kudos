@@ -16,18 +16,22 @@ final class ExportBackupUseCase: ExportBackupUseCaseProtocol {
         self.dateProvider = dateProvider
     }
 
-    func execute() throws -> Data {
+    func execute() async throws -> Data {
         let items = try repository.fetchAllSortedByDateDescending()
-        let backups = items.map { $0.toBackup() }
-        let file = BackupFile(
-            schemaVersion: BackupFile.currentSchemaVersion,
-            exportedAt: dateProvider(),
-            appVersion: appVersion,
-            accomplishments: backups
-        )
-        let encoder = JSONEncoder()
-        encoder.dateEncodingStrategy = .iso8601
-        encoder.outputFormatting = [.prettyPrinted, .sortedKeys, .withoutEscapingSlashes]
-        return try encoder.encode(file)
+        let exportedAt = dateProvider()
+        let appVersion = appVersion
+        // Base64 + JSON encoding of every photo is the slow part: off main.
+        return try await Task.detached(priority: .userInitiated) {
+            let file = BackupFile(
+                schemaVersion: BackupFile.currentSchemaVersion,
+                exportedAt: exportedAt,
+                appVersion: appVersion,
+                accomplishments: items.map { $0.toBackup() }
+            )
+            let encoder = JSONEncoder()
+            encoder.dateEncodingStrategy = .iso8601
+            encoder.outputFormatting = [.prettyPrinted, .sortedKeys, .withoutEscapingSlashes]
+            return try encoder.encode(file)
+        }.value
     }
 }

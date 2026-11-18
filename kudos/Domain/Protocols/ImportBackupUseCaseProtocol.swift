@@ -13,5 +13,5 @@ enum ImportBackupError: Error, Equatable {
 
 @MainActor
 protocol ImportBackupUseCaseProtocol {
-    func execute(data: Data) throws -> ImportBackupResult
+    func execute(data: Data) async throws -> ImportBackupResult
 }

@@ -7,7 +7,7 @@ import Foundation
 struct ExportBackupUseCaseTests {
 
     @Test("execute returns JSON with schema version, exported date and app version")
-    func returnsEnvelopeMetadata() throws {
+    func returnsEnvelopeMetadata() async throws {
         let item = AccomplishmentItem(
             id: "id-1",
             date: Date(timeIntervalSince1970: 1_700_000_000),
@@ -23,7 +23,7 @@ struct ExportBackupUseCaseTests {
             dateProvider: { frozenDate }
         )
 
-        let data = try sut.execute()
+        let data = try await sut.execute()
         let decoded = try decodeBackup(data)
 
         #expect(decoded.schemaVersion == BackupFile.currentSchemaVersion)
@@ -33,7 +33,7 @@ struct ExportBackupUseCaseTests {
     }
 
     @Test("execute serializes photo data as base64")
-    func serializesPhotoAsBase64() throws {
+    func serializesPhotoAsBase64() async throws {
         let photo = Data([0x01, 0x02, 0x03])
         let item = AccomplishmentItem(
             id: "id-1",
@@ -44,28 +44,28 @@ struct ExportBackupUseCaseTests {
         )
         let sut = ExportBackupUseCase(repository: BackupSpyRepository(items: [item]))
 
-        let data = try sut.execute()
+        let data = try await sut.execute()
         let decoded = try decodeBackup(data)
 
         #expect(decoded.accomplishments.first?.photoBase64 == photo.base64EncodedString())
     }
 
     @Test("execute with empty repository returns empty accomplishments array")
-    func emptyRepository() throws {
+    func emptyRepository() async throws {
         let sut = ExportBackupUseCase(repository: BackupSpyRepository(items: []))
 
-        let data = try sut.execute()
+        let data = try await sut.execute()
         let decoded = try decodeBackup(data)
 
         #expect(decoded.accomplishments.isEmpty)
     }
 
     @Test("execute propagates repository fetch errors")
-    func propagatesFetchError() {
+    func propagatesFetchError() async {
         let sut = ExportBackupUseCase(repository: BackupSpyRepository(fetchThrows: true))
 
-        #expect(throws: (any Error).self) {
-            try sut.execute()
+        await #expect(throws: (any Error).self) {
+            try await sut.execute()
         }
     }
 

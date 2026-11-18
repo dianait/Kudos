@@ -28,7 +28,7 @@ final class KudosUITests: XCTestCase {
         XCTAssert(continueButton.waitForExistence(timeout: 2))
         continueButton.tap()
 
-        let jarButton = app.links["Jar Button"]
+        let jarButton = app.buttons["Jar Button"]
         XCTAssert(jarButton.waitForExistence(timeout: 2))
         jarButton.tap()
 
@@ -56,7 +56,7 @@ final class KudosUITests: XCTestCase {
         continueButton.tap()
 
         XCTAssertFalse(app.textViews["Text Editor"].exists)
-        XCTAssert(app.links["Jar Button"].waitForExistence(timeout: 2))
+        XCTAssert(app.buttons["Jar Button"].waitForExistence(timeout: 2))
     }
 
     // MARK: - Cancel editing
@@ -97,7 +97,7 @@ final class KudosUITests: XCTestCase {
         XCTAssert(continueButton.waitForExistence(timeout: 2))
         continueButton.tap()
 
-        let jarButton = app.links["Jar Button"]
+        let jarButton = app.buttons["Jar Button"]
         XCTAssert(jarButton.waitForExistence(timeout: 2))
         jarButton.tap()
 

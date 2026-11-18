@@ -2,8 +2,7 @@ name: Tests
 
 on:
   push:
-    branches: [main]
-  pull_request:
+    branches: ['**']
   workflow_dispatch:
 
 concurrency:
@@ -53,7 +52,33 @@ jobs:
             CODE_SIGNING_ALLOWED=NO \
             > xcodebuild.log 2>&1 || status=$?
           # Full log is uploaded on failure; show only the useful lines here.
-          grep -E "error:|warning:|failed|passed|\*\* (BUILD|TEST)" xcodebuild.log | grep -v "^note:" | tail -200 || true
+          grep -E "error:|warning:|failed|passed|\*\* (BUILD|TEST)" xcodebuild.log | tail -200 || true
+          # Compiler errors and test failures as annotations, so they are
+          # visible on the commit and readable through the public checks API.
+          if [ $status -ne 0 ]; then
+            python3 - "$GITHUB_WORKSPACE" <<'PY'
+          import re, sys
+          root = sys.argv[1].rstrip("/") + "/"
+          seen = set()
+          pat = re.compile(r"(/[^:\s]+\.swift):(\d+):(?:(\d+):)? (?:error|.*recorded an issue.*?):? ?(.*)")
+          for line in open("xcodebuild.log", errors="replace"):
+              if "error:" not in line and "recorded an issue" not in line and "failed" not in line:
+                  continue
+              m = pat.search(line)
+              if m:
+                  f, ln, col, msg = m.groups()
+                  key = (f, ln, msg)
+                  if key in seen:
+                      continue
+                  seen.add(key)
+                  f = f.replace(root, "")
+                  msg = (msg or line).strip().replace("%", "%25").replace("\n", " ")[:900]
+                  print(f"::error file={f},line={ln},col={col or 1}::{msg}")
+              elif "error:" in line and len(seen) < 40:
+                  seen.add(line)
+                  print("::error::" + line.strip().replace("%", "%25")[:900])
+          PY
+          fi
           exit $status
 
       - name: Upload results

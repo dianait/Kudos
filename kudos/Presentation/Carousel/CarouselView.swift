@@ -3,6 +3,7 @@ import SwiftUI
 struct CarouselView: View {
     let accomplishments: [AccomplishmentItem]
     let onDelete: (AccomplishmentItem) -> Void
+    var onEdit: ((AccomplishmentItem, String) -> Bool)? = nil
     var onAddNew: (() -> Void)? = nil
 
     @State private var selectedYear: Int? = nil
@@ -92,7 +93,7 @@ struct CarouselView: View {
         }
         .background(Color("MainBackground").ignoresSafeArea())
         .navigationDestination(item: $selectedItem) { item in
-            AccomplishmentDetailView(accomplishment: item, onDelete: onDelete)
+            AccomplishmentDetailView(accomplishment: item, onDelete: onDelete, onEdit: onEdit)
         }
         .onChange(of: selectedYear) { _, _ in
             currentIndex = 0

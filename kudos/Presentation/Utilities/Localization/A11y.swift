@@ -68,6 +68,8 @@ enum A11y {
     enum AccomplishmentDetail {
         static let deleteAlertConfirmIdentifier = "Delete Alert Button"
         static let deleteButtonIdentifier = "Delete achievement"
+        static let editButtonIdentifier = "Edit achievement"
+        static let editSaveIdentifier = "Edit Save Button"
     }
 
     enum EmptyStateView {

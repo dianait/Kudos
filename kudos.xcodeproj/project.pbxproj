@@ -33,6 +33,7 @@
 		5013DD8F2F938BB0007B9241 /* NewAccomplishment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5013DD8E2F938BAA007B9241 /* NewAccomplishment.swift */; };
 		5013DD912F938D09007B9241 /* AccomplishmentValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5013DD902F938D09007B9241 /* AccomplishmentValidator.swift */; };
 		A0D17C000000000000000004 /* PhotoSanitizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D17C000000000000000003 /* PhotoSanitizer.swift */; };
+		A0D17C000000000000000006 /* EditAccomplishmentUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D17C000000000000000005 /* EditAccomplishmentUseCase.swift */; };
 		502ED54C2F943B240076B94F /* AccomplishmentRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502ED54B2F943B200076B94F /* AccomplishmentRepositoryProtocol.swift */; };
 		504E5A2D2F951666007468F4 /* Limits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504E5A172F951666007468F4 /* Limits.swift */; };
 		504E5A732F951A41007468F4 /* AddPhotoAccomplishmentUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504E5A722F951A41007468F4 /* AddPhotoAccomplishmentUseCaseTests.swift */; };
@@ -53,6 +54,7 @@
 		50BAC0040000000000000001 /* ExportBackupUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BAC0040000000000000002 /* ExportBackupUseCase.swift */; };
 		50BAC0050000000000000001 /* ImportBackupUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BAC0050000000000000002 /* ImportBackupUseCase.swift */; };
 		50BAC0060000000000000001 /* ExportBackupUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BAC0060000000000000002 /* ExportBackupUseCaseTests.swift */; };
+		A0D17C000000000000000008 /* EditAccomplishmentUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D17C000000000000000007 /* EditAccomplishmentUseCaseTests.swift */; };
 		50BAC0070000000000000001 /* ImportBackupUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BAC0070000000000000002 /* ImportBackupUseCaseTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -116,6 +118,7 @@
 		5013DD8C2F938A92007B9241 /* SwiftDataAccomplishmentRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDataAccomplishmentRepository.swift; sourceTree = "<group>"; };
 		5013DD8E2F938BAA007B9241 /* NewAccomplishment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAccomplishment.swift; sourceTree = "<group>"; };
 		5013DD902F938D09007B9241 /* AccomplishmentValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccomplishmentValidator.swift; sourceTree = "<group>"; };
+		A0D17C000000000000000005 /* EditAccomplishmentUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccomplishmentUseCase.swift; sourceTree = "<group>"; };
 		A0D17C000000000000000003 /* PhotoSanitizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoSanitizer.swift; sourceTree = "<group>"; };
 		502ED54B2F943B200076B94F /* AccomplishmentRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccomplishmentRepositoryProtocol.swift; sourceTree = "<group>"; };
 		504E5A172F951666007468F4 /* Limits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Limits.swift; sourceTree = "<group>"; };
@@ -136,6 +139,7 @@
 		50BAC0040000000000000002 /* ExportBackupUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportBackupUseCase.swift; sourceTree = "<group>"; };
 		50BAC0050000000000000002 /* ImportBackupUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportBackupUseCase.swift; sourceTree = "<group>"; };
 		50BAC0060000000000000002 /* ExportBackupUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportBackupUseCaseTests.swift; sourceTree = "<group>"; };
+		A0D17C000000000000000007 /* EditAccomplishmentUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccomplishmentUseCaseTests.swift; sourceTree = "<group>"; };
 		50BAC0070000000000000002 /* ImportBackupUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportBackupUseCaseTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -379,6 +383,7 @@
 				D3EE1CB269D24B538B2D4A42 /* SaveAccomplishmentUseCaseTests.swift */,
 				50BAC0060000000000000002 /* ExportBackupUseCaseTests.swift */,
 				50BAC0070000000000000002 /* ImportBackupUseCaseTests.swift */,
+				A0D17C000000000000000007 /* EditAccomplishmentUseCaseTests.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -432,6 +437,7 @@
 				E0CCCC1B6BCE43D0AF322B43 /* SaveAccomplishmentUseCase.swift */,
 				50BAC0040000000000000002 /* ExportBackupUseCase.swift */,
 				50BAC0050000000000000002 /* ImportBackupUseCase.swift */,
+				A0D17C000000000000000005 /* EditAccomplishmentUseCase.swift */,
 			);
 			path = useCases;
 			sourceTree = "<group>";
@@ -603,6 +609,7 @@
 				138F89912BB02D1A00EA9F2F /* ContentView.swift in Sources */,
 				5013DD912F938D09007B9241 /* AccomplishmentValidator.swift in Sources */,
 				A0D17C000000000000000004 /* PhotoSanitizer.swift in Sources */,
+				A0D17C000000000000000006 /* EditAccomplishmentUseCase.swift in Sources */,
 				56110374B5A974038BBA1CB2 /* AccomplishmentColor.swift in Sources */,
 				501072132F94D68600033106 /* AccomplishmentItem.swift in Sources */,
 				501072102F94C6D700033106 /* AppFactory.swift in Sources */,
@@ -648,6 +655,7 @@
 				0BD0AAA0000000000000F002 /* LocalizationManagerTests.swift in Sources */,
 				50BAC0060000000000000001 /* ExportBackupUseCaseTests.swift in Sources */,
 				50BAC0070000000000000001 /* ImportBackupUseCaseTests.swift in Sources */,
+				A0D17C000000000000000008 /* EditAccomplishmentUseCaseTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

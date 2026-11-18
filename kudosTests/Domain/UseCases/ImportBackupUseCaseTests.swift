@@ -260,6 +260,7 @@ struct ImportBackupUseCaseTests {
 final class BackupSpyRepository: AccomplishmentRepositoryProtocol {
     private(set) var items: [AccomplishmentItem]
     private(set) var lastInserted: [AccomplishmentItem] = []
+    private(set) var lastTextUpdate: (id: String, text: String)?
     var lastInsertedIDs: [String] { lastInserted.map(\.id) }
 
     private let fetchThrows: Bool
@@ -284,6 +285,10 @@ final class BackupSpyRepository: AccomplishmentRepositoryProtocol {
         if insertThrows { throw BackupTestError.generic }
         lastInserted.append(contentsOf: newItems)
         items.append(contentsOf: newItems)
+    }
+
+    func updateText(id: String, text: String) throws {
+        lastTextUpdate = (id, text)
     }
 }
 

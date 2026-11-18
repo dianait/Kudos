@@ -285,5 +285,10 @@ enum Copies {
         static var deleteConfirm: String {
             return "accomplishment_detail_delete_confirm".localized
         }
+
+        static var editButton: String { "accomplishment_detail_edit_button".localized }
+        static var editTitle: String { "accomplishment_detail_edit_title".localized }
+        static var editSave: String { "accomplishment_detail_edit_save".localized }
+        static var editCancel: String { "accomplishment_detail_edit_cancel".localized }
     }
 }

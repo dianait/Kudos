@@ -89,3 +89,66 @@ struct SwiftDataIntegrationTests {
         #expect(fetched[2].text == "Logro 1")
     }
 }
+
+@Suite("SwiftDataAccomplishmentRepository Tests")
+@MainActor
+struct SwiftDataAccomplishmentRepositoryTests {
+    /// Kept alive for the whole test: a ModelContext must not outlive its container.
+    private let container: ModelContainer
+    private let sut: SwiftDataAccomplishmentRepository
+
+    init() throws {
+        let schema = Schema([AccomplishmentEntity.self])
+        let config = ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)
+        container = try ModelContainer(for: schema, configurations: [config])
+        sut = SwiftDataAccomplishmentRepository(modelContext: ModelContext(container))
+    }
+
+    @Test("save then fetch returns newest first")
+    func saveAndFetchSorted() throws {
+        try sut.save(NewAccomplishment(text: "Antiguo", photoData: nil, color: "blue", date: Date(timeIntervalSinceNow: -60)))
+        try sut.save(NewAccomplishment(text: "Nuevo", photoData: nil, color: "green", date: Date()))
+
+        let items = try sut.fetchAllSortedByDateDescending()
+
+        #expect(items.map(\.text) == ["Nuevo", "Antiguo"])
+    }
+
+    @Test("insert keeps ids and delete removes only that item")
+    func insertAndDeleteByID() throws {
+        let a = makeItem(id: "a", text: "A")
+        let b = makeItem(id: "b", text: "B")
+        try sut.insert(items: [a, b])
+
+        try sut.delete(a)
+
+        let items = try sut.fetchAllSortedByDateDescending()
+        #expect(items.map(\.id) == ["b"])
+    }
+
+    @Test("delete of a missing id is a no-op")
+    func deleteMissingIsNoOp() throws {
+        try sut.insert(items: [makeItem(id: "a", text: "A")])
+
+        try sut.delete(makeItem(id: "missing", text: ""))
+
+        #expect(try sut.fetchAllSortedByDateDescending().count == 1)
+    }
+
+    @Test("updateText changes only the text")
+    func updateTextChangesText() throws {
+        let photo = Data([0x01, 0x02])
+        try sut.insert(items: [makeItem(id: "a", text: "Antes", photo: photo)])
+
+        try sut.updateText(id: "a", text: "Después")
+
+        let item = try #require(try sut.fetchAllSortedByDateDescending().first)
+        #expect(item.text == "Después")
+        #expect(item.photoData == photo)
+        #expect(item.colorHex == "blue")
+    }
+
+    private func makeItem(id: String, text: String, photo: Data? = nil) -> AccomplishmentItem {
+        AccomplishmentItem(id: id, date: Date(), text: text, colorHex: "blue", photoData: photo)
+    }
+}

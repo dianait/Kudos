@@ -81,6 +81,21 @@ jobs:
                   seen.add(line)
                   print("::error::" + line.strip().replace("%", "%25")[:900])
           PY
+            # Test failures (with parallel testing) are only in the xcresult.
+            xcrun xcresulttool get test-results summary \
+              --path "TestResults-${{ matrix.scheme }}.xcresult" --format json > summary.json 2>/dev/null || true
+            python3 - <<'PY'
+          import json
+          try:
+              s = json.load(open("summary.json"))
+          except Exception as e:
+              print(f"::warning::no xcresult summary ({e})")
+              raise SystemExit
+          print(f"::notice::result={s.get('result')} passed={s.get('passedTests')} failed={s.get('failedTests')} skipped={s.get('skippedTests')}")
+          for f in s.get("testFailures", [])[:20]:
+              msg = f"{f.get('testName')}: {f.get('failureText')}".replace("%", "%25").replace("\n", " ")[:900]
+              print(f"::error::{msg}")
+          PY
           fi
           exit $status
 

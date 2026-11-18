@@ -145,7 +145,8 @@ struct CarouselView: View {
             canTap: canTap,
             onTap: {
                 selectedItem = item
-            }
+            },
+            onAdjust: adjust
         ))
     }
 
@@ -157,6 +158,7 @@ struct CarouselView: View {
         let isDragging: Bool
         let canTap: Bool
         let onTap: () -> Void
+        let onAdjust: (AccessibilityAdjustmentDirection) -> Void
         @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
         func body(content: Content) -> some View {
@@ -175,6 +177,10 @@ struct CarouselView: View {
                 .accessibilityValue(A11y.CarouselView.itemLabel(index: index, total: totalCount))
                 .accessibilityIdentifier(A11y.CarouselView.itemIdentifier(index: index + 1))
                 .accessibilityAddTraits(index == currentIndex ? .isButton : [])
+                // VoiceOver: only the front card is focusable; swipe up/down
+                // on it moves to the next/previous kudo.
+                .accessibilityHidden(index != currentIndex)
+                .accessibilityAdjustableAction(onAdjust)
                 .onTapGesture {
                     if index == currentIndex && !isDragging && canTap {
                         onTap()
@@ -223,6 +229,17 @@ struct CarouselView: View {
                     dragResetTask = nil
                 }
             }
+    }
+
+    private func adjust(_ direction: AccessibilityAdjustmentDirection) {
+        switch direction {
+        case .increment where currentIndex < filteredAccomplishments.count - 1:
+            currentIndex += 1
+        case .decrement where currentIndex > 0:
+            currentIndex -= 1
+        default:
+            break
+        }
     }
 
     private func handleDragEnd(gesture: DragGesture.Value) {

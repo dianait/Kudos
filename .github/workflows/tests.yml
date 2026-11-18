@@ -13,7 +13,7 @@ jobs:
   test:
     name: ${{ matrix.scheme }}
     runs-on: macos-26
-    timeout-minutes: 40
+    timeout-minutes: 60
     strategy:
       fail-fast: false
       matrix:
@@ -50,8 +50,8 @@ jobs:
             -destination "id=${{ steps.sim.outputs.udid }}" \
             -resultBundlePath "TestResults-${{ matrix.scheme }}.xcresult" \
             -test-timeouts-enabled YES \
-            -default-test-execution-time-allowance 180 \
-            -maximum-test-execution-time-allowance 300 \
+            -default-test-execution-time-allowance 60 \
+            -maximum-test-execution-time-allowance 120 \
             CODE_SIGNING_ALLOWED=NO \
             > xcodebuild.log 2>&1 || status=$?
           # Full log is uploaded on failure; show only the useful lines here.

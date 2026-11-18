@@ -15,105 +15,105 @@ final class KudosUITests: XCTestCase {
 
     func testAddNewAccomplishment() {
         let stickie = app.buttons["Main Stickie"]
-        XCTAssert(stickie.waitForExistence(timeout: 2))
+        XCTAssert(stickie.waitForExistence(timeout: 5))
         stickie.tap()
 
         let textEditor = app.textViews["Text Editor"]
-        XCTAssert(textEditor.waitForExistence(timeout: 2))
+        XCTAssert(textEditor.waitForExistence(timeout: 5))
         textEditor.typeText("My amazing accomplishment 🚀!")
 
         stickie.swipeUp()
 
         let continueButton = app.buttons["Continue Button"]
-        XCTAssert(continueButton.waitForExistence(timeout: 2))
+        XCTAssert(continueButton.waitForExistence(timeout: 5))
         continueButton.tap()
 
         let jarButton = app.buttons["Jar Button"]
-        XCTAssert(jarButton.waitForExistence(timeout: 2))
+        XCTAssert(jarButton.waitForExistence(timeout: 5))
         jarButton.tap()
 
         let accomplishmentText = app.staticTexts["My amazing accomplishment 🚀!"]
-        XCTAssert(accomplishmentText.waitForExistence(timeout: 2))
+        XCTAssert(accomplishmentText.waitForExistence(timeout: 5))
     }
 
     // MARK: - Save via button
 
     func testSaveAccomplishmentViaSaveButton() {
         let stickie = app.buttons["Main Stickie"]
-        XCTAssert(stickie.waitForExistence(timeout: 2))
+        XCTAssert(stickie.waitForExistence(timeout: 5))
         stickie.tap()
 
         let textEditor = app.textViews["Text Editor"]
-        XCTAssert(textEditor.waitForExistence(timeout: 2))
+        XCTAssert(textEditor.waitForExistence(timeout: 5))
         textEditor.typeText("Completed my first PR review")
 
         let saveButton = app.buttons["Save Button"]
-        XCTAssert(saveButton.waitForExistence(timeout: 2))
+        XCTAssert(saveButton.waitForExistence(timeout: 5))
         saveButton.tap()
 
         let continueButton = app.buttons["Continue Button"]
-        XCTAssert(continueButton.waitForExistence(timeout: 2))
+        XCTAssert(continueButton.waitForExistence(timeout: 5))
         continueButton.tap()
 
         XCTAssertFalse(app.textViews["Text Editor"].exists)
-        XCTAssert(app.buttons["Jar Button"].waitForExistence(timeout: 2))
+        XCTAssert(app.buttons["Jar Button"].waitForExistence(timeout: 5))
     }
 
     // MARK: - Cancel editing
 
     func testCancelEditingResetsState() {
         let stickie = app.buttons["Main Stickie"]
-        XCTAssert(stickie.waitForExistence(timeout: 2))
+        XCTAssert(stickie.waitForExistence(timeout: 5))
         stickie.tap()
 
         let textEditor = app.textViews["Text Editor"]
-        XCTAssert(textEditor.waitForExistence(timeout: 2))
+        XCTAssert(textEditor.waitForExistence(timeout: 5))
         textEditor.typeText("This will be cancelled")
 
         let cancelButton = app.buttons["Cancel button"]
-        XCTAssert(cancelButton.waitForExistence(timeout: 2))
+        XCTAssert(cancelButton.waitForExistence(timeout: 5))
         cancelButton.tap()
 
         XCTAssertFalse(app.textViews["Text Editor"].exists)
-        XCTAssert(app.buttons["Main Stickie"].waitForExistence(timeout: 2))
+        XCTAssert(app.buttons["Main Stickie"].waitForExistence(timeout: 5))
     }
 
     // MARK: - Delete accomplishment
 
     func testDeleteAccomplishment() {
         let stickie = app.buttons["Main Stickie"]
-        XCTAssert(stickie.waitForExistence(timeout: 2))
+        XCTAssert(stickie.waitForExistence(timeout: 5))
         stickie.tap()
 
         let textEditor = app.textViews["Text Editor"]
-        XCTAssert(textEditor.waitForExistence(timeout: 2))
+        XCTAssert(textEditor.waitForExistence(timeout: 5))
         textEditor.typeText("To be deleted")
 
         let saveButton = app.buttons["Save Button"]
-        XCTAssert(saveButton.waitForExistence(timeout: 2))
+        XCTAssert(saveButton.waitForExistence(timeout: 5))
         saveButton.tap()
 
         let continueButton = app.buttons["Continue Button"]
-        XCTAssert(continueButton.waitForExistence(timeout: 2))
+        XCTAssert(continueButton.waitForExistence(timeout: 5))
         continueButton.tap()
 
         let jarButton = app.buttons["Jar Button"]
-        XCTAssert(jarButton.waitForExistence(timeout: 2))
+        XCTAssert(jarButton.waitForExistence(timeout: 5))
         jarButton.tap()
 
         let carouselItem = app.buttons["Achievement 1 Button"]
-        XCTAssert(carouselItem.waitForExistence(timeout: 2))
+        XCTAssert(carouselItem.waitForExistence(timeout: 5))
         carouselItem.tap()
 
         let deleteButton = app.buttons["Delete achievement"]
-        XCTAssert(deleteButton.waitForExistence(timeout: 2))
+        XCTAssert(deleteButton.waitForExistence(timeout: 5))
         deleteButton.tap()
 
         let confirmButton = app.alerts.firstMatch.buttons["Delete Alert Button"].firstMatch
-        XCTAssert(confirmButton.waitForExistence(timeout: 2))
+        XCTAssert(confirmButton.waitForExistence(timeout: 5))
         confirmButton.tap()
 
         let emptyTitle = app.buttons["Add Achievement Carousel Empty State Button"]
-        XCTAssert(emptyTitle.waitForExistence(timeout: 2))
+        XCTAssert(emptyTitle.waitForExistence(timeout: 5))
     }
 }

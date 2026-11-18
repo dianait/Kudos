@@ -44,17 +44,32 @@ jobs:
           echo "udid=$UDID" >> "$GITHUB_OUTPUT"
           xcrun simctl list devices available | grep "$UDID"
 
+      # Boot before testing: a cold boot inside the first UI test eats its
+      # time allowance and leaves the runner failing to enable automation.
+      - name: Boot simulator
+        run: |
+          UDID="${{ steps.sim.outputs.udid }}"
+          # Skip the keyboard's swipe-typing intro, which blocks typeText
+          # on a fresh simulator.
+          xcrun simctl spawn "$UDID" defaults write com.apple.keyboard.preferences DidShowContinuousPathIntroduction -bool true 2>/dev/null || true
+          xcrun simctl boot "$UDID" || true
+          xcrun simctl bootstatus "$UDID" -b
+          xcrun simctl spawn "$UDID" defaults write com.apple.keyboard.preferences DidShowContinuousPathIntroduction -bool true || true
+
       - name: Test
         run: |
           status=0
+          # UI tests drive a real app launch per test: give them more time.
+          if [ "${{ matrix.scheme }}" = "kudosUITests" ]; then ALLOW=180; MAX=300; else ALLOW=60; MAX=120; fi
           xcodebuild test \
             -project kudos.xcodeproj \
             -scheme "${{ matrix.scheme }}" \
             -destination "id=${{ steps.sim.outputs.udid }}" \
             -resultBundlePath "TestResults-${{ matrix.scheme }}.xcresult" \
             -test-timeouts-enabled YES \
-            -default-test-execution-time-allowance 60 \
-            -maximum-test-execution-time-allowance 120 \
+            -parallel-testing-enabled NO \
+            -default-test-execution-time-allowance $ALLOW \
+            -maximum-test-execution-time-allowance $MAX \
             CODE_SIGNING_ALLOWED=NO \
             > xcodebuild.log 2>&1 || status=$?
           # Full log is uploaded on failure; show only the useful lines here.

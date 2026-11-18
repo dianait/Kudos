@@ -3,24 +3,22 @@ name: Tests
 on:
   push:
     branches: ['**']
+    paths-ignore:
+      - '**/*.md'
+      - 'LICENSE'
   workflow_dispatch:
 
 concurrency:
   group: tests-${{ github.ref }}
   cancel-in-progress: true
 
+# One macOS job: build once, then run unit and UI tests without rebuilding.
+# Half the runner queueing and no duplicated build compared to a matrix.
 jobs:
   test:
-    name: ${{ matrix.scheme }}
+    name: Tests
     runs-on: macos-26
     timeout-minutes: 60
-    # UI tests are flaky on hosted simulators (app launch failures,
-    # timeouts): report them but do not fail the run. Unit tests gate.
-    continue-on-error: ${{ matrix.scheme == 'kudosUITests' }}
-    strategy:
-      fail-fast: false
-      matrix:
-        scheme: [kudosTests, kudosUITests]
     steps:
       - uses: actions/checkout@v5
 
@@ -30,7 +28,7 @@ jobs:
           sudo xcode-select -s "$XCODE"
           xcodebuild -version
 
-      - name: Pick newest iPhone simulator
+      - name: Pick newest iPhone simulator and start booting it
         id: sim
         run: |
           UDID=$(xcrun simctl list devices available -j | python3 -c '
@@ -43,86 +41,53 @@ jobs:
           ')
           echo "udid=$UDID" >> "$GITHUB_OUTPUT"
           xcrun simctl list devices available | grep "$UDID"
+          # Boots while the app compiles; a cold boot inside the first UI test
+          # used to eat its time allowance.
+          xcrun simctl boot "$UDID" || true
 
-      # Boot before testing: a cold boot inside the first UI test eats its
-      # time allowance and leaves the runner failing to enable automation.
-      - name: Boot simulator
+      - name: Build for testing
+        run: |
+          xcodebuild build-for-testing \
+            -project kudos.xcodeproj \
+            -scheme kudos \
+            -destination "id=${{ steps.sim.outputs.udid }}" \
+            -derivedDataPath DerivedData \
+            CODE_SIGNING_ALLOWED=NO \
+            > build.log 2>&1 || {
+              grep -E "error:" build.log | sort -u | head -40 | while IFS= read -r line; do
+                f=$(echo "$line" | sed -nE "s#^$GITHUB_WORKSPACE/([^:]+\.swift):([0-9]+):.*#\1#p")
+                l=$(echo "$line" | sed -nE "s#^$GITHUB_WORKSPACE/[^:]+\.swift:([0-9]+):.*#\1#p")
+                msg=$(echo "$line" | sed -E 's/.*error: //' | cut -c1-900)
+                if [ -n "$f" ]; then echo "::error file=$f,line=$l::$msg"; else echo "::error::$msg"; fi
+              done
+              tail -50 build.log
+              exit 1
+            }
+          grep -E "\*\* BUILD" build.log || true
+
+      - name: Wait for simulator
         run: |
           UDID="${{ steps.sim.outputs.udid }}"
-          # Skip the keyboard's swipe-typing intro, which blocks typeText
-          # on a fresh simulator.
-          xcrun simctl spawn "$UDID" defaults write com.apple.keyboard.preferences DidShowContinuousPathIntroduction -bool true 2>/dev/null || true
-          xcrun simctl boot "$UDID" || true
           xcrun simctl bootstatus "$UDID" -b
+          # Skip the keyboard's swipe-typing intro, which blocks typeText.
           xcrun simctl spawn "$UDID" defaults write com.apple.keyboard.preferences DidShowContinuousPathIntroduction -bool true || true
 
-      - name: Test
-        run: |
-          status=0
-          # UI tests drive a real app launch per test: give them more time.
-          if [ "${{ matrix.scheme }}" = "kudosUITests" ]; then ALLOW=180; MAX=300; else ALLOW=60; MAX=120; fi
-          xcodebuild test \
-            -project kudos.xcodeproj \
-            -scheme "${{ matrix.scheme }}" \
-            -destination "id=${{ steps.sim.outputs.udid }}" \
-            -resultBundlePath "TestResults-${{ matrix.scheme }}.xcresult" \
-            -test-timeouts-enabled YES \
-            -parallel-testing-enabled NO \
-            -default-test-execution-time-allowance $ALLOW \
-            -maximum-test-execution-time-allowance $MAX \
-            CODE_SIGNING_ALLOWED=NO \
-            > xcodebuild.log 2>&1 || status=$?
-          # Full log is uploaded on failure; show only the useful lines here.
-          grep -E "error:|warning:|failed|passed|\*\* (BUILD|TEST)" xcodebuild.log | tail -200 || true
-          # Compiler errors and test failures as annotations, so they are
-          # visible on the commit and readable through the public checks API.
-          if [ $status -ne 0 ]; then
-            python3 - "$GITHUB_WORKSPACE" <<'PY'
-          import re, sys
-          root = sys.argv[1].rstrip("/") + "/"
-          seen = set()
-          pat = re.compile(r"(/[^:\s]+\.swift):(\d+):(?:(\d+):)? (?:error|.*recorded an issue.*?):? ?(.*)")
-          for line in open("xcodebuild.log", errors="replace"):
-              if "error:" not in line and "recorded an issue" not in line and "failed" not in line:
-                  continue
-              m = pat.search(line)
-              if m:
-                  f, ln, col, msg = m.groups()
-                  key = (f, ln, msg)
-                  if key in seen:
-                      continue
-                  seen.add(key)
-                  f = f.replace(root, "")
-                  msg = (msg or line).strip().replace("%", "%25").replace("\n", " ")[:900]
-                  print(f"::error file={f},line={ln},col={col or 1}::{msg}")
-              elif "error:" in line and len(seen) < 40:
-                  seen.add(line)
-                  print("::error::" + line.strip().replace("%", "%25")[:900])
-          PY
-            # Test failures (with parallel testing) are only in the xcresult.
-            xcrun xcresulttool get test-results summary \
-              --path "TestResults-${{ matrix.scheme }}.xcresult" --format json > summary.json 2>/dev/null || true
-            python3 - <<'PY'
-          import json
-          try:
-              s = json.load(open("summary.json"))
-          except Exception as e:
-              print(f"::warning::no xcresult summary ({e})")
-              raise SystemExit
-          print(f"::notice::result={s.get('result')} passed={s.get('passedTests')} failed={s.get('failedTests')} skipped={s.get('skippedTests')}")
-          for f in s.get("testFailures", [])[:20]:
-              msg = f"{f.get('testName')}: {f.get('failureText')}".replace("%", "%25").replace("\n", " ")[:900]
-              print(f"::error::{msg}")
-          PY
-          fi
-          exit $status
+      - name: Unit tests
+        run: ./.github/scripts/run-tests.sh kudosTests "${{ steps.sim.outputs.udid }}" 60 120
+
+      # Report UI test failures without blocking: hosted simulators are flaky.
+      - name: UI tests
+        if: ${{ !cancelled() }}
+        continue-on-error: true
+        run: ./.github/scripts/run-tests.sh kudosUITests "${{ steps.sim.outputs.udid }}" 180 300
 
       - name: Upload results
-        if: ${{ !success() }}
+        if: ${{ !cancelled() }}
         uses: actions/upload-artifact@v5
         with:
-          name: TestResults-${{ matrix.scheme }}
+          name: TestResults
           path: |
-            TestResults-${{ matrix.scheme }}.xcresult
-            xcodebuild.log
+            TestResults-*.xcresult
+            *.log
+          if-no-files-found: ignore
           retention-days: 7

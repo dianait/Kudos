@@ -19,7 +19,7 @@ final class ExportBackupUseCase: ExportBackupUseCaseProtocol {
     func execute() async throws -> Data {
         let items = try repository.fetchAllSortedByDateDescending()
         let exportedAt = dateProvider()
-        let appVersion = appVersion
+        let appVersion = self.appVersion
         // Base64 + JSON encoding of every photo is the slow part: off main.
         return try await Task.detached(priority: .userInitiated) {
             let file = BackupFile(

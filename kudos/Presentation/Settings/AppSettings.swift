@@ -59,7 +59,10 @@ final class AppSettings {
             self.colorSchemePreference = .system
         }
 
-        self.hasCompletedOnboarding = UserDefaults.standard.bool(forKey: Self.onboardingKey)
+        // UI tests start on a clean simulator: skip the onboarding overlay
+        // (set in init, so didSet does not persist it).
+        self.hasCompletedOnboarding = CommandLine.arguments.contains("-UITesting")
+            || UserDefaults.standard.bool(forKey: Self.onboardingKey)
         self.weeklyReminderEnabled = UserDefaults.standard.bool(forKey: Self.weeklyReminderKey)
     }
 }

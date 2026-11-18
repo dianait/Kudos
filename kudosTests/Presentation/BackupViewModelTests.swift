@@ -7,12 +7,12 @@ import Foundation
 struct BackupViewModelTests {
 
     private func makeSUT(
-        export: MockExportBackupUseCase = MockExportBackupUseCase(),
-        importer: MockImportBackupUseCase = MockImportBackupUseCase()
+        export: MockExportBackupUseCase? = nil,
+        importer: MockImportBackupUseCase? = nil
     ) -> BackupViewModel {
         BackupViewModel(
-            exportUseCase: export,
-            importUseCase: importer,
+            exportUseCase: export ?? MockExportBackupUseCase(),
+            importUseCase: importer ?? MockImportBackupUseCase(),
             dateProvider: { Date(timeIntervalSince1970: 0) }
         )
     }

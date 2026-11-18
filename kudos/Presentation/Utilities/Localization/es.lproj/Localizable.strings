@@ -206,3 +206,10 @@
 "backup_imported_confirmation_description" = "Se han añadido %d logros a tu tarrito 🎉";
 "backup_imported_confirmation_description_with_skipped" = "Se han añadido %d logros (%d ya existían) 🎉";
 "backup_action_ok" = "OK";
+
+/* Recordatorio semanal */
+"reminder_toggle" = "Recordatorio semanal";
+"reminder_title" = "¿Qué has conseguido esta semana?";
+"reminder_body" = "Apúntalo en tu tarrito de Kudos, grande o pequeño 🎉";
+"reminder_denied_title" = "Notificaciones desactivadas";
+"reminder_denied_message" = "Permite las notificaciones de Kudos en la app Ajustes para recibir el recordatorio semanal.";

@@ -206,3 +206,10 @@
 "backup_imported_confirmation_description" = "Added %d achievements to your jar 🎉";
 "backup_imported_confirmation_description_with_skipped" = "Added %d achievements (%d already existed) 🎉";
 "backup_action_ok" = "OK";
+
+/* Weekly reminder */
+"reminder_toggle" = "Weekly reminder";
+"reminder_title" = "What did you achieve this week?";
+"reminder_body" = "Add it to your Kudos jar, big or small 🎉";
+"reminder_denied_title" = "Notifications are off";
+"reminder_denied_message" = "Allow notifications for Kudos in the Settings app to get the weekly reminder.";

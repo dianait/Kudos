@@ -42,7 +42,12 @@ final class AppSettings {
         didSet { UserDefaults.standard.set(hasCompletedOnboarding, forKey: Self.onboardingKey) }
     }
 
+    var weeklyReminderEnabled: Bool {
+        didSet { UserDefaults.standard.set(weeklyReminderEnabled, forKey: Self.weeklyReminderKey) }
+    }
+
     static let shared = AppSettings()
+    private static let weeklyReminderKey = "weeklyReminderEnabled"
     private static let colorSchemeKey = "selectedColorScheme"
     private static let onboardingKey = "hasCompletedOnboarding"
 
@@ -55,5 +60,6 @@ final class AppSettings {
         }
 
         self.hasCompletedOnboarding = UserDefaults.standard.bool(forKey: Self.onboardingKey)
+        self.weeklyReminderEnabled = UserDefaults.standard.bool(forKey: Self.weeklyReminderKey)
     }
 }

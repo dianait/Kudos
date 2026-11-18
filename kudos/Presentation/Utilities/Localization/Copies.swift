@@ -239,6 +239,14 @@ enum Copies {
         static var photoLoadFailed: String { "camera_photo_load_failed".localized }
     }
     
+    enum Reminder {
+        static var toggle: String { "reminder_toggle".localized }
+        static var title: String { "reminder_title".localized }
+        static var body: String { "reminder_body".localized }
+        static var deniedTitle: String { "reminder_denied_title".localized }
+        static var deniedMessage: String { "reminder_denied_message".localized }
+    }
+
     enum ValidationAlert {
         static var title: String {
             return "validation_alert_title".localized

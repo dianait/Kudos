@@ -39,6 +39,7 @@
 		504E5A732F951A41007468F4 /* AddPhotoAccomplishmentUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504E5A722F951A41007468F4 /* AddPhotoAccomplishmentUseCaseTests.swift */; };
 		504E5A752F951A46007468F4 /* AddAccomplishmentUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504E5A742F951A46007468F4 /* AddAccomplishmentUseCaseTests.swift */; };
 		504E5A772F951A50007468F4 /* AccomplishmentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504E5A762F951A50007468F4 /* AccomplishmentTests.swift */; };
+		A0D17C00000000000000000A /* BackupViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D17C000000000000000009 /* BackupViewModelTests.swift */; };
 		504E5AB02F9521AD007468F4 /* MainViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504E5AAF2F9521AD007468F4 /* MainViewModelTests.swift */; };
 		504E5ABA2F953B25007468F4 /* AddAccomplishmentUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504E5AB92F953B24007468F4 /* AddAccomplishmentUseCaseProtocol.swift */; };
 		504E5ABC2F953B32007468F4 /* AddPhotoAccomplishmentUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504E5ABB2F953B31007468F4 /* AddPhotoAccomplishmentUseCaseProtocol.swift */; };
@@ -125,6 +126,7 @@
 		504E5A722F951A41007468F4 /* AddPhotoAccomplishmentUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoAccomplishmentUseCaseTests.swift; sourceTree = "<group>"; };
 		504E5A742F951A46007468F4 /* AddAccomplishmentUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAccomplishmentUseCaseTests.swift; sourceTree = "<group>"; };
 		504E5A762F951A50007468F4 /* AccomplishmentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccomplishmentTests.swift; sourceTree = "<group>"; };
+		A0D17C000000000000000009 /* BackupViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupViewModelTests.swift; sourceTree = "<group>"; };
 		504E5AAF2F9521AD007468F4 /* MainViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModelTests.swift; sourceTree = "<group>"; };
 		504E5AB92F953B24007468F4 /* AddAccomplishmentUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAccomplishmentUseCaseProtocol.swift; sourceTree = "<group>"; };
 		504E5ABB2F953B31007468F4 /* AddPhotoAccomplishmentUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoAccomplishmentUseCaseProtocol.swift; sourceTree = "<group>"; };
@@ -402,6 +404,7 @@
 			children = (
 				1366E97B2D7DAC58008FE4BE /* AccessibilityTextTests.swift */,
 				504E5AAF2F9521AD007468F4 /* MainViewModelTests.swift */,
+				A0D17C000000000000000009 /* BackupViewModelTests.swift */,
 				1366E9792D7DAC28008FE4BE /* ColorUtilityTests.swift */,
 				0BD0AAA0000000000000E001 /* OnboardingViewModelTests.swift */,
 				0BD0AAA0000000000000F001 /* LocalizationManagerTests.swift */,
@@ -650,6 +653,7 @@
 				1366E97C2D7DAC5A008FE4BE /* AccessibilityTextTests.swift in Sources */,
 				504E5A772F951A50007468F4 /* AccomplishmentTests.swift in Sources */,
 				504E5AB02F9521AD007468F4 /* MainViewModelTests.swift in Sources */,
+				A0D17C00000000000000000A /* BackupViewModelTests.swift in Sources */,
 				A1AD191609404725A84CFB2D /* SaveAccomplishmentUseCaseTests.swift in Sources */,
 				0BD0AAA0000000000000E002 /* OnboardingViewModelTests.swift in Sources */,
 				0BD0AAA0000000000000F002 /* LocalizationManagerTests.swift in Sources */,

@@ -2,5 +2,5 @@ import Foundation
 
 @MainActor
 protocol ExportBackupUseCaseProtocol {
-    func execute() throws -> Data
+    func execute() async throws -> Data
 }

@@ -1,0 +1,99 @@
+name: Tests
+
+on:
+  push:
+    branches: ['**']
+    paths-ignore:
+      - '**/*.md'
+      - 'LICENSE'
+  workflow_dispatch:
+
+concurrency:
+  group: tests-${{ github.ref }}
+  cancel-in-progress: true
+
+# One macOS job: build once, then run unit and UI tests without rebuilding.
+# Half the runner queueing and no duplicated build compared to a matrix.
+jobs:
+  test:
+    name: Tests
+    runs-on: macos-26
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Select latest Xcode
+        run: |
+          XCODE=$(ls -d /Applications/Xcode_*.app | sort -V | tail -1)
+          sudo xcode-select -s "$XCODE"
+          xcodebuild -version
+
+      - name: Pick newest iPhone simulator and start booting it
+        id: sim
+        run: |
+          UDID=$(xcrun simctl list devices available -j | python3 -c '
+          import json, sys
+          data = json.load(sys.stdin)["devices"]
+          ios = [(k, v) for k, v in data.items() if ".iOS-" in k and v]
+          ios.sort(key=lambda kv: [int(x) for x in kv[0].split(".iOS-")[1].split("-")])
+          phones = [d for d in ios[-1][1] if d["name"].startswith("iPhone")]
+          print(phones[0]["udid"])
+          ')
+          echo "udid=$UDID" >> "$GITHUB_OUTPUT"
+          xcrun simctl list devices available | grep "$UDID"
+          # Boots while the app compiles; a cold boot inside the first UI test
+          # used to eat its time allowance.
+          xcrun simctl boot "$UDID" || true
+
+      # The kudos scheme points to a test plan that is not in the repo, so use
+      # the two test schemes. They share DerivedData: the app builds once.
+      # kudosTests goes last: it embeds kudosTests.xctest in the app's
+      # PlugIns, and building the UI scheme afterwards would drop it.
+      - name: Build for testing
+        run: |
+          for SCHEME in kudosUITests kudosTests; do
+          xcodebuild build-for-testing \
+            -project kudos.xcodeproj \
+            -scheme "$SCHEME" \
+            -destination "id=${{ steps.sim.outputs.udid }}" \
+            -derivedDataPath DerivedData \
+            CODE_SIGNING_ALLOWED=NO \
+            >> build.log 2>&1 || {
+              grep -E "error:" build.log | sort -u | head -40 | while IFS= read -r line; do
+                f=$(echo "$line" | sed -nE "s#^$GITHUB_WORKSPACE/([^:]+\.swift):([0-9]+):.*#\1#p")
+                l=$(echo "$line" | sed -nE "s#^$GITHUB_WORKSPACE/[^:]+\.swift:([0-9]+):.*#\1#p")
+                msg=$(echo "$line" | sed -E 's/.*error: //' | cut -c1-900)
+                if [ -n "$f" ]; then echo "::error file=$f,line=$l::$msg"; else echo "::error::$msg"; fi
+              done
+              tail -50 build.log
+              exit 1
+            }
+          done
+          grep -E "\*\* (BUILD|TEST BUILD)" build.log || true
+
+      - name: Wait for simulator
+        run: |
+          UDID="${{ steps.sim.outputs.udid }}"
+          xcrun simctl bootstatus "$UDID" -b
+          # Skip the keyboard's swipe-typing intro, which blocks typeText.
+          xcrun simctl spawn "$UDID" defaults write com.apple.keyboard.preferences DidShowContinuousPathIntroduction -bool true || true
+
+      - name: Unit tests
+        run: ./.github/scripts/run-tests.sh kudosTests "${{ steps.sim.outputs.udid }}" 60 120
+
+      # Report UI test failures without blocking: hosted simulators are flaky.
+      - name: UI tests
+        if: ${{ !cancelled() }}
+        continue-on-error: true
+        run: ./.github/scripts/run-tests.sh kudosUITests "${{ steps.sim.outputs.udid }}" 180 300
+
+      - name: Upload results
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v5
+        with:
+          name: TestResults
+          path: |
+            TestResults-*.xcresult
+            *.log
+          if-no-files-found: ignore
+          retention-days: 7

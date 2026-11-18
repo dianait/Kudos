@@ -13,44 +13,41 @@ enum CameraHelpers {
     }
 
     /// Compresses an image to reduce storage size.
-    /// UIGraphicsBeginImageContextWithOptions is thread-safe since iOS 4.
+    ///
+    /// Resizes first (a 12 MP photo is never shown larger than ~2048 px) and
+    /// only then lowers JPEG quality, instead of re-encoding the full-size
+    /// photo up to ten times. UIGraphicsImageRenderer is thread-safe.
     static nonisolated func compressImage(_ image: UIImage, maxSizeKB: Int = 500) -> Data? {
         let maxBytes = maxSizeKB * 1024
-        var compression: CGFloat = 1.0
-        let step: CGFloat = 0.1
+        let resized = resize(image, maxPixelSize: CGFloat(PhotoSanitizer.maxOutputDimension))
 
-        // Start with JPEG compression
-        guard var imageData = image.jpegData(compressionQuality: compression) else {
+        var compression: CGFloat = 0.8
+        guard var imageData = resized.jpegData(compressionQuality: compression) else {
             return nil
         }
-
-        // Reduce quality until we're under the size limit
-        while imageData.count > maxBytes && compression > step {
-            compression -= step
-            if let newData = image.jpegData(compressionQuality: compression) {
+        while imageData.count > maxBytes && compression > 0.3 {
+            compression -= 0.1
+            if let newData = resized.jpegData(compressionQuality: compression) {
                 imageData = newData
             }
         }
-
-        // If still too large, resize the image
-        if imageData.count > maxBytes {
-            let scale = sqrt(Double(maxBytes) / Double(imageData.count))
-            let newSize = CGSize(
-                width: image.size.width * scale,
-                height: image.size.height * scale
-            )
-
-            UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
-            image.draw(in: CGRect(origin: .zero, size: newSize))
-            let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
-            UIGraphicsEndImageContext()
-
-            if let resized = resizedImage {
-                imageData = resized.jpegData(compressionQuality: 0.8) ?? imageData
-            }
-        }
-
         return imageData
+    }
+
+    private static nonisolated func resize(_ image: UIImage, maxPixelSize: CGFloat) -> UIImage {
+        let pixelWidth = image.size.width * image.scale
+        let pixelHeight = image.size.height * image.scale
+        let longestSide = max(pixelWidth, pixelHeight)
+        guard longestSide > maxPixelSize else { return image }
+
+        let ratio = maxPixelSize / longestSide
+        let newSize = CGSize(width: (pixelWidth * ratio).rounded(), height: (pixelHeight * ratio).rounded())
+        let format = UIGraphicsImageRendererFormat()
+        format.scale = 1
+        format.opaque = true
+        return UIGraphicsImageRenderer(size: newSize, format: format).image { _ in
+            image.draw(in: CGRect(origin: .zero, size: newSize))
+        }
     }
 }
 

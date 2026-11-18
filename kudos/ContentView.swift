@@ -21,6 +21,7 @@ struct ContentView: View {
                             CarouselView(
                                 accomplishments: viewModel.accomplishments,
                                 onDelete: { item in viewModel.delete(item) },
+                                onEdit: { item, text in viewModel.edit(item, newText: text) },
                                 onAddNew: { selectedTab = 0 }
                             )
                             .navigationTitle(Copies.carouselTab)

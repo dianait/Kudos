@@ -48,6 +48,7 @@ enum Copies {
         static var defaultFilename: String { "backup_default_filename".localized }
         static var importErrorInvalid: String { "backup_import_error_invalid".localized }
         static var importErrorUnsupported: String { "backup_import_error_unsupported".localized }
+        static var importErrorTooLarge: String { "backup_import_error_too_large".localized }
         static var importSuccessTitle: String { "backup_import_success_title".localized }
         static func importSuccessMessage(imported: Int, skipped: Int) -> String {
             String(format: "backup_import_success_message".localized, imported, skipped)
@@ -102,6 +103,10 @@ enum Copies {
 
         static var saveButton: String {
             return "stickies_overview_save_button".localized
+        }
+
+        static func textTruncated(max: Int) -> String {
+            String(format: "stickies_overview_text_truncated".localized, max)
         }
     }
 
@@ -228,8 +233,20 @@ enum Copies {
         static var notAvailable: String {
             return "camera_not_available".localized
         }
+
+        static var library: String { "camera_library".localized }
+        static var libraryLabel: String { "camera_library_label".localized }
+        static var photoLoadFailed: String { "camera_photo_load_failed".localized }
     }
     
+    enum Reminder {
+        static var toggle: String { "reminder_toggle".localized }
+        static var title: String { "reminder_title".localized }
+        static var body: String { "reminder_body".localized }
+        static var deniedTitle: String { "reminder_denied_title".localized }
+        static var deniedMessage: String { "reminder_denied_message".localized }
+    }
+
     enum ValidationAlert {
         static var title: String {
             return "validation_alert_title".localized
@@ -280,5 +297,12 @@ enum Copies {
         static var deleteConfirm: String {
             return "accomplishment_detail_delete_confirm".localized
         }
+
+        static var editButton: String { "accomplishment_detail_edit_button".localized }
+        static var shareButton: String { "accomplishment_detail_share_button".localized }
+        static var shareTitle: String { "accomplishment_detail_share_title".localized }
+        static var editTitle: String { "accomplishment_detail_edit_title".localized }
+        static var editSave: String { "accomplishment_detail_edit_save".localized }
+        static var editCancel: String { "accomplishment_detail_edit_cancel".localized }
     }
 }

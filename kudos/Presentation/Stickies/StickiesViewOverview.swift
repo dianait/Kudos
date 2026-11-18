@@ -1,3 +1,4 @@
+import PhotosUI
 import SwiftUI
 
 struct StickiesViewOverview: View {
@@ -6,6 +7,11 @@ struct StickiesViewOverview: View {
     @FocusState private var responseIsFocussed: Bool
     @State private var dragOffset: CGSize = .zero
     @State private var showSaveIndicator: Bool = false
+    @State private var isSaving: Bool = false
+    /// Set when typed/pasted text went over the limit and was cut, so the
+    /// user is told instead of silently losing the end of a paste.
+    @State private var wasTruncated: Bool = false
+    @State private var libraryItem: PhotosPickerItem?
     private let maxCharacters: Int = Limits.maxCharacters
     private var characterCount: Int { viewModel.text.count }
 
@@ -13,12 +19,21 @@ struct StickiesViewOverview: View {
         Binding(
             get: { viewModel.text },
             set: { newValue in
-                if newValue.last == "\n" {
+                var candidate = newValue
+                if candidate.last == "\n" {
                     responseIsFocussed = false
-                    viewModel.text = String(newValue.dropLast().prefix(maxCharacters))
-                } else {
-                    viewModel.text = String(newValue.prefix(maxCharacters))
+                    candidate.removeLast()
                 }
+                let truncated = candidate.count > maxCharacters
+                viewModel.text = String(candidate.prefix(maxCharacters))
+                if truncated && !wasTruncated {
+                    UINotificationFeedbackGenerator().notificationOccurred(.warning)
+                    UIAccessibility.post(
+                        notification: .announcement,
+                        argument: Copies.StickiesViewOverView.textTruncated(max: maxCharacters)
+                    )
+                }
+                wasTruncated = truncated || (wasTruncated && viewModel.text.count == maxCharacters)
             }
         )
     }
@@ -26,9 +41,8 @@ struct StickiesViewOverview: View {
         viewModel.accomplishments.first
     }
     
-    private var previewImage: UIImage? {
-        viewModel.selectedPhotoData.flatMap { UIImage(data: $0) }
-    }
+    /// Decoded once per selected photo (not on every body pass while dragging).
+    @State private var previewImage: UIImage?
 
     private var hasContent: Bool {
         !viewModel.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || viewModel.selectedPhotoData != nil
@@ -41,14 +55,17 @@ struct StickiesViewOverview: View {
                     ZStack {
                         if let previewImage {
                             photoPreviewView(image: previewImage)
-                        } else {
+                        } else if viewModel.selectedPhotoData == nil {
                             StickiesView(lastItem: lastItem, mode: $viewModel.mode)
                         }
                         if viewModel.selectedPhotoData == nil {
                             textInputView
                         }
                     }
-                    cameraButton
+                    HStack(spacing: Space.medium) {
+                        cameraButton
+                        libraryButton
+                    }
                     HStack(spacing: Space.medium) {
                         cancelButton
                         saveButton
@@ -74,17 +91,8 @@ struct StickiesViewOverview: View {
                         }
                         .onEnded { gesture in
                             if gesture.translation.height < Limits.saveDragThreshold, hasContent {
-                                let generator = UINotificationFeedbackGenerator()
-                                generator.notificationOccurred(.success)
-                                Task {
-                                    try? await Task.sleep(for: .seconds(Timing.saveActionDelay))
-                                    viewModel.save()
-                                    withAnimation(.spring(response: AnimationConstants.springResponse, dampingFraction: AnimationConstants.springDampingFraction)) {
-                                        dragOffset = .zero
-                                        showSaveIndicator = false
-                                    }
-                                }
-                            } else {
+                                performSave()
+                            } else if !isSaving {
                                 withAnimation(.spring(response: AnimationConstants.springResponse, dampingFraction: AnimationConstants.springDampingFraction)) {
                                     dragOffset = .zero
                                     showSaveIndicator = false
@@ -93,11 +101,7 @@ struct StickiesViewOverview: View {
                         }
                 )
                 .accessibilityAction(named: A11y.StickiesViewOverview.saveAction) {
-                    if hasContent {
-                        let generator = UINotificationFeedbackGenerator()
-                        generator.notificationOccurred(.success)
-                        viewModel.save()
-                    }
+                    performSave(delayed: false)
                 }
             } else {
                 StickiesView(lastItem: lastItem, mode: $viewModel.mode)
@@ -111,7 +115,47 @@ struct StickiesViewOverview: View {
                 }
             }
         }
+        .onChange(of: libraryItem) { _, item in
+            guard let item else { return }
+            Task {
+                if let data = try? await item.loadTransferable(type: Data.self) {
+                    await viewModel.photoPicked(data)
+                } else {
+                    viewModel.errorMessage = Copies.Camera.photoLoadFailed
+                }
+                libraryItem = nil
+            }
+        }
+        .task(id: viewModel.selectedPhotoData) {
+            guard let data = viewModel.selectedPhotoData else {
+                previewImage = nil
+                return
+            }
+            previewImage = await ImageDownsampler.image(from: data, maxPixelSize: ImageDownsampler.detailPixelSize)
+        }
         .localized()
+    }
+
+    // MARK: - Actions
+
+    /// Single entry point for every save trigger (button, drag, VoiceOver).
+    /// `isSaving` blocks re-entry while the delayed save is in flight, so a
+    /// double tap or drag + tap can't store the same kudo twice.
+    private func performSave(delayed: Bool = true) {
+        guard hasContent, !isSaving else { return }
+        isSaving = true
+        UINotificationFeedbackGenerator().notificationOccurred(.success)
+        Task {
+            if delayed {
+                try? await Task.sleep(for: .seconds(Timing.saveActionDelay))
+            }
+            viewModel.save()
+            withAnimation(.spring(response: AnimationConstants.springResponse, dampingFraction: AnimationConstants.springDampingFraction)) {
+                dragOffset = .zero
+                showSaveIndicator = false
+            }
+            isSaving = false
+        }
     }
 
     // MARK: - Subviews
@@ -151,9 +195,11 @@ struct StickiesViewOverview: View {
                     .accessibilityIdentifier(A11y.StickiesViewOverview.textEditorIdentifer)
             }
 
-            Text("\(characterCount)/\(maxCharacters)")
+            Text(wasTruncated
+                 ? Copies.StickiesViewOverView.textTruncated(max: maxCharacters)
+                 : "\(characterCount)/\(maxCharacters)")
                 .font(.caption)
-                .foregroundStyle(characterCount > maxCharacters ? .red : .gray)
+                .foregroundStyle(wasTruncated ? .red : .gray)
                 .frame(width: Dimensions.counterFrameWidth, alignment: .trailing)
                 .padding(.trailing)
                 .accessibilityLabel(
@@ -214,18 +260,7 @@ struct StickiesViewOverview: View {
     @ViewBuilder
     private var saveButton: some View {
         Button {
-            if hasContent {
-                let generator = UINotificationFeedbackGenerator()
-                generator.notificationOccurred(.success)
-                Task {
-                    try? await Task.sleep(for: .seconds(Timing.saveActionDelay))
-                    viewModel.save()
-                    withAnimation {
-                        dragOffset = .zero
-                        showSaveIndicator = false
-                    }
-                }
-            }
+            performSave()
         } label: {
             HStack(spacing: Space.small) {
                 Image(systemName: Icon.checkmark.rawValue)
@@ -238,11 +273,29 @@ struct StickiesViewOverview: View {
             .padding(.vertical, Space.small)
             .background(Capsule().fill(hasContent ? Color.green : Color.gray))
         }
-        .disabled(!hasContent)
+        .disabled(!hasContent || isSaving)
         .padding(.top, Space.extraSmall)
         .accessibilityLabel(A11y.StickiesViewOverview.saveButtonLabel)
         .accessibilityHint(A11y.StickiesViewOverview.saveButtonHint)
         .accessibilityIdentifier(A11y.StickiesViewOverview.saveButtonIdentifier)
+    }
+
+    @ViewBuilder
+    private var libraryButton: some View {
+        PhotosPicker(selection: $libraryItem, matching: .images) {
+            HStack(spacing: Space.small) {
+                Image(systemName: Icon.photoLibrary.rawValue)
+                Text(Copies.Camera.library)
+            }
+            .font(.subheadline)
+            .fontWeight(.medium)
+            .foregroundStyle(.white)
+            .padding(.horizontal, Space.medium)
+            .padding(.vertical, Space.small)
+            .background(Capsule().fill(Color.orange))
+        }
+        .padding(.top, Space.small)
+        .accessibilityLabel(Copies.Camera.libraryLabel)
     }
 
     @ViewBuilder

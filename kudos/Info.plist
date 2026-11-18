@@ -2,21 +2,7 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CFBundleGetInfoString</key>
-	<string></string>
-	<key>English</key>
-	<string></string>
 	<key>NSCameraUsageDescription</key>
 	<string>Kudos needs access to your camera to take photos of your achievements</string>
-	<key>NSPrivacyAccessedAPITypes</key>
-	<array/>
-	<key>NSPrivacyCollectedDataTypes</key>
-	<array/>
-	<key>NSPrivacyTracking</key>
-	<false/>
-	<key>NSPrivacyTrackingDomains</key>
-	<array/>
-	<key>Spanish</key>
-	<string>$(DEVELOPMENT_LANGUAGE)</string>
 </dict>
 </plist>

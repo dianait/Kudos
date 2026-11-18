@@ -38,8 +38,8 @@
 "text_editor_placeholder" = "Escribe aquí...";
 "stickies_overview_cancel_button" = "Cancelar";
 "stickies_overview_save_button" = "Guardar logro";
+"stickies_overview_text_truncated" = "Texto recortado a %d caracteres";
 "stickies_overview_save_button_hint" = "Guarda tu logro";
-"stickies_overview_save_button_identifier" = "Save Button";
 
 // Carrusel - Empty State
 "carousel_empty_title" = "¡Guarda tus logros!";
@@ -66,7 +66,6 @@
 "footer_social_links" = "Puedes encontrarme en:";
 
 // A11y Copies
-"jar_button_identifier" = "Jar Button";
 "jar_button_label" = "Tarro con {count} {plural}";
 "jar_singular" = "logro guardado";
 "jar_plural" = "logros guardados";
@@ -79,20 +78,15 @@
 "main_view_settings_label" = "Ajuste de idioma";
 "main_view_about_label" = "Información sobre Kudos";
 "main_view_about_hint" = "Muestra una ventana con información adicional sobre la aplicación";
-"main_view_about_identifier" = "About me Button";
-"main_view_settings_identifier" = "Settings Button";
-"main_view_title_identifier" = "About me Title";
 
 "confirmation_view_label" = "Confirmación: Logro guardado";
 "confirmation_view_hint" = "Tu tarrito crece con cada logro";
 "confirmation_view_notification" = "Logro guardado. Tu tarrito crece con cada logro.";
-"confirmation_view_identifier" = "Confimation Pop-Up";
 "confirmation_view_button" = "Continue Button";
 
 "stickies_overview_edit_mode" = "Modo de edición activado. Escribe tu logro.";
 "stickies_overview_text_editor_label" = "Editor de texto para tu logro";
 "stickies_overview_text_editor_hint" = "Editor de texto para tu logro";
-"stickies_overview_text_editor_identifier" = "Text Editor";
 "stickies_overview_char_counter" = "Contador de caracteres: {count} de {max}";
 "stickies_overview_ready_to_save" = "Listo para guardar. Suelta para confirmar.";
 "stickies_overview_save_action" = "Guardar logro";
@@ -137,6 +131,9 @@
 "camera_remove_photo" = "Eliminar foto";
 "camera_add_photo_hint" = "Toma una foto de tu logro";
 "camera_not_available" = "Cámara no disponible en este dispositivo";
+"camera_library" = "Galería";
+"camera_library_label" = "Elegir una foto de la galería";
+"camera_photo_load_failed" = "No se ha podido usar esa foto. Prueba con otra.";
 
 // Validation Errors - Photo
 "validation_error_empty_photo" = "La foto no puede estar vacía";
@@ -170,6 +167,12 @@
 "accomplishment_detail_delete_confirmation_message" = "Esta acción no se puede deshacer. El logro se eliminará permanentemente.";
 "accomplishment_detail_delete_cancel" = "Cancelar";
 "accomplishment_detail_delete_confirm" = "Eliminar";
+"accomplishment_detail_edit_button" = "Editar";
+"accomplishment_detail_edit_title" = "Editar logro";
+"accomplishment_detail_edit_save" = "Guardar";
+"accomplishment_detail_edit_cancel" = "Cancelar";
+"accomplishment_detail_share_button" = "Compartir";
+"accomplishment_detail_share_title" = "Mi logro";
 
 // Carousel Filter
 "carousel_filter_all" = "Todo";
@@ -195,6 +198,7 @@
 "settings_import_backup" = "Importar copia de seguridad";
 "backup_default_filename" = "kudos-backup";
 "backup_import_error_invalid" = "El archivo no tiene un formato válido.";
+"backup_import_error_too_large" = "El archivo es demasiado grande para ser una copia de Kudos.";
 "backup_import_error_unsupported" = "La versión del archivo no es compatible con esta app.";
 "backup_import_success_title" = "Importación completada";
 "backup_import_success_message" = "Importados: %d. Omitidos (ya existían): %d.";
@@ -202,3 +206,10 @@
 "backup_imported_confirmation_description" = "Se han añadido %d logros a tu tarrito 🎉";
 "backup_imported_confirmation_description_with_skipped" = "Se han añadido %d logros (%d ya existían) 🎉";
 "backup_action_ok" = "OK";
+
+/* Recordatorio semanal */
+"reminder_toggle" = "Recordatorio semanal";
+"reminder_title" = "¿Qué has conseguido esta semana?";
+"reminder_body" = "Apúntalo en tu tarrito de Kudos, grande o pequeño 🎉";
+"reminder_denied_title" = "Notificaciones desactivadas";
+"reminder_denied_message" = "Permite las notificaciones de Kudos en la app Ajustes para recibir el recordatorio semanal.";

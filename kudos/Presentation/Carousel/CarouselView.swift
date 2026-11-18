@@ -3,6 +3,7 @@ import SwiftUI
 struct CarouselView: View {
     let accomplishments: [AccomplishmentItem]
     let onDelete: (AccomplishmentItem) -> Void
+    var onEdit: ((AccomplishmentItem, String) -> Bool)? = nil
     var onAddNew: (() -> Void)? = nil
 
     @State private var selectedYear: Int? = nil
@@ -92,7 +93,7 @@ struct CarouselView: View {
         }
         .background(Color("MainBackground").ignoresSafeArea())
         .navigationDestination(item: $selectedItem) { item in
-            AccomplishmentDetailView(accomplishment: item, onDelete: onDelete)
+            AccomplishmentDetailView(accomplishment: item, onDelete: onDelete, onEdit: onEdit)
         }
         .onChange(of: selectedYear) { _, _ in
             currentIndex = 0
@@ -104,6 +105,13 @@ struct CarouselView: View {
             let newFiltered = selectedYear.map { year in
                 newItems.filter { Calendar.current.component(.year, from: $0.date) == year }
             } ?? newItems
+            // Deleting the last kudo of the filtered year would leave the
+            // picker on a year that no longer exists and show the empty state
+            // while other years still have kudos: fall back to "All".
+            if selectedYear != nil, newFiltered.isEmpty, !newItems.isEmpty {
+                selectedYear = nil
+                return
+            }
             currentIndex = min(currentIndex, max(0, newFiltered.count - 1))
         }
         .onDisappear {
@@ -138,7 +146,8 @@ struct CarouselView: View {
             canTap: canTap,
             onTap: {
                 selectedItem = item
-            }
+            },
+            onAdjust: adjust
         ))
     }
 
@@ -150,6 +159,8 @@ struct CarouselView: View {
         let isDragging: Bool
         let canTap: Bool
         let onTap: () -> Void
+        let onAdjust: (AccessibilityAdjustmentDirection) -> Void
+        @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
         func body(content: Content) -> some View {
             content
@@ -162,9 +173,15 @@ struct CarouselView: View {
                 .offset(x: cardOffset)
                 .opacity(cardOpacity)
                 .accessibilityElement(children: .combine)
-                .accessibilityLabel(A11y.CarouselView.itemLabel(index: index, total: totalCount))
+                // Label comes from the combined sticky (it includes the kudo text);
+                // the position goes in the value: "<text>, 2 of 5".
+                .accessibilityValue(A11y.CarouselView.itemLabel(index: index, total: totalCount))
                 .accessibilityIdentifier(A11y.CarouselView.itemIdentifier(index: index + 1))
                 .accessibilityAddTraits(index == currentIndex ? .isButton : [])
+                // VoiceOver: only the front card is focusable; swipe up/down
+                // on it moves to the next/previous kudo.
+                .accessibilityHidden(index != currentIndex)
+                .accessibilityAdjustableAction(onAdjust)
                 .onTapGesture {
                     if index == currentIndex && !isDragging && canTap {
                         onTap()
@@ -173,6 +190,7 @@ struct CarouselView: View {
         }
 
         private var cardRotation: CGFloat {
+            guard !reduceMotion else { return 0 }
             let offset = CGFloat(index - currentIndex)
             return offset * AnimationConstants.carouselRotationDegrees
         }
@@ -212,6 +230,17 @@ struct CarouselView: View {
                     dragResetTask = nil
                 }
             }
+    }
+
+    private func adjust(_ direction: AccessibilityAdjustmentDirection) {
+        switch direction {
+        case .increment where currentIndex < filteredAccomplishments.count - 1:
+            currentIndex += 1
+        case .decrement where currentIndex > 0:
+            currentIndex -= 1
+        default:
+            break
+        }
     }
 
     private func handleDragEnd(gesture: DragGesture.Value) {

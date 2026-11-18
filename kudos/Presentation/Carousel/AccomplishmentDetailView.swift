@@ -3,16 +3,33 @@ import SwiftUI
 struct AccomplishmentDetailView: View {
     let accomplishment: AccomplishmentItem
     let onDelete: (AccomplishmentItem) -> Void
+    /// Stores new text; returns false if it was rejected (error shown by the caller).
+    var onEdit: ((AccomplishmentItem, String) -> Bool)? = nil
     @Environment(\.dismiss) private var dismiss
     @Environment(LocalizationManager.self) private var languageManager
     @State private var showDeleteConfirmation = false
+    @State private var photoImage: UIImage?
+    @State private var editedText: String?
+    @State private var isEditing = false
+    @State private var shareImage: Image?
+
+    /// The kudo as currently shown, including an edit made from this screen.
+    private var item: AccomplishmentItem {
+        AccomplishmentItem(
+            id: accomplishment.id,
+            date: accomplishment.date,
+            text: editedText ?? accomplishment.text,
+            colorHex: accomplishment.colorHex,
+            photoData: accomplishment.photoData
+        )
+    }
 
     private var isLongText: Bool {
-        accomplishment.text.count > 80
+        item.text.count > 80
     }
 
     private var formattedDate: String {
-        return accomplishment.date.formatted(
+        return item.date.formatted(
             .dateTime.day().month(.wide).year().locale(languageManager.locale)
         )
     }
@@ -25,13 +42,13 @@ struct AccomplishmentDetailView: View {
             ScrollView {
                 VStack(spacing: Space.large) {
                     // Photo view (full width) if has photo
-                    if accomplishment.hasPhoto {
+                    if item.hasPhoto {
                         photoView
                     }
 
                     // Text content
-                    if accomplishment.hasText {
-                        if accomplishment.hasPhoto {
+                    if item.hasText {
+                        if item.hasPhoto {
                             // Caption below photo
                             captionView
                         } else if isLongText {
@@ -39,7 +56,7 @@ struct AccomplishmentDetailView: View {
                             textOnlyView
                         } else {
                             // Short text without photo - show sticky
-                            StickyView(item: accomplishment)
+                            StickyView(item: item)
                                 .scaleEffect(1.2)
                                 .padding(.top, Space.extraLarge)
                         }
@@ -50,21 +67,66 @@ struct AccomplishmentDetailView: View {
             }
         }
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            if let shareImage {
+                ToolbarItem(placement: .topBarTrailing) {
+                    ShareLink(
+                        item: shareImage,
+                        preview: SharePreview(Copies.AccomplishmentDetail.shareTitle, image: shareImage)
+                    ) {
+                        Label(Copies.AccomplishmentDetail.shareButton, systemImage: "square.and.arrow.up")
+                    }
+                }
+            }
+            if onEdit != nil {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button(Copies.AccomplishmentDetail.editButton) {
+                        isEditing = true
+                    }
+                    .accessibilityIdentifier(A11y.AccomplishmentDetail.editButtonIdentifier)
+                }
+            }
+        }
+        .sheet(isPresented: $isEditing) {
+            EditAccomplishmentSheet(
+                initialText: item.text,
+                allowsEmpty: item.hasPhoto,
+                onSave: { newText in
+                    guard onEdit?(item, newText) == true else { return false }
+                    editedText = newText.trimmingCharacters(in: .whitespacesAndNewlines)
+                    return true
+                }
+            )
+        }
         .alert(Copies.AccomplishmentDetail.deleteConfirmationTitle, isPresented: $showDeleteConfirmation) {
             Button(Copies.AccomplishmentDetail.deleteCancel, role: .cancel) { }
             Button(Copies.AccomplishmentDetail.deleteConfirm, role: .destructive) {
-                withAnimation { onDelete(accomplishment); dismiss() }
+                withAnimation { onDelete(item); dismiss() }
             }
             .accessibilityIdentifier(A11y.AccomplishmentDetail.deleteAlertConfirmIdentifier)
         } message: {
             Text(Copies.AccomplishmentDetail.deleteConfirmationMessage)
+        }
+        .task(id: item.photoData) {
+            guard let data = item.photoData else { return }
+            photoImage = await ImageDownsampler.image(from: data, maxPixelSize: ImageDownsampler.detailPixelSize)
+        }
+        // Re-render the share card when the text changes or the photo arrives.
+        .task(id: "\(item.text)|\(photoImage != nil)|\(formattedDate)") {
+            guard !item.hasPhoto || photoImage != nil else { return }
+            shareImage = ShareCardView.render(
+                text: item.text.trimmingCharacters(in: .whitespacesAndNewlines),
+                date: formattedDate,
+                colorHex: item.colorHex,
+                photo: photoImage
+            ).map { Image(uiImage: $0) }
         }
         .localized()
     }
     
     @ViewBuilder
     private var photoView: some View {
-        if let photoData = accomplishment.photoData, let uiImage = UIImage(data: photoData) {
+        if let uiImage = photoImage {
             Image(uiImage: uiImage)
                 .resizable()
                 .scaledToFit()
@@ -78,7 +140,7 @@ struct AccomplishmentDetailView: View {
 
     @ViewBuilder
     private var captionView: some View {
-        Text(accomplishment.text)
+        Text(item.text)
             .font(.title3)
             .fontWeight(.medium)
             .foregroundStyle(.primary)
@@ -96,7 +158,7 @@ struct AccomplishmentDetailView: View {
     @ViewBuilder
     private var textOnlyView: some View {
         VStack(alignment: .leading, spacing: Space.medium) {
-            Text(accomplishment.text)
+            Text(item.text)
                 .font(.title2)
                 .fontWeight(.medium)
                 .foregroundStyle(.primary)
@@ -107,7 +169,7 @@ struct AccomplishmentDetailView: View {
         .padding()
         .background(
             RoundedRectangle(cornerRadius: Space.medium)
-                .fill(Color.fromString(accomplishment.colorHex).opacity(0.3))
+                .fill(Color.fromString(item.colorHex).opacity(0.3))
                 .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 2)
         )
         .padding(.horizontal)

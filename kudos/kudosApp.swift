@@ -1,5 +1,6 @@
 import SwiftData
 import SwiftUI
+import UIKit
 
 @main
 struct KudosApp: App {
@@ -10,12 +11,18 @@ struct KudosApp: App {
     @State private var isUsingInMemoryFallback: Bool = false
     @State private var showInMemoryWarning: Bool = false
 
+    private static let isUITesting = CommandLine.arguments.contains("-UITesting")
+
     init() {
         // Initialize ModelContainer safely
         let schema = Schema([
             AccomplishmentEntity.self,
         ])
-        let isUITesting = CommandLine.arguments.contains("-UITesting")
+        let isUITesting = Self.isUITesting
+        if isUITesting {
+            // UI tests wait for the app to be idle: animations only slow them down.
+            UIView.setAnimationsEnabled(false)
+        }
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: isUITesting)
 
         do {
@@ -48,6 +55,9 @@ struct KudosApp: App {
                     .environment(appSettings)
                     .modelContainer(modelContainer)
                     .preferredColorScheme(appSettings.colorSchemePreference.colorScheme)
+                    .transaction { transaction in
+                        if Self.isUITesting { transaction.disablesAnimations = true }
+                    }
                     .alert(Copies.InMemoryWarning.title, isPresented: $showInMemoryWarning) {
                         Button(Copies.InMemoryWarning.okButton, role: .cancel) {
                             showInMemoryWarning = false

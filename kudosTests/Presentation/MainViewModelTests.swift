@@ -8,12 +8,63 @@ struct MainViewModelTests {
 
     private func makeSUT(
         saveUseCase: MockSaveAccomplishmentUseCase? = nil,
+        editUseCase: MockEditAccomplishmentUseCase? = nil,
         repository: MockAccomplishmentRepository? = nil
     ) -> MainViewModel {
         MainViewModel(
             saveAccomplishmentUseCase: saveUseCase ?? MockSaveAccomplishmentUseCase(),
+            editAccomplishmentUseCase: editUseCase ?? MockEditAccomplishmentUseCase(),
             repository: repository ?? MockAccomplishmentRepository()
         )
+    }
+
+    // MARK: - photoPicked
+
+    @Test("photoPicked stores a re-encoded JPEG")
+    func photoPickedStoresJPEG() async {
+        let sut = makeSUT()
+
+        await sut.photoPicked(TestImages.png(width: 10, height: 8))
+
+        let data = try? #require(sut.selectedPhotoData)
+        #expect(data?.starts(with: [0xFF, 0xD8]) == true)
+        #expect(sut.errorMessage == nil)
+    }
+
+    @Test("photoPicked with unreadable data shows an error")
+    func photoPickedInvalidShowsError() async {
+        let sut = makeSUT()
+
+        await sut.photoPicked(Data("no es una imagen".utf8))
+
+        #expect(sut.selectedPhotoData == nil)
+        #expect(sut.errorMessage != nil)
+    }
+
+    // MARK: - edit
+
+    @Test("edit calls use case, reloads and returns true")
+    func editSucceeds() {
+        let editUseCase = MockEditAccomplishmentUseCase()
+        let item = makeItem()
+        let sut = makeSUT(editUseCase: editUseCase, repository: .init(items: [item]))
+
+        let result = sut.edit(item, newText: "Corregido")
+
+        #expect(result)
+        #expect(editUseCase.lastText == "Corregido")
+        #expect(sut.accomplishments.count == 1)
+        #expect(sut.errorMessage == nil)
+    }
+
+    @Test("edit sets errorMessage and returns false on failure")
+    func editFails() {
+        let sut = makeSUT(editUseCase: MockEditAccomplishmentUseCase(shouldThrow: true))
+
+        let result = sut.edit(makeItem(), newText: "")
+
+        #expect(!result)
+        #expect(sut.errorMessage != nil)
     }
 
     // MARK: - loadAccomplishments
@@ -230,6 +281,19 @@ private final class MockSaveAccomplishmentUseCase: SaveAccomplishmentUseCaseProt
 }
 
 @MainActor
+private final class MockEditAccomplishmentUseCase: EditAccomplishmentUseCaseProtocol {
+    var lastText: String?
+    private let shouldThrow: Bool
+
+    init(shouldThrow: Bool = false) { self.shouldThrow = shouldThrow }
+
+    func execute(item: AccomplishmentItem, newText: String) throws {
+        if shouldThrow { throw TestError.generic }
+        lastText = newText
+    }
+}
+
+@MainActor
 private final class MockAccomplishmentRepository: AccomplishmentRepositoryProtocol {
     private let items: [AccomplishmentItem]
     private let fetchThrows: Bool
@@ -255,6 +319,8 @@ private final class MockAccomplishmentRepository: AccomplishmentRepositoryProtoc
     }
 
     func insert(items: [AccomplishmentItem]) throws {}
+
+    func updateText(id: String, text: String) throws {}
 }
 
 private enum TestError: Error { case generic }

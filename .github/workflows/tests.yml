@@ -47,9 +47,11 @@ jobs:
 
       # The kudos scheme points to a test plan that is not in the repo, so use
       # the two test schemes. They share DerivedData: the app builds once.
+      # kudosTests goes last: it embeds kudosTests.xctest in the app's
+      # PlugIns, and building the UI scheme afterwards would drop it.
       - name: Build for testing
         run: |
-          for SCHEME in kudosTests kudosUITests; do
+          for SCHEME in kudosUITests kudosTests; do
           xcodebuild build-for-testing \
             -project kudos.xcodeproj \
             -scheme "$SCHEME" \

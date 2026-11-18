@@ -131,6 +131,9 @@
 "camera_remove_photo" = "Eliminar foto";
 "camera_add_photo_hint" = "Toma una foto de tu logro";
 "camera_not_available" = "Cámara no disponible en este dispositivo";
+"camera_library" = "Galería";
+"camera_library_label" = "Elegir una foto de la galería";
+"camera_photo_load_failed" = "No se ha podido usar esa foto. Prueba con otra.";
 
 // Validation Errors - Photo
 "validation_error_empty_photo" = "La foto no puede estar vacía";

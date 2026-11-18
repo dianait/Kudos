@@ -1,3 +1,4 @@
+import PhotosUI
 import SwiftUI
 
 struct StickiesViewOverview: View {
@@ -10,6 +11,7 @@ struct StickiesViewOverview: View {
     /// Set when typed/pasted text went over the limit and was cut, so the
     /// user is told instead of silently losing the end of a paste.
     @State private var wasTruncated: Bool = false
+    @State private var libraryItem: PhotosPickerItem?
     private let maxCharacters: Int = Limits.maxCharacters
     private var characterCount: Int { viewModel.text.count }
 
@@ -60,7 +62,10 @@ struct StickiesViewOverview: View {
                             textInputView
                         }
                     }
-                    cameraButton
+                    HStack(spacing: Space.medium) {
+                        cameraButton
+                        libraryButton
+                    }
                     HStack(spacing: Space.medium) {
                         cancelButton
                         saveButton
@@ -108,6 +113,17 @@ struct StickiesViewOverview: View {
                     try? await Task.sleep(for: .seconds(Timing.accessibilityNotificationDelay))
                     responseIsFocussed = true
                 }
+            }
+        }
+        .onChange(of: libraryItem) { _, item in
+            guard let item else { return }
+            Task {
+                if let data = try? await item.loadTransferable(type: Data.self) {
+                    await viewModel.photoPicked(data)
+                } else {
+                    viewModel.errorMessage = Copies.Camera.photoLoadFailed
+                }
+                libraryItem = nil
             }
         }
         .task(id: viewModel.selectedPhotoData) {
@@ -262,6 +278,24 @@ struct StickiesViewOverview: View {
         .accessibilityLabel(A11y.StickiesViewOverview.saveButtonLabel)
         .accessibilityHint(A11y.StickiesViewOverview.saveButtonHint)
         .accessibilityIdentifier(A11y.StickiesViewOverview.saveButtonIdentifier)
+    }
+
+    @ViewBuilder
+    private var libraryButton: some View {
+        PhotosPicker(selection: $libraryItem, matching: .images) {
+            HStack(spacing: Space.small) {
+                Image(systemName: Icon.photoLibrary.rawValue)
+                Text(Copies.Camera.library)
+            }
+            .font(.subheadline)
+            .fontWeight(.medium)
+            .foregroundStyle(.white)
+            .padding(.horizontal, Space.medium)
+            .padding(.vertical, Space.small)
+            .background(Capsule().fill(Color.orange))
+        }
+        .padding(.top, Space.small)
+        .accessibilityLabel(Copies.Camera.libraryLabel)
     }
 
     @ViewBuilder

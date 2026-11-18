@@ -131,6 +131,9 @@
 "camera_remove_photo" = "Remove photo";
 "camera_add_photo_hint" = "Take a photo of your achievement";
 "camera_not_available" = "Camera not available on this device";
+"camera_library" = "Library";
+"camera_library_label" = "Choose a photo from your library";
+"camera_photo_load_failed" = "That photo could not be used. Try another one.";
 
 // Validation Errors - Photo
 "validation_error_empty_photo" = "Photo cannot be empty";

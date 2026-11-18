@@ -18,6 +18,7 @@ enum Icon: String {
     case trophy = "trophy.fill"
     case camera = "camera.fill"
     case photo = "photo.fill"
+    case photoLibrary = "photo.on.rectangle"
     case xmark = "xmark.circle.fill"
     case heart = "heart.fill"
     case globe = "globe"

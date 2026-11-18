@@ -101,6 +101,19 @@ final class MainViewModel {
         lastImportResult = nil
     }
 
+    /// Photo picked from the library: downsampled and re-encoded off the main
+    /// thread (also strips metadata such as GPS location).
+    func photoPicked(_ data: Data) async {
+        let sanitized = await Task.detached(priority: .userInitiated) {
+            PhotoSanitizer.sanitize(data)
+        }.value
+        if let sanitized {
+            selectedPhotoData = sanitized
+        } else {
+            errorMessage = Copies.Camera.photoLoadFailed
+        }
+    }
+
     func imageSelected(_ image: UIImage) {
         Task {
             let compressed = await Task.detached(priority: .userInitiated) {

@@ -18,6 +18,29 @@ struct MainViewModelTests {
         )
     }
 
+    // MARK: - photoPicked
+
+    @Test("photoPicked stores a re-encoded JPEG")
+    func photoPickedStoresJPEG() async {
+        let sut = makeSUT()
+
+        await sut.photoPicked(TestImages.png(width: 10, height: 8))
+
+        let data = try? #require(sut.selectedPhotoData)
+        #expect(data?.starts(with: [0xFF, 0xD8]) == true)
+        #expect(sut.errorMessage == nil)
+    }
+
+    @Test("photoPicked with unreadable data shows an error")
+    func photoPickedInvalidShowsError() async {
+        let sut = makeSUT()
+
+        await sut.photoPicked(Data("no es una imagen".utf8))
+
+        #expect(sut.selectedPhotoData == nil)
+        #expect(sut.errorMessage != nil)
+    }
+
     // MARK: - edit
 
     @Test("edit calls use case, reloads and returns true")

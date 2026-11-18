@@ -233,6 +233,10 @@ enum Copies {
         static var notAvailable: String {
             return "camera_not_available".localized
         }
+
+        static var library: String { "camera_library".localized }
+        static var libraryLabel: String { "camera_library_label".localized }
+        static var photoLoadFailed: String { "camera_photo_load_failed".localized }
     }
     
     enum ValidationAlert {

@@ -104,6 +104,10 @@ enum Copies {
         static var saveButton: String {
             return "stickies_overview_save_button".localized
         }
+
+        static func textTruncated(max: Int) -> String {
+            String(format: "stickies_overview_text_truncated".localized, max)
+        }
     }
 
     enum Colors: String, CaseIterable {

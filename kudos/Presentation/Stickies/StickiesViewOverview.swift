@@ -7,6 +7,9 @@ struct StickiesViewOverview: View {
     @State private var dragOffset: CGSize = .zero
     @State private var showSaveIndicator: Bool = false
     @State private var isSaving: Bool = false
+    /// Set when typed/pasted text went over the limit and was cut, so the
+    /// user is told instead of silently losing the end of a paste.
+    @State private var wasTruncated: Bool = false
     private let maxCharacters: Int = Limits.maxCharacters
     private var characterCount: Int { viewModel.text.count }
 
@@ -14,12 +17,21 @@ struct StickiesViewOverview: View {
         Binding(
             get: { viewModel.text },
             set: { newValue in
-                if newValue.last == "\n" {
+                var candidate = newValue
+                if candidate.last == "\n" {
                     responseIsFocussed = false
-                    viewModel.text = String(newValue.dropLast().prefix(maxCharacters))
-                } else {
-                    viewModel.text = String(newValue.prefix(maxCharacters))
+                    candidate.removeLast()
                 }
+                let truncated = candidate.count > maxCharacters
+                viewModel.text = String(candidate.prefix(maxCharacters))
+                if truncated && !wasTruncated {
+                    UINotificationFeedbackGenerator().notificationOccurred(.warning)
+                    UIAccessibility.post(
+                        notification: .announcement,
+                        argument: Copies.StickiesViewOverView.textTruncated(max: maxCharacters)
+                    )
+                }
+                wasTruncated = truncated || (wasTruncated && viewModel.text.count == maxCharacters)
             }
         )
     }
@@ -167,9 +179,11 @@ struct StickiesViewOverview: View {
                     .accessibilityIdentifier(A11y.StickiesViewOverview.textEditorIdentifer)
             }
 
-            Text("\(characterCount)/\(maxCharacters)")
+            Text(wasTruncated
+                 ? Copies.StickiesViewOverView.textTruncated(max: maxCharacters)
+                 : "\(characterCount)/\(maxCharacters)")
                 .font(.caption)
-                .foregroundStyle(characterCount > maxCharacters ? .red : .gray)
+                .foregroundStyle(wasTruncated ? .red : .gray)
                 .frame(width: Dimensions.counterFrameWidth, alignment: .trailing)
                 .padding(.trailing)
                 .accessibilityLabel(

@@ -4,9 +4,11 @@ import UIKit
 struct MainView: View {
     @Bindable var viewModel: MainViewModel
     @Environment(LocalizationManager.self) var languageManager
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @State private var selectedImage: UIImage?
     @State private var confettiCounter: Int = 0
     let onShowMyKudos: () -> Void
+    private static let isUITesting = CommandLine.arguments.contains("-UITesting")
 
     init(viewModel: MainViewModel, onShowMyKudos: @escaping () -> Void) {
         self.viewModel = viewModel
@@ -58,7 +60,9 @@ struct MainView: View {
                 }
             }
             .onChange(of: viewModel.accomplishmentsCount) { oldValue, newValue in
-                if newValue > oldValue {
+                // Confetti uses a repeatForever animation, which keeps the app
+                // from going idle and blocks XCUITest queries: skip it in UI tests.
+                if newValue > oldValue && !reduceMotion && !Self.isUITesting {
                     confettiCounter += 1
                 }
             }

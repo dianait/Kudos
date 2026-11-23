@@ -8,9 +8,10 @@ struct ImportBackupResult: Equatable {
 enum ImportBackupError: Error, Equatable {
     case invalidFormat
     case unsupportedSchemaVersion(Int)
+    case fileTooLarge
 }
 
 @MainActor
 protocol ImportBackupUseCaseProtocol {
-    func execute(data: Data) throws -> ImportBackupResult
+    func execute(data: Data) async throws -> ImportBackupResult
 }

@@ -22,7 +22,7 @@ An iOS app to save and celebrate your personal achievements as digital sticky no
 
 ## 📖 How to Use
 
-1. **Add an achievement**: Tap the sticky note on the main screen, write your achievement, swipe up to save
+1. **Add an achievement**: Tap the sticky note on the main screen, write your achievement, then tap Save or swipe up
 2. **View your achievements**: Tap the counter at the top to open the carousel, swipe to navigate
 3. **Delete an achievement**: Tap the trash icon on the active note in the carousel
 4. **Change language**: Settings tab → select your preferred language
@@ -36,8 +36,8 @@ kudos/
 ├── Domain/
 │   ├── Models/              # AccomplishmentItem, NewAccomplishment
 │   ├── Protocols/           # Use case + repository contracts
-│   ├── UseCases/            # AddAccomplishment, AddPhotoAccomplishment (business logic only — pure pass-throughs removed)
-│   └── Utilities/Validators # AccomplishmentValidator, ValidationError
+│   ├── useCases/            # Add/AddPhoto/Save accomplishment, Export/ImportBackup
+│   └── Utilities/           # Validators, PhotoSanitizer (imported photos)
 ├── Data/
 │   ├── Entities/            # AccomplishmentEntity (@Model, SwiftData)
 │   └── Repositories/        # AccomplishmentRepository (SwiftData impl)
@@ -45,18 +45,17 @@ kudos/
 │   ├── Main/                # MainView + MainViewModel
 │   ├── Carousel/            # CarouselView, AccomplishmentDetailView
 │   ├── Stickies/            # StickyView and subcomponents
-│   ├── Settings/            # SettingsView
+│   ├── Settings/            # SettingsView, AppSettings, backup export/import
+│   ├── Onboarding/          # OnboardingView + ViewModel
 │   ├── AboutMe/             # AboutView
 │   ├── Error/               # ErrorView
 │   └── Utilities/
 │       ├── Constants/       # Dimensions, Space, Timing, Icon, etc.
-│       ├── Localization/    # Copies, A11y, LanguageManager
+│       ├── Helpers/         # Camera, ImageDownsampler, colors
+│       ├── Localization/    # Copies, A11y, LocalizationManager
 │       └── Confetti/        # Celebration animation components
-├── Dependencies/
-│   └── AppFactory.swift     # Dependency injection
-└── Services/
-    ├── AppSettings.swift
-    └── LocalizationManager.swift
+└── Dependencies/
+    └── AppFactory.swift     # Dependency injection
 ```
 
 ### Tech Stack
@@ -66,8 +65,8 @@ kudos/
 | Language | Swift 6 |
 | UI | SwiftUI |
 | Persistence | SwiftData |
-| Min iOS | 17.0 |
-| Xcode | 15.0+ |
+| Min iOS | 26.0 |
+| Xcode | 26.0+ |
 | Concurrency | Swift 6, strict concurrency complete |
 
 ### Key Patterns
@@ -87,8 +86,8 @@ All data lives on your device. No analytics, no external servers, no tracking.
 
 ```bash
 # Unit + UI tests
-xcodebuild test -project kudos.xcodeproj -scheme kudosTests -destination 'platform=iOS Simulator,name=iPhone 15'
-xcodebuild test -project kudos.xcodeproj -scheme kudosUITests -destination 'platform=iOS Simulator,name=iPhone 15'
+xcodebuild test -project kudos.xcodeproj -scheme kudosTests -destination 'platform=iOS Simulator,name=iPhone 17'
+xcodebuild test -project kudos.xcodeproj -scheme kudosUITests -destination 'platform=iOS Simulator,name=iPhone 17'
 ```
 
 ## 👤 Author

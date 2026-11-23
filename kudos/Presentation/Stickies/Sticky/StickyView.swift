@@ -73,7 +73,11 @@ struct StickyView: View {
             }
         }
         .task(id: item.photoData) {
-            cachedImage = item.photoData.flatMap { UIImage(data: $0) }
+            guard let data = item.photoData else {
+                cachedImage = nil
+                return
+            }
+            cachedImage = await ImageDownsampler.image(from: data, maxPixelSize: ImageDownsampler.stickyPixelSize)
         }
     }
 
@@ -144,7 +148,7 @@ struct StickyView: View {
         } else if item.hasPhoto {
             return A11y.StickyView.photoOnly
         } else {
-            return A11y.StickyView.label
+            return "\(A11y.StickyView.label): \(item.text)"
         }
     }
 }

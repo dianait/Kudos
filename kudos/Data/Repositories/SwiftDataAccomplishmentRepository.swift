@@ -12,7 +12,7 @@ final class SwiftDataAccomplishmentRepository: AccomplishmentRepositoryProtocol 
     func save(_ accomplishment: NewAccomplishment) throws {
         let entity = AccomplishmentEntity(from: accomplishment)
         modelContext.insert(entity)
-        try modelContext.save()
+        try saveOrRollback()
     }
     
     func fetchAllSortedByDateDescending() throws -> [AccomplishmentItem] {
@@ -30,7 +30,7 @@ final class SwiftDataAccomplishmentRepository: AccomplishmentRepositoryProtocol 
         descriptor.fetchLimit = 1
         guard let entity = try modelContext.fetch(descriptor).first else { return }
         modelContext.delete(entity)
-        try modelContext.save()
+        try saveOrRollback()
     }
 
     func insert(items: [AccomplishmentItem]) throws {
@@ -45,6 +45,27 @@ final class SwiftDataAccomplishmentRepository: AccomplishmentRepositoryProtocol 
             )
             modelContext.insert(entity)
         }
-        try modelContext.save()
+        try saveOrRollback()
+    }
+
+    func updateText(id: String, text: String) throws {
+        var descriptor = FetchDescriptor<AccomplishmentEntity>(
+            predicate: #Predicate { $0.id == id }
+        )
+        descriptor.fetchLimit = 1
+        guard let entity = try modelContext.fetch(descriptor).first else { return }
+        entity.text = text
+        try saveOrRollback()
+    }
+
+    /// Discards pending inserts/deletes when a save fails, so a failed
+    /// operation never leaks into the next unrelated save.
+    private func saveOrRollback() throws {
+        do {
+            try modelContext.save()
+        } catch {
+            modelContext.rollback()
+            throw error
+        }
     }
 }

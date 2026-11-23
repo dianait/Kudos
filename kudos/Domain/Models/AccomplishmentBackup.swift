@@ -28,15 +28,3 @@ extension AccomplishmentItem {
         )
     }
 }
-
-extension AccomplishmentBackup {
-    func toDomain() -> AccomplishmentItem {
-        AccomplishmentItem(
-            id: id,
-            date: date,
-            text: text,
-            colorHex: colorHex,
-            photoData: photoBase64.flatMap { Data(base64Encoded: $0) }
-        )
-    }
-}

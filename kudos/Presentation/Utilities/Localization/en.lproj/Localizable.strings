@@ -38,8 +38,8 @@
 "text_editor_placeholder" = "Write here...";
 "stickies_overview_cancel_button" = "Cancel";
 "stickies_overview_save_button" = "Save achievement";
+"stickies_overview_text_truncated" = "Text trimmed to %d characters";
 "stickies_overview_save_button_hint" = "Save your achievement";
-"stickies_overview_save_button_identifier" = "Save Button";
 
 // Carrusel - Empty State
 "carousel_empty_title" = "Save your achievements!";
@@ -66,7 +66,6 @@
 "footer_social_links" = "You can find me on:";
 
 // A11y Copies
-"jar_button_identifier" = "Jar Button";
 "jar_button_label" = "Jar with {count} {plural}";
 "jar_singular" = "saved achievement";
 "jar_plural" = "saved achievements";
@@ -79,20 +78,15 @@
 "main_view_settings_label" = "Language settings";
 "main_view_about_label" = "Information about Kudos";
 "main_view_about_hint" = "Shows a window with additional information about the app";
-"main_view_about_identifier" = "About me Button";
-"main_view_settings_identifier" = "Settings Button";
-"main_view_title_identifier" = "About me Title";
 
 "confirmation_view_label" = "Confirmation: Achievement saved";
 "confirmation_view_hint" = "Your jar grows with each achievement";
 "confirmation_view_notification" = "Achievement saved. Your jar grows with each achievement.";
-"confirmation_view_identifier" = "Confirmation Pop-Up";
 "confirmation_view_button" = "Continue Button";
 
 "stickies_overview_edit_mode" = "Edit mode activated. Write your achievement.";
 "stickies_overview_text_editor_label" = "Text editor for your achievement";
 "stickies_overview_text_editor_hint" = "Text editor for your achievement";
-"stickies_overview_text_editor_identifier" = "Text Editor";
 "stickies_overview_char_counter" = "Character counter: {count} of {max}";
 "stickies_overview_ready_to_save" = "Ready to save. Release to confirm.";
 "stickies_overview_save_action" = "Save achievement";
@@ -137,6 +131,9 @@
 "camera_remove_photo" = "Remove photo";
 "camera_add_photo_hint" = "Take a photo of your achievement";
 "camera_not_available" = "Camera not available on this device";
+"camera_library" = "Library";
+"camera_library_label" = "Choose a photo from your library";
+"camera_photo_load_failed" = "That photo could not be used. Try another one.";
 
 // Validation Errors - Photo
 "validation_error_empty_photo" = "Photo cannot be empty";
@@ -170,6 +167,12 @@
 "accomplishment_detail_delete_confirmation_message" = "This action cannot be undone. The achievement will be permanently deleted.";
 "accomplishment_detail_delete_cancel" = "Cancel";
 "accomplishment_detail_delete_confirm" = "Delete";
+"accomplishment_detail_edit_button" = "Edit";
+"accomplishment_detail_edit_title" = "Edit achievement";
+"accomplishment_detail_edit_save" = "Save";
+"accomplishment_detail_edit_cancel" = "Cancel";
+"accomplishment_detail_share_button" = "Share";
+"accomplishment_detail_share_title" = "My achievement";
 
 // Carousel Filter
 "carousel_filter_all" = "All";
@@ -195,6 +198,7 @@
 "settings_import_backup" = "Import backup";
 "backup_default_filename" = "kudos-backup";
 "backup_import_error_invalid" = "The file format is not valid.";
+"backup_import_error_too_large" = "The file is too large to be a Kudos backup.";
 "backup_import_error_unsupported" = "This file version is not supported by this app.";
 "backup_import_success_title" = "Import complete";
 "backup_import_success_message" = "Imported: %d. Skipped (already existed): %d.";
@@ -202,3 +206,17 @@
 "backup_imported_confirmation_description" = "Added %d achievements to your jar 🎉";
 "backup_imported_confirmation_description_with_skipped" = "Added %d achievements (%d already existed) 🎉";
 "backup_action_ok" = "OK";
+
+/* Weekly reminder */
+"reminder_toggle" = "Weekly reminder";
+"reminder_title" = "What did you achieve this week?";
+"reminder_body" = "Add it to your Kudos jar, big or small 🎉";
+"reminder_denied_title" = "Notifications are off";
+"reminder_denied_message" = "Allow notifications for Kudos in the Settings app to get the weekly reminder.";
+
+// Siri / Shortcuts
+"intent_add_kudo_title" = "Add kudo";
+"intent_add_kudo_description" = "Save an achievement in your Kudos jar.";
+"intent_add_kudo_text" = "Achievement";
+"intent_add_kudo_prompt" = "What did you achieve?";
+"intent_add_kudo_done" = "Saved in your jar! 🎉";

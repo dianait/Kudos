@@ -13,6 +13,7 @@ enum AppFactory {
 
         return MainViewModel(
             saveAccomplishmentUseCase: saveAccomplishmentUseCase,
+            editAccomplishmentUseCase: EditAccomplishmentUseCase(repository: repository),
             repository: repository
         )
     }

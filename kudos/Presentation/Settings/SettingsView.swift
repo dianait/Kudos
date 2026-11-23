@@ -10,6 +10,7 @@ struct SettingsView: View {
     @State private var onboardingPresentation: OnboardingPresentation?
     @State private var backupViewModel: BackupViewModel?
     @State private var showFileImporter = false
+    @State private var showNotificationsDenied = false
 
     var onDataImported: ((ImportBackupResult) -> Void)?
 
@@ -52,6 +53,13 @@ struct SettingsView: View {
             }
 
             Section(Copies.SettingsView.generalSection) {
+                Toggle(isOn: Binding(
+                    get: { appSettings.weeklyReminderEnabled },
+                    set: { newValue in Task { await setWeeklyReminder(newValue) } }
+                )) {
+                    Label(Copies.Reminder.toggle, systemImage: "bell")
+                }
+
                 Button {
                     presentOnboarding()
                 } label: {
@@ -65,6 +73,9 @@ struct SettingsView: View {
         .scrollContentBackground(.hidden)
         .background(Color("MainBackground"))
         .task {
+            if appSettings.weeklyReminderEnabled {
+                await WeeklyReminder.refreshIfAuthorized()
+            }
             if backupViewModel == nil {
                 backupViewModel = AppFactory.makeBackupViewModel(modelContext: modelContext)
             }
@@ -73,6 +84,11 @@ struct SettingsView: View {
             guard let newValue, newValue.imported > 0 else { return }
             backupViewModel?.importResult = nil
             onDataImported?(newValue)
+        }
+        .alert(Copies.Reminder.deniedTitle, isPresented: $showNotificationsDenied) {
+            Button(Copies.ErrorAlert.dismiss, role: .cancel) { }
+        } message: {
+            Text(Copies.Reminder.deniedMessage)
         }
         .fullScreenCover(item: $onboardingPresentation) { presentation in
             OnboardingView(viewModel: presentation.viewModel)
@@ -97,7 +113,7 @@ struct SettingsView: View {
             allowsMultipleSelection: false
         ) { result in
             guard let url = try? result.get().first else { return }
-            backupViewModel?.handleImport(from: url)
+            Task { await backupViewModel?.handleImport(from: url) }
         }
         .alert(
             Copies.Backup.importSuccessTitle,
@@ -133,16 +149,31 @@ struct SettingsView: View {
         }
     }
 
+    private func setWeeklyReminder(_ enabled: Bool) async {
+        if enabled {
+            let granted = await WeeklyReminder.enable()
+            appSettings.weeklyReminderEnabled = granted
+            showNotificationsDenied = !granted
+        } else {
+            WeeklyReminder.disable()
+            appSettings.weeklyReminderEnabled = false
+        }
+    }
+
+    private var isBackupDisabled: Bool {
+        backupViewModel == nil || backupViewModel?.isWorking == true
+    }
+
     @ViewBuilder
     private var backupSection: some View {
         Section {
             Button {
-                backupViewModel?.prepareExport()
+                Task { await backupViewModel?.prepareExport() }
             } label: {
                 Label(Copies.SettingsView.exportBackup, systemImage: "square.and.arrow.up")
                     .foregroundStyle(.primary)
             }
-            .disabled(backupViewModel == nil)
+            .disabled(isBackupDisabled)
 
             Button {
                 showFileImporter = true
@@ -150,7 +181,12 @@ struct SettingsView: View {
                 Label(Copies.SettingsView.importBackup, systemImage: "square.and.arrow.down")
                     .foregroundStyle(.primary)
             }
-            .disabled(backupViewModel == nil)
+            .disabled(isBackupDisabled)
+
+            if backupViewModel?.isWorking == true {
+                ProgressView()
+                    .frame(maxWidth: .infinity)
+            }
         } header: {
             Text(Copies.SettingsView.dataSection)
         } footer: {

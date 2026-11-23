@@ -20,13 +20,16 @@ final class MainViewModel {
     var accomplishmentsCount: Int { accomplishments.count }
 
     private let saveAccomplishmentUseCase: SaveAccomplishmentUseCaseProtocol
+    private let editAccomplishmentUseCase: EditAccomplishmentUseCaseProtocol
     private let repository: AccomplishmentRepositoryProtocol
 
     init(
         saveAccomplishmentUseCase: SaveAccomplishmentUseCaseProtocol,
+        editAccomplishmentUseCase: EditAccomplishmentUseCaseProtocol,
         repository: AccomplishmentRepositoryProtocol
     ) {
         self.saveAccomplishmentUseCase = saveAccomplishmentUseCase
+        self.editAccomplishmentUseCase = editAccomplishmentUseCase
         self.repository = repository
     }
     
@@ -61,6 +64,19 @@ final class MainViewModel {
         }
     }
     
+    /// Returns true when the new text was stored, so the editor can close.
+    @discardableResult
+    func edit(_ accomplishment: AccomplishmentItem, newText: String) -> Bool {
+        do {
+            try editAccomplishmentUseCase.execute(item: accomplishment, newText: newText)
+            loadAccomplishments()
+            return true
+        } catch {
+            errorMessage = error.localizedDescription
+            return false
+        }
+    }
+
     func delete(_ accomplishment: AccomplishmentItem) {
         do {
             try repository.delete(accomplishment)
@@ -83,6 +99,19 @@ final class MainViewModel {
     func hideImportedMessage() {
         showImportedMessage = false
         lastImportResult = nil
+    }
+
+    /// Photo picked from the library: downsampled and re-encoded off the main
+    /// thread (also strips metadata such as GPS location).
+    func photoPicked(_ data: Data) async {
+        let sanitized = await Task.detached(priority: .userInitiated) {
+            PhotoSanitizer.sanitize(data)
+        }.value
+        if let sanitized {
+            selectedPhotoData = sanitized
+        } else {
+            errorMessage = Copies.Camera.photoLoadFailed
+        }
     }
 
     func imageSelected(_ image: UIImage) {

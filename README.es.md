@@ -22,7 +22,7 @@ Una app iOS para guardar y celebrar tus logros personales como notas adhesivas d
 
 ## 📖 Cómo usar
 
-1. **Añadir un logro**: Toca la nota adhesiva en la pantalla principal, escribe tu logro, desliza hacia arriba para guardar
+1. **Añadir un logro**: Toca la nota adhesiva en la pantalla principal, escribe tu logro y pulsa Guardar o desliza hacia arriba
 2. **Ver tus logros**: Toca el contador en la parte superior para abrir el carrusel, desliza para navegar
 3. **Borrar un logro**: Toca el icono de papelera en la nota activa del carrusel
 4. **Cambiar idioma**: Ajustes → selecciona tu idioma preferido
@@ -36,8 +36,8 @@ kudos/
 ├── Domain/
 │   ├── Models/              # AccomplishmentItem, NewAccomplishment
 │   ├── Protocols/           # Contratos de casos de uso y repositorio
-│   ├── UseCases/            # AddAccomplishment, AddPhotoAccomplishment (solo lógica de negocio — delegaciones puras eliminadas)
-│   └── Utilities/Validators # AccomplishmentValidator, ValidationError
+│   ├── useCases/            # Add/AddPhoto/Save accomplishment, Export/ImportBackup
+│   └── Utilities/           # Validators, PhotoSanitizer (fotos importadas)
 ├── Data/
 │   ├── Entities/            # AccomplishmentEntity (@Model, SwiftData)
 │   └── Repositories/        # AccomplishmentRepository (implementación SwiftData)
@@ -45,18 +45,17 @@ kudos/
 │   ├── Main/                # MainView + MainViewModel
 │   ├── Carousel/            # CarouselView, AccomplishmentDetailView
 │   ├── Stickies/            # StickyView y subcomponentes
-│   ├── Settings/            # SettingsView
+│   ├── Settings/            # SettingsView, AppSettings, copia de seguridad
+│   ├── Onboarding/          # OnboardingView + ViewModel
 │   ├── AboutMe/             # AboutView
 │   ├── Error/               # ErrorView
 │   └── Utilities/
 │       ├── Constants/       # Dimensions, Space, Timing, Icon, etc.
-│       ├── Localization/    # Copies, A11y, LanguageManager
+│       ├── Helpers/         # Cámara, ImageDownsampler, colores
+│       ├── Localization/    # Copies, A11y, LocalizationManager
 │       └── Confetti/        # Componentes de animación de celebración
-├── Dependencies/
-│   └── AppFactory.swift     # Inyección de dependencias
-└── Services/
-    ├── AppSettings.swift
-    └── LocalizationManager.swift
+└── Dependencies/
+    └── AppFactory.swift     # Inyección de dependencias
 ```
 
 ### Stack técnico
@@ -66,8 +65,8 @@ kudos/
 | Lenguaje | Swift 6 |
 | UI | SwiftUI |
 | Persistencia | SwiftData |
-| iOS mínimo | 17.0 |
-| Xcode | 15.0+ |
+| iOS mínimo | 26.0 |
+| Xcode | 26.0+ |
 | Concurrencia | Swift 6, strict concurrency complete |
 
 ### Patrones clave
@@ -86,8 +85,8 @@ Todos los datos viven en tu dispositivo. Sin analíticas, sin servidores externo
 ## 🧪 Tests
 
 ```bash
-xcodebuild test -project kudos.xcodeproj -scheme kudosTests -destination 'platform=iOS Simulator,name=iPhone 15'
-xcodebuild test -project kudos.xcodeproj -scheme kudosUITests -destination 'platform=iOS Simulator,name=iPhone 15'
+xcodebuild test -project kudos.xcodeproj -scheme kudosTests -destination 'platform=iOS Simulator,name=iPhone 17'
+xcodebuild test -project kudos.xcodeproj -scheme kudosUITests -destination 'platform=iOS Simulator,name=iPhone 17'
 ```
 
 ## 👤 Autora

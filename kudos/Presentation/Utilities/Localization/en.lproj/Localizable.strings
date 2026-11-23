@@ -213,3 +213,10 @@
 "reminder_body" = "Add it to your Kudos jar, big or small 🎉";
 "reminder_denied_title" = "Notifications are off";
 "reminder_denied_message" = "Allow notifications for Kudos in the Settings app to get the weekly reminder.";
+
+// Siri / Shortcuts
+"intent_add_kudo_title" = "Add kudo";
+"intent_add_kudo_description" = "Save an achievement in your Kudos jar.";
+"intent_add_kudo_text" = "Achievement";
+"intent_add_kudo_prompt" = "What did you achieve?";
+"intent_add_kudo_done" = "Saved in your jar! 🎉";

@@ -213,3 +213,10 @@
 "reminder_body" = "Apúntalo en tu tarrito de Kudos, grande o pequeño 🎉";
 "reminder_denied_title" = "Notificaciones desactivadas";
 "reminder_denied_message" = "Permite las notificaciones de Kudos en la app Ajustes para recibir el recordatorio semanal.";
+
+// Siri / Shortcuts
+"intent_add_kudo_title" = "Añadir kudo";
+"intent_add_kudo_description" = "Guarda un logro en tu tarrito de Kudos.";
+"intent_add_kudo_text" = "Logro";
+"intent_add_kudo_prompt" = "¿Qué has conseguido?";
+"intent_add_kudo_done" = "¡Guardado en tu tarrito! 🎉";

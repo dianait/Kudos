@@ -1,8 +1,12 @@
+import Combine
+import CoreData
 import SwiftData
 import SwiftUI
+import WidgetKit
 
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
+    @Environment(\.scenePhase) private var scenePhase
     @Environment(LocalizationManager.self) var languageManager
     @State private var viewModel: MainViewModel?
     @State private var selectedTab: Int = 0
@@ -54,7 +58,35 @@ struct ContentView: View {
             vm.loadAccomplishments()
             viewModel = vm
         }
+        // Kudos can arrive from outside this screen: iCloud from other devices
+        // or Siri. The list is a snapshot, so reload it when that happens.
+        .onReceive(Self.storeChanges) { _ in
+            viewModel?.loadAccomplishments()
+        }
+        .onChange(of: scenePhase) { _, phase in
+            switch phase {
+            case .active:
+                viewModel?.loadAccomplishments()
+            case .background:
+                WidgetCenter.shared.reloadAllTimelines()
+            default:
+                break
+            }
+        }
     }
+
+    /// Remote changes are posted on background queues and in bursts during an
+    /// iCloud import: deliver them on main, once per burst.
+    private static let storeChanges = NotificationCenter.default
+        .publisher(for: .NSPersistentStoreRemoteChange)
+        .merge(with: NotificationCenter.default.publisher(for: .kudosDidChangeExternally))
+        .debounce(for: .milliseconds(500), scheduler: DispatchQueue.main)
+}
+
+extension Notification.Name {
+    /// Posted after something outside the main screen (e.g. an App Intent)
+    /// saved a kudo in this process.
+    static let kudosDidChangeExternally = Notification.Name("kudosDidChangeExternally")
 }
 
 #Preview {

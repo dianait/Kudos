@@ -8,7 +8,7 @@ struct SwiftDataIntegrationTests {
 
     func makeTestContext() throws -> ModelContext {
         let schema = Schema([AccomplishmentEntity.self])
-        let config = ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)
+        let config = ModelConfiguration(schema: schema, isStoredInMemoryOnly: true, cloudKitDatabase: .none)
         let container = try ModelContainer(for: schema, configurations: [config])
         return ModelContext(container)
     }
@@ -99,7 +99,7 @@ struct SwiftDataAccomplishmentRepositoryTests {
 
     init() throws {
         let schema = Schema([AccomplishmentEntity.self])
-        let config = ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)
+        let config = ModelConfiguration(schema: schema, isStoredInMemoryOnly: true, cloudKitDatabase: .none)
         container = try ModelContainer(for: schema, configurations: [config])
         sut = SwiftDataAccomplishmentRepository(modelContext: ModelContext(container))
     }

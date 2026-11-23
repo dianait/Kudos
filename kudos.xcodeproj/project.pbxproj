@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4B1D9E000000000000000006 /* KudosWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 4B1D9E000000000000000005 /* KudosWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		4B1D9E000000000000000007 /* AccomplishmentColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7961A1285D0067779E75F8 /* AccomplishmentColor.swift */; };
+		4B1D9E000000000000000009 /* KudosStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1D9E000000000000000008 /* KudosStoreTests.swift */; };
 		0BD0AAA0000000000000C002 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD0AAA0000000000000C001 /* RootView.swift */; };
 		0BD0AAA0000000000000E002 /* OnboardingViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD0AAA0000000000000E001 /* OnboardingViewModelTests.swift */; };
 		0BD0AAA0000000000000F002 /* LocalizationManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD0AAA0000000000000F001 /* LocalizationManagerTests.swift */; };
@@ -60,6 +63,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		4B1D9E000000000000000011 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 138F89832BB02D1A00EA9F2F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4B1D9E00000000000000000A;
+			remoteInfo = KudosWidgetExtension;
+		};
 		1313FB882D7DB54300C25462 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 138F89832BB02D1A00EA9F2F /* Project object */;
@@ -83,6 +93,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				4B1D9E000000000000000006 /* KudosWidgetExtension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -90,6 +101,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4B1D9E000000000000000005 /* KudosWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = KudosWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		4B1D9E000000000000000008 /* KudosStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KudosStoreTests.swift; sourceTree = "<group>"; };
 		0B7961A1285D0067779E75F8 /* AccomplishmentColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccomplishmentColor.swift; sourceTree = "<group>"; };
 		0BD0AAA0000000000000C001 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		0BD0AAA0000000000000E001 /* OnboardingViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModelTests.swift; sourceTree = "<group>"; };
@@ -145,7 +158,21 @@
 		50BAC0070000000000000002 /* ImportBackupUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportBackupUseCaseTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		4B1D9E000000000000000004 /* Exceptions for "KudosWidget" folder in "KudosWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+				KudosWidget.entitlements,
+			);
+			target = 4B1D9E00000000000000000A /* KudosWidgetExtension */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		4B1D9E000000000000000001 /* Shared */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Shared; sourceTree = "<group>"; };
+		4B1D9E000000000000000002 /* Intents */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Intents; sourceTree = "<group>"; };
+		4B1D9E000000000000000003 /* KudosWidget */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (4B1D9E000000000000000004 /* Exceptions for "KudosWidget" folder in "KudosWidgetExtension" target */, ); explicitFileTypes = {}; explicitFolders = (); path = KudosWidget; sourceTree = "<group>"; };
 		0BD0AAA0000000000000D001 /* Onboarding */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Onboarding; sourceTree = "<group>"; };
 		1313FB832D7DB54300C25462 /* kudosUITests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = kudosUITests; sourceTree = "<group>"; };
 		135D1BBD2D7D995F00A85599 /* AboutMe */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = AboutMe; sourceTree = "<group>"; };
@@ -159,6 +186,13 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		4B1D9E00000000000000000C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1313FB7F2D7DB54200C25462 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -239,6 +273,7 @@
 			isa = PBXGroup;
 			children = (
 				138F898D2BB02D1A00EA9F2F /* kudos */,
+				4B1D9E000000000000000003 /* KudosWidget */,
 				138F89A02BB02D1C00EA9F2F /* kudosTests */,
 				1313FB832D7DB54300C25462 /* kudosUITests */,
 				1338C6EA2BB0ACAB0061FBEB /* Frameworks */,
@@ -249,6 +284,7 @@
 		138F898C2BB02D1A00EA9F2F /* Products */ = {
 			isa = PBXGroup;
 			children = (
+				4B1D9E000000000000000005 /* KudosWidgetExtension.appex */,
 				138F898B2BB02D1A00EA9F2F /* kudos.app */,
 				138F899D2BB02D1C00EA9F2F /* kudosTests.xctest */,
 				1313FB822D7DB54200C25462 /* kudosUITests.xctest */,
@@ -259,6 +295,8 @@
 		138F898D2BB02D1A00EA9F2F /* kudos */ = {
 			isa = PBXGroup;
 			children = (
+				4B1D9E000000000000000001 /* Shared */,
+				4B1D9E000000000000000002 /* Intents */,
 				5010720E2F94C6CE00033106 /* Dependencies */,
 				509F51EF2F93CACB0075353A /* Data */,
 				5013DD882F938A43007B9241 /* Domain */,
@@ -394,6 +432,7 @@
 			isa = PBXGroup;
 			children = (
 				1366E97D2D7DAC7B008FE4BE /* SwiftDataIntegrationTests.swift */,
+				4B1D9E000000000000000008 /* KudosStoreTests.swift */,
 				504E5A762F951A50007468F4 /* AccomplishmentTests.swift */,
 			);
 			path = Data;
@@ -448,6 +487,29 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		4B1D9E00000000000000000A /* KudosWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4B1D9E00000000000000000E /* Build configuration list for PBXNativeTarget "KudosWidgetExtension" */;
+			buildPhases = (
+				4B1D9E00000000000000000B /* Sources */,
+				4B1D9E00000000000000000C /* Frameworks */,
+				4B1D9E00000000000000000D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				4B1D9E000000000000000003 /* KudosWidget */,
+				4B1D9E000000000000000001 /* Shared */,
+			);
+			name = KudosWidgetExtension;
+			packageProductDependencies = (
+			);
+			productName = KudosWidgetExtension;
+			productReference = 4B1D9E000000000000000005 /* KudosWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		1313FB812D7DB54200C25462 /* kudosUITests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1313FB8A2D7DB54300C25462 /* Build configuration list for PBXNativeTarget "kudosUITests" */;
@@ -483,6 +545,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				4B1D9E000000000000000012 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				0BD0AAA0000000000000D001 /* Onboarding */,
@@ -494,6 +557,8 @@
 				504E5A852F951CE4007468F4 /* Localization */,
 				504E5A8C2F951CEB007468F4 /* Helpers */,
 				504E5A982F951D04007468F4 /* Constants */,
+				4B1D9E000000000000000001 /* Shared */,
+				4B1D9E000000000000000002 /* Intents */,
 			);
 			name = kudos;
 			packageProductDependencies = (
@@ -531,6 +596,9 @@
 				LastSwiftUpdateCheck = 1600;
 				LastUpgradeCheck = 2620;
 				TargetAttributes = {
+					4B1D9E00000000000000000A = {
+						CreatedOnToolsVersion = 26.0;
+					};
 					1313FB812D7DB54200C25462 = {
 						CreatedOnToolsVersion = 16.0;
 						TestTargetID = 138F898A2BB02D1A00EA9F2F;
@@ -564,11 +632,19 @@
 				138F898A2BB02D1A00EA9F2F /* kudos */,
 				138F899C2BB02D1C00EA9F2F /* kudosTests */,
 				1313FB812D7DB54200C25462 /* kudosUITests */,
+				4B1D9E00000000000000000A /* KudosWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		4B1D9E00000000000000000D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1313FB802D7DB54200C25462 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -596,6 +672,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		4B1D9E00000000000000000B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4B1D9E000000000000000007 /* AccomplishmentColor.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1313FB7E2D7DB54200C25462 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -648,6 +732,7 @@
 			files = (
 				1366E97A2D7DAC29008FE4BE /* ColorUtilityTests.swift in Sources */,
 				1366E97E2D7DAC7C008FE4BE /* SwiftDataIntegrationTests.swift in Sources */,
+				4B1D9E000000000000000009 /* KudosStoreTests.swift in Sources */,
 				504E5A732F951A41007468F4 /* AddPhotoAccomplishmentUseCaseTests.swift in Sources */,
 				504E5A752F951A46007468F4 /* AddAccomplishmentUseCaseTests.swift in Sources */,
 				1366E97C2D7DAC5A008FE4BE /* AccessibilityTextTests.swift in Sources */,
@@ -666,6 +751,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		4B1D9E000000000000000012 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4B1D9E00000000000000000A /* KudosWidgetExtension */;
+			targetProxy = 4B1D9E000000000000000011 /* PBXContainerItemProxy */;
+		};
 		1313FB892D7DB54300C25462 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 138F898A2BB02D1A00EA9F2F /* kudos */;
@@ -679,6 +769,60 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		4B1D9E00000000000000000F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = KudosWidget/KudosWidget.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = KudosWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Kudos;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.10;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.dianait.kudosapp.widget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		4B1D9E000000000000000010 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = KudosWidget/KudosWidget.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = KudosWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Kudos;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.10;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.dianait.kudosapp.widget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		1313FB8B2D7DB54300C25462 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -856,6 +1000,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = kudos/Info.plist;
+				CODE_SIGN_ENTITLEMENTS = kudos/kudos.entitlements;
 				INFOPLIST_KEY_CFBundleDisplayName = Kudos;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
@@ -898,6 +1043,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = kudos/Info.plist;
+				CODE_SIGN_ENTITLEMENTS = kudos/kudos.entitlements;
 				INFOPLIST_KEY_CFBundleDisplayName = Kudos;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
@@ -972,6 +1118,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		4B1D9E00000000000000000E /* Build configuration list for PBXNativeTarget "KudosWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4B1D9E00000000000000000F /* Debug */,
+				4B1D9E000000000000000010 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		1313FB8A2D7DB54300C25462 /* Build configuration list for PBXNativeTarget "kudosUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
